@@ -70,10 +70,10 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 				myBuddy.setAlias(re.getName());
 				myBuddy.setOnlineStatus(false);
 
-				theEvents.buddyStatusChange(myBuddy);
+				theEvents.buddyStatusChange(myBuddy, true);
 			}
 			
-			theEvents.loggedIn();
+			theEvents.loggedIn(this);
 			
 			
 	
@@ -117,6 +117,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		myIM.automatic = false;
 		myIM.from = arg0.getParticipant();
 		myIM.message = arg1.getBody();
+		myIM.theAccount = this;
 		
 		theEvents.gotIM(myIM);
 	}
@@ -142,6 +143,9 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		myBuddy.setScreename(arg0.getFrom());
 		
 		myBuddy.setOnlineStatus(arg0.isAvailable());
+		
+		myBuddy.setAccount(this);
+		
 		if (arg0.getMode() == Presence.Mode.available) {
 			myBuddy.setStatus(Buddy.available);
 		} else if (arg0.getMode() == Presence.Mode.away) {
@@ -154,7 +158,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 			myBuddy.setStatus(Buddy.superAvailable);
 		}
 		
-		theEvents.buddyStatusChange(myBuddy);
+		theEvents.buddyStatusChange(myBuddy, false);
 		
 	}
 
