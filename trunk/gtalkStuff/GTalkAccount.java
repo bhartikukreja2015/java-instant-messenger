@@ -183,6 +183,11 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		sendIM(theIM);
 	}
 
+	public void setStatus(Buddy theStatus) {
+		Presence myPresence = new Presence();
+		
+	}
+
 
 
 }
