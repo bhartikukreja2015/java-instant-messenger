@@ -18,10 +18,16 @@ public class AccountManager implements IMEvents {
 	private ArrayList<AccountSettings> theSettings;
 	private BuddyList theList;
 	
+	private ArrayList<BuddyListChangeListener> theBLCL;
+	private ArrayList<IMListener> theIml;
+	
 	public AccountManager() {
 		theAccounts = new ArrayList<AbstractAccount>();
 		theSettings = new ArrayList<AccountSettings>();
 		theList = new BuddyList();
+		
+		theBLCL = new ArrayList<BuddyListChangeListener>();
+		theIml = new ArrayList<IMListener>();
 	}
 	
 	public void loadEnabledAccounts(PreferencePoint pp) {
@@ -61,19 +67,35 @@ public class AccountManager implements IMEvents {
 			aa.disconnect();
 		}
 	}
+	
+	public void setStatus(Buddy theStatus) {
+		
+	}
+	
+	public void addBuddyListChangeListener(BuddyListChangeListener blcl) {
+		theBLCL.add(blcl);
+	}
+	
+	public void addIMListener(IMListener iml) {
+		theIml.add(iml);
+	}
 
 	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
 		if (firstTime) {
 			theList.addBuddy(theBuddy);
-			return;
+		} else {
+			theList.updateBuddy(theBuddy);
 		}
 		
-		theList.updateBuddy(theBuddy);
+		for (BuddyListChangeListener blcl : theBLCL) {
+			blcl.BuddyListChange(theList);
+		}
 	}
 
 	public void gotIM(IM theIM) {
-		// TODO Auto-generated method stub
-		
+		for (IMListener theL : theIml) {
+			theL.gotIM(theIM);
+		}
 	}
 
 	public void loggedIn(AbstractAccount theAccount) {

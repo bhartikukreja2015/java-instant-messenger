@@ -13,4 +13,6 @@ public interface AbstractAccount {
 	public void setListener(IMEvents theEvent);
 	
 	public void sendIM(IM theIM);
+	
+	public void setStatus(Buddy theStatus);
 }
