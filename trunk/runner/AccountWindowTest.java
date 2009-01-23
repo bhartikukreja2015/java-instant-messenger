@@ -34,6 +34,7 @@ public class AccountWindowTest {
 		
 		PP.saveAccount(myAS2);
 		
+		@SuppressWarnings("unused")
 		AccountSettingsWindow myWin = new AccountSettingsWindow();
 	}
 }
