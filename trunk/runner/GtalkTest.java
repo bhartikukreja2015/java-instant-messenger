@@ -45,7 +45,12 @@ public class GtalkTest implements IMEvents {
 		myIM.from = theIM.from;
 		myIM.message = theIM.message;
 		
+		IM myIM2 = new IM();
+		myIM2.from = theIM.from;
+		myIM2.message = "This is testing sending an IM";
+		
 		myGtalk.sendIM(myIM);
+		myGtalk.sendIM(myIM2);
 		
 	}
 
