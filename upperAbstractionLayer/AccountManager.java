@@ -69,12 +69,16 @@ public class AccountManager implements IMEvents {
 	}
 	
 	public void setStatus(Buddy theStatus) {
-		
+		for (AbstractAccount aa : theAccounts) {
+			aa.setStatus(theStatus);
+		}
 	}
 	
 	public void addBuddyListChangeListener(BuddyListChangeListener blcl) {
 		theBLCL.add(blcl);
 	}
+	
+	public BuddyList getBuddyList() { return theList; }
 	
 	public void addIMListener(IMListener iml) {
 		theIml.add(iml);
