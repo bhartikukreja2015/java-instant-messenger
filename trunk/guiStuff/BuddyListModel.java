@@ -34,7 +34,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	}
 
 	public Object getElementAt(int arg0) {
-		return theBuddyList.getAllBuddies().get(arg0).getScreename();
+		return theBuddyList.getAllBuddies().get(arg0);
 	}
 
 	public int getSize() {
