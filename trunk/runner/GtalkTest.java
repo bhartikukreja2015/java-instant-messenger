@@ -18,7 +18,7 @@ public class GtalkTest implements IMEvents {
 	
 	public void doIt() {
 		myGtalk = new GTalkAccount();
-		myAS = new AccountSettings("allthingsblizzard@gmail.com", "!");
+		myAS = new AccountSettings("", "");
 		
 		myGtalk.setAccountSettings(myAS);
 		myGtalk.setListener(this);
