@@ -18,7 +18,7 @@ public class GtalkTest implements IMEvents {
 	
 	public void doIt() {
 		myGtalk = new GTalkAccount();
-		myAS = new AccountSettings("", "");
+		myAS = new AccountSettings("allthingsblizzard@gmail.com", "spruce1541!");
 		
 		myGtalk.setAccountSettings(myAS);
 		myGtalk.setListener(this);
@@ -51,6 +51,12 @@ public class GtalkTest implements IMEvents {
 		
 		myGtalk.sendIM(myIM);
 		myGtalk.sendIM(myIM2);
+		
+		Buddy myStatus = new Buddy();
+		myStatus.setStatusMessage("Using Jim!");
+		myStatus.setStatus(Buddy.away);
+		
+		myGtalk.setStatus(myStatus);
 		
 	}
 

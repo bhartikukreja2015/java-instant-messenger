@@ -184,8 +184,23 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	}
 
 	public void setStatus(Buddy theStatus) {
-		Presence myPresence = new Presence();
+		Presence myPresence = new Presence(Presence.Type.available);
 		
+		if (theStatus.getStatus() == Buddy.available) {
+			myPresence.setMode(Presence.Mode.available);
+		} else if (theStatus.getStatus() == Buddy.away) {
+			myPresence.setMode(Presence.Mode.away);
+		} else if (theStatus.getStatus() == Buddy.DoNotDistrub) {
+			myPresence.setMode(Presence.Mode.dnd);
+		} else if (theStatus.getStatus() == Buddy.superAvailable) {
+			myPresence.setMode(Presence.Mode.chat);
+		} else if (theStatus.getStatus() == Buddy.superAway) {
+			myPresence.setMode(Presence.Mode.xa);
+		}
+		
+		myPresence.setStatus(theStatus.getStatusMessage());
+		
+		myCon.sendPacket(myPresence);
 	}
 
 
