@@ -15,6 +15,7 @@ public class Buddy {
 	protected boolean onlineStatus;
 	protected String status;
 	protected String statusMessage;
+	protected AbstractAccount theAccount;
 	
 	public Buddy(String sn, String groupname, int theMergeID) {
 		screenname = sn;
@@ -52,4 +53,6 @@ public class Buddy {
 	public void setAlias(String a) { alias = a; }
 	public String getAlias() { return alias; }
 	
+	public void setAccount(AbstractAccount aa) { theAccount = aa; }
+	public AbstractAccount getAccount() { return theAccount; }
 }
