@@ -1,5 +1,7 @@
 package guiStuff;
 
+import upperAbstractionLayer.AccountManager;
+
 public class BuddyListWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify
@@ -8,11 +10,16 @@ public class BuddyListWindow extends javax.swing.JFrame {
     private javax.swing.JList jlBuddies;
     // End of variables declaration
 
-	
+    private AccountManager theAM;
+	private BuddyListModel theModel;
+    
     /** Creates new form BuddyListWindow */
-    public BuddyListWindow() {
+    public BuddyListWindow(AccountManager AM) {
         initComponents();
         this.setVisible(true);
+        
+        theAM = AM;
+        theModel = new BuddyListModel(theAM);
     }
 
     private void initComponents() {
@@ -23,11 +30,7 @@ public class BuddyListWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jlBuddies.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        jlBuddies.setModel(theModel);
         jScrollPane1.setViewportView(jlBuddies);
 
         jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
