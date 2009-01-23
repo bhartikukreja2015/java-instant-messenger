@@ -18,7 +18,7 @@ public class GtalkTest implements IMEvents {
 	
 	public void doIt() {
 		myGtalk = new GTalkAccount();
-		myAS = new AccountSettings("allthingsblizzard@gmail.com", "spruce1541!");
+		myAS = new AccountSettings("allthingsblizzard@gmail.com", "!");
 		
 		myGtalk.setAccountSettings(myAS);
 		myGtalk.setListener(this);
@@ -33,7 +33,7 @@ public class GtalkTest implements IMEvents {
 		
 	}
 
-	public void buddyStatusChange(Buddy theBuddy) {
+	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
 		System.out.println("Got update: " + theBuddy.getScreename());
 		
 	}
@@ -49,7 +49,7 @@ public class GtalkTest implements IMEvents {
 		
 	}
 
-	public void loggedIn() {
+	public void loggedIn(AbstractAccount theAccount) {
 		System.out.println("Logged in");
 		
 	}
