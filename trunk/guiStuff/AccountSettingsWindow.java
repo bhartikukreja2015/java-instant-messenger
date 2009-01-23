@@ -183,14 +183,27 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		if (accountList.getSelectedIndex() == -1) {
+		if (accountList.getSelectedIndex() >= theModel.getSize() || accountList.getSelectedValue() == null) {
 			jbMinus.setEnabled(false);
 			jbSave.setEnabled(false);
+			
+			jtUsername.setText("");
+			jtPassword.setText("");
+			
+			jtUsername.setEnabled(false);
+			jtPassword.setEnabled(false);
+			jComboBox1.setEnabled(false);
+			
+			
+			
 			return;
 		}
 		
 		jbMinus.setEnabled(true);
 		jbSave.setEnabled(true);
+		jtUsername.setEnabled(true);
+		jtPassword.setEnabled(true);
+		jComboBox1.setEnabled(true);
 		
 		AccountSettings mySettings = theModel.getSettings(accountList.getSelectedIndex());
 		
@@ -237,10 +250,35 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 			}
 			
 			pp.saveAccount(toSave);
+			theModel.update(pp);
+			accountList.setSelectedIndex(theModel.getSize() - 1);
 			
-			theModel = new AccountListModel(pp);
+		} else if (arg0.getSource() == jbPlus) {
+			PreferencePoint pp = new PreferencePoint();
 			
-			accountList.setSelectedIndex(-1);
+			AccountSettings newAS = new AccountSettings();
+			
+			newAS.setID(pp.getNextAccountID());
+			newAS.setAccountType(AccountSettings.AIMAccount);
+			newAS.setUsername("New account");
+			newAS.setPassword("");
+			
+			pp.saveAccount(newAS);
+
+			theModel.update(pp);
+			accountList.setSelectedIndex(theModel.getSize() - 1);
+			this.valueChanged(null);
+			
+		} else if (arg0.getSource() == jbMinus) {
+			PreferencePoint pp = new PreferencePoint();
+			int currentIndex = accountList.getSelectedIndex();
+			
+			pp.deleteAccount(theModel.getSettings(currentIndex).getID());
+			
+			theModel.update(pp);
+			
+			this.valueChanged(null);
+			
 		}
 		
 	}

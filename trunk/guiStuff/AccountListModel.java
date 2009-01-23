@@ -30,6 +30,7 @@ public class AccountListModel implements ListModel {
 	}
 	
 	public AccountSettings getSettings(int arg0) {
+		if (theList.size() == 0) { return null; }
 		return theList.get(arg0);
 	}
 
@@ -39,6 +40,7 @@ public class AccountListModel implements ListModel {
 	
 	public void update(PreferencePoint pp) {
 		theList = pp.getAllAccounts();
+		
 		for (ListDataListener ldl : theListeners) {
 			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
 		}

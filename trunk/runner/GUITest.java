@@ -1,14 +1,16 @@
 package runner;
 
 import guiStuff.AccountSettingsWindow;
+import guiStuff.BuddyListWindow;
+import guiStuff.IMWindow;
 import jimPreferences.PreferencePoint;
 import abstractionLayer.AccountSettings;
 
-public class AccountWindowTest {
+public class GUITest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		AccountWindowTest myTest = new AccountWindowTest();
+		GUITest myTest = new GUITest();
 		myTest.doIt();
 	}
 
@@ -36,5 +38,7 @@ public class AccountWindowTest {
 		
 		@SuppressWarnings("unused")
 		AccountSettingsWindow myWin = new AccountSettingsWindow();
+		BuddyListWindow myWin2 = new BuddyListWindow();
+		IMWindow myWin3 = new IMWindow();
 	}
 }
