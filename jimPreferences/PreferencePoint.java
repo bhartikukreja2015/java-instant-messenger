@@ -10,10 +10,10 @@ public class PreferencePoint {
 	Preferences myPrefs;
 
 	protected static final String usernameKey = "u";
-
 	protected static final String passwordKey = "p";
-
 	protected static final String accountTypeKey = "t";
+	protected static final String enabledKey = "e";
+	
 
 	public PreferencePoint() {
 		myPrefs = Preferences.userRoot();
@@ -29,6 +29,7 @@ public class PreferencePoint {
 		accountNode.put(PreferencePoint.usernameKey, myAccount.getUsername());
 		accountNode.put(PreferencePoint.passwordKey, myAccount.getPassword());
 		accountNode.put(PreferencePoint.accountTypeKey, myAccount.getAccountType());
+		accountNode.putBoolean(PreferencePoint.enabledKey, myAccount.isEnabled());		
 	}
 
 	public ArrayList<AccountSettings> getAllAccounts() {
@@ -46,6 +47,7 @@ public class PreferencePoint {
 				myA.setUsername(accountNode.node(s).get(PreferencePoint.usernameKey, ""));
 				myA.setPassword(accountNode.node(s).get(PreferencePoint.passwordKey, ""));
 				myA.setAccountType(accountNode.node(s).get(PreferencePoint.accountTypeKey, ""));
+				myA.setEnabled(accountNode.node(s).getBoolean(PreferencePoint.enabledKey, false));
 
 				toReturn.add(myA);
 			}
@@ -92,4 +94,5 @@ public class PreferencePoint {
 		}
 
 	}
+	
 }

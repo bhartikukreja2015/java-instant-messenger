@@ -27,8 +27,10 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 	private javax.swing.JLabel jlAccountType;
 	private javax.swing.JLabel jlPassword;
 	private javax.swing.JLabel jlUsername;
+	private javax.swing.JLabel jlEnabled;
 	private javax.swing.JTextField jtPassword;
 	private javax.swing.JTextField jtUsername;
+    private javax.swing.JCheckBox jcbEnabled;
 	// End of variables declaration
 	
 	private AccountListModel theModel;
@@ -42,20 +44,22 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 
 	private void initComponents() {
 
-		jSplitPane1 = new javax.swing.JSplitPane();
-		jPanel1 = new javax.swing.JPanel();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		accountList = new javax.swing.JList();
-		jbPlus = new javax.swing.JButton();
-		jbMinus = new javax.swing.JButton();
-		jPanel2 = new javax.swing.JPanel();
-		jlAccountType = new javax.swing.JLabel();
-		jComboBox1 = new javax.swing.JComboBox();
-		jlUsername = new javax.swing.JLabel();
-		jtUsername = new javax.swing.JTextField();
-		jlPassword = new javax.swing.JLabel();
-		jtPassword = new javax.swing.JTextField();
-		jbSave = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        accountList = new javax.swing.JList();
+        jbPlus = new javax.swing.JButton();
+        jbMinus = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jlAccountType = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jlUsername = new javax.swing.JLabel();
+        jtUsername = new javax.swing.JTextField();
+        jlPassword = new javax.swing.JLabel();
+        jtPassword = new javax.swing.JTextField();
+        jbSave = new javax.swing.JButton();
+        jlEnabled = new javax.swing.JLabel();
+        jcbEnabled = new javax.swing.JCheckBox();;
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +70,7 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 		accountList.setModel(theModel);
 		accountList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		accountList.addListSelectionListener(this);
-		
+
 		jScrollPane1.setViewportView(accountList);
 
 		jbPlus.setText("+");
@@ -117,8 +121,9 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 		jtPassword.setText("jTextField2");
 
 		jbSave.setText("Save");
-		jbSave.setEnabled(false);
 		jbSave.addActionListener(this);
+
+		jlEnabled.setText("Enabled:");
 
 		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
@@ -127,17 +132,19 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 				.addGroup(jPanel2Layout.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jbSave, javax.swing.GroupLayout.Alignment.TRAILING)
 								.addGroup(jPanel2Layout.createSequentialGroup()
 										.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addComponent(jlAccountType)
 												.addComponent(jlUsername)
-												.addComponent(jlPassword))
+												.addComponent(jlPassword)
+												.addComponent(jlEnabled))
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 												.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 														.addComponent(jtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
 														.addComponent(jComboBox1, 0, 310, Short.MAX_VALUE)
-														.addComponent(jtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)))
-														.addComponent(jbSave, javax.swing.GroupLayout.Alignment.TRAILING))
+														.addComponent(jtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+														.addComponent(jcbEnabled, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))))
 														.addContainerGap())
 		);
 		jPanel2Layout.setVerticalGroup(
@@ -155,9 +162,13 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 										.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 												.addComponent(jlPassword)
 												.addComponent(jtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-												.addComponent(jbSave)
-												.addContainerGap())
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+												.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jlEnabled)
+														.addComponent(jcbEnabled))
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+														.addComponent(jbSave)
+														.addContainerGap())
 		);
 
 		jSplitPane1.setRightComponent(jPanel2);
@@ -180,6 +191,17 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 		);
 
 		pack();
+		
+		jbMinus.setEnabled(false);
+		jbSave.setEnabled(false);
+		
+		jtUsername.setText("");
+		jtPassword.setText("");
+		
+		jtUsername.setEnabled(false);
+		jtPassword.setEnabled(false);
+		jComboBox1.setEnabled(false);
+		jcbEnabled.setEnabled(false);
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
@@ -193,8 +215,7 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 			jtUsername.setEnabled(false);
 			jtPassword.setEnabled(false);
 			jComboBox1.setEnabled(false);
-			
-			
+			jcbEnabled.setEnabled(false);
 			
 			return;
 		}
@@ -204,11 +225,13 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 		jtUsername.setEnabled(true);
 		jtPassword.setEnabled(true);
 		jComboBox1.setEnabled(true);
+		jcbEnabled.setEnabled(true);
 		
 		AccountSettings mySettings = theModel.getSettings(accountList.getSelectedIndex());
 		
 		jtUsername.setText(mySettings.getUsername());
 		jtPassword.setText(mySettings.getPassword());
+		jcbEnabled.setSelected(mySettings.isEnabled());
 		
 		// "AOL Instant Messanger", "Google Talk", "Yahoo Instant Messanger", "MSN"
 		if (mySettings.getAccountType() == AccountSettings.AIMAccount) {
@@ -236,6 +259,7 @@ public class AccountSettingsWindow extends JFrame implements ListSelectionListen
 			toSave.setID(pp.getNextAccountID());
 			toSave.setUsername(jtUsername.getText());
 			toSave.setPassword(jtPassword.getText());
+			toSave.setEnabled(jcbEnabled.isSelected());
 			
 			//	"AOL Instant Messanger", "Google Talk", "Yahoo Instant Messanger", "MSN"
 			

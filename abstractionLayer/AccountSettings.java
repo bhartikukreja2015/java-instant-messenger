@@ -4,6 +4,7 @@ public class AccountSettings {
 	protected String username;
 	protected String password;
 	protected String accountType;
+	protected boolean enabled;
 	protected int accountID;
 	
 	public static final String GoogleTalkAccount = "gtalk";
@@ -14,6 +15,7 @@ public class AccountSettings {
 	public AccountSettings(String uname, String pword) {
 		username = uname;
 		password = pword;
+		enabled = false;
 	}
 	
 	public AccountSettings() {
@@ -31,4 +33,7 @@ public class AccountSettings {
 	
 	public int getID() { return accountID; }
 	public void setID(int id) { accountID = id; }
+	
+	public boolean isEnabled() { return enabled; }
+	public void setEnabled(boolean b) { enabled = b; }
 }
