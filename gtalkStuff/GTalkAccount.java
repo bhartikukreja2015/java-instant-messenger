@@ -10,6 +10,7 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -32,6 +33,8 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	protected IMEvents theEvents;
 	
 	protected ArrayList<Chat> theChats;
+	
+	
 	
 	
 	public void addBuddy(Buddy theBuddy) {
@@ -140,13 +143,24 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	public void presenceChanged(Presence arg0) {
 		Buddy myBuddy = new Buddy();
 		
-		myBuddy.setScreename(arg0.getFrom());
+		// little "gotcha" here... arg0.getFrom includes the resource, but the intial did not.
+		// so we have to parse it out.
+		
+		String theWhole = arg0.getFrom();
+		
+		myBuddy.setScreename(theWhole.substring(0, theWhole.indexOf("/")));
+		myBuddy.setResource(theWhole.substring(theWhole.indexOf("/") + 1));
+		
+		// we need to get the user's roster entry to get their alias
+		Roster theRoster = myCon.getRoster();
+		myBuddy.setAlias(theRoster.getEntry(myBuddy.getScreename()).getName());
+		
 		
 		myBuddy.setOnlineStatus(arg0.isAvailable());
 		
 		myBuddy.setAccount(this);
 		
-		if (arg0.getMode() == Presence.Mode.available) {
+		if (arg0.getMode() == Presence.Mode.available || arg0.getMode() == null) {
 			myBuddy.setStatus(Buddy.available);
 		} else if (arg0.getMode() == Presence.Mode.away) {
 			myBuddy.setStatus(Buddy.away);
@@ -157,6 +171,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		} else if (arg0.getMode() == Presence.Mode.chat) {
 			myBuddy.setStatus(Buddy.superAvailable);
 		}
+		
 		
 		theEvents.buddyStatusChange(myBuddy, false);
 		
