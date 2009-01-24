@@ -2,6 +2,7 @@ package abstractionLayer;
 
 public class IM {
 	public String from;
+	public String to;
 	public String message;
 	public boolean automatic;
 	public AbstractAccount theAccount;
@@ -22,5 +23,11 @@ public class IM {
 		theSB.append("<br>");
 		
 		return theSB.toString();
+	}
+	
+	public Buddy getFromBuddy() {
+		Buddy b = new Buddy();
+		b.setScreename(from);
+		return b;
 	}
 }

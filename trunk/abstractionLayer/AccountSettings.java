@@ -36,4 +36,12 @@ public class AccountSettings {
 	
 	public boolean isEnabled() { return enabled; }
 	public void setEnabled(boolean b) { enabled = b; }
+	
+	public Buddy getMyself() {
+		Buddy b = new Buddy();
+		b.setScreename(username);
+		b.setAlias(b.getScreename() + " (" + accountType + ")");
+		
+		return b;
+	}
 }
