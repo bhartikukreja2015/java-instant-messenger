@@ -1,6 +1,7 @@
 package runner;
 
 import guiStuff.BuddyListWindow;
+import guiStuff.IMWindowManager;
 import jimPreferences.PreferencePoint;
 import upperAbstractionLayer.AccountManager;
 import abstractionLayer.AbstractAccount;
@@ -33,6 +34,8 @@ public class GtalkTest {
 		
 		BuddyListWindow myBLW = new BuddyListWindow(myAM);
 		myBLW.setVisible(true);
+		
+		IMWindowManager myIMWM = new IMWindowManager(myAM);
 		
 	}
 
