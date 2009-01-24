@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class BuddyList {
 	protected ArrayList<Buddy> theList;
 	
+	public BuddyList() {
+		theList = new ArrayList<Buddy>();
+	}
+	
 	public void addBuddy(Buddy theBuddy) { theList.add(theBuddy); }
 	public void removeBuddy(Buddy theBuddy) { theList.remove(theBuddy); }
 	

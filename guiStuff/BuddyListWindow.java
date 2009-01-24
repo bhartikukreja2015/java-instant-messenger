@@ -5,7 +5,8 @@ import upperAbstractionLayer.AccountManager;
 
 public class BuddyListWindow extends javax.swing.JFrame {
 
-    // Variables declaration - do not modify
+	private static final long serialVersionUID = 1L;
+	// Variables declaration - do not modify
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jcStatus;
     private javax.swing.JList jlBuddies;
@@ -16,11 +17,9 @@ public class BuddyListWindow extends javax.swing.JFrame {
     
     /** Creates new form BuddyListWindow */
     public BuddyListWindow(AccountManager AM) {
-        initComponents();
-        this.setVisible(true);
-        
         theAM = AM;
         theModel = new BuddyListModel(theAM);
+        initComponents();
     }
 
     private void initComponents() {
@@ -35,7 +34,7 @@ public class BuddyListWindow extends javax.swing.JFrame {
         jlBuddies.setCellRenderer(new BuddyRendererCreator());
         jScrollPane1.setViewportView(jlBuddies);
 
-        jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.DoNotDistrub, Buddy.superAway }));
+        jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.doNotDistrub, Buddy.superAway }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

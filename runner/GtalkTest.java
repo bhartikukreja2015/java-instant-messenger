@@ -1,69 +1,41 @@
 package runner;
 
-import gtalkStuff.GTalkAccount;
+import guiStuff.BuddyListWindow;
+import jimPreferences.PreferencePoint;
+import upperAbstractionLayer.AccountManager;
 import abstractionLayer.AbstractAccount;
 import abstractionLayer.AccountSettings;
-import abstractionLayer.Buddy;
-import abstractionLayer.IM;
-import abstractionLayer.IMEvents;
 
-public class GtalkTest implements IMEvents {
+public class GtalkTest {
 	AbstractAccount myGtalk;
 	AccountSettings myAS;
 	
 	public static void main(String[] args) {
 		GtalkTest myTest = new GtalkTest();
-		myTest.doIt();
+		myTest.doIt(args[0], args[1]);
 	}
 	
-	public void doIt() {
-		myGtalk = new GTalkAccount();
-		myAS = new AccountSettings("allthingsblizzard@gmail.com", "");
+	public void doIt(String username, String password) {
+		AccountManager myAM = new AccountManager();
+		PreferencePoint pp = new PreferencePoint();
 		
-		myGtalk.setAccountSettings(myAS);
-		myGtalk.setListener(this);
-		myGtalk.connect();
-		System.out.println("Started");
+		AccountSettings myAS = new AccountSettings(username, password);
+		myAS.setAccountType(AccountSettings.GoogleTalkAccount);
+		myAS.setEnabled(true);
 		
-		try {
-			Thread.sleep(1000000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		pp.deleteAllAccounts();
+		pp.saveAccount(myAS);
 		
-	}
-
-	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
-		System.out.println("Got update: " + theBuddy.getScreename());
+		myAM.loadEnabledAccounts(pp);
+		myAM.makeAccounts();
 		
-	}
-
-	public void gotIM(IM theIM) {
-		System.out.println("Got IM from  " + theIM.from + ": " + theIM.message);
+		myAM.connectAll();
 		
-		IM myIM = new IM();
-		myIM.from = theIM.from;
-		myIM.message = theIM.message;
-		
-		IM myIM2 = new IM();
-		myIM2.from = theIM.from;
-		myIM2.message = "This is testing sending an IM";
-		
-		myGtalk.sendIM(myIM);
-		myGtalk.sendIM(myIM2);
-		
-		Buddy myStatus = new Buddy();
-		myStatus.setStatusMessage("Using Jim!");
-		myStatus.setStatus(Buddy.away);
-		
-		myGtalk.setStatus(myStatus);
+		BuddyListWindow myBLW = new BuddyListWindow(myAM);
+		myBLW.setVisible(true);
 		
 	}
 
-	public void loggedIn(AbstractAccount theAccount) {
-		System.out.println("Logged in");
-		
-	}
 	
 	
 	

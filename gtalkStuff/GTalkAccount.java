@@ -153,7 +153,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		} else if (arg0.getMode() == Presence.Mode.xa) {
 			myBuddy.setStatus(Buddy.superAway);
 		} else if (arg0.getMode() == Presence.Mode.dnd) {
-			myBuddy.setStatus(Buddy.DoNotDistrub);
+			myBuddy.setStatus(Buddy.doNotDistrub);
 		} else if (arg0.getMode() == Presence.Mode.chat) {
 			myBuddy.setStatus(Buddy.superAvailable);
 		}
@@ -190,7 +190,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 			myPresence.setMode(Presence.Mode.available);
 		} else if (theStatus.getStatus() == Buddy.away) {
 			myPresence.setMode(Presence.Mode.away);
-		} else if (theStatus.getStatus() == Buddy.DoNotDistrub) {
+		} else if (theStatus.getStatus() == Buddy.doNotDistrub) {
 			myPresence.setMode(Presence.Mode.dnd);
 		} else if (theStatus.getStatus() == Buddy.superAvailable) {
 			myPresence.setMode(Presence.Mode.chat);
