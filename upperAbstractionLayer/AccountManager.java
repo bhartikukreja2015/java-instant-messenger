@@ -76,6 +76,10 @@ public class AccountManager implements IMEvents {
 		}
 	}
 	
+	public void sendIM(IM theIM){
+		theIM.theAccount.sendIM(theIM);
+	}
+	
 	public void addBuddyListChangeListener(BuddyListChangeListener blcl) {
 		theBLCL.add(blcl);
 	}
@@ -85,7 +89,7 @@ public class AccountManager implements IMEvents {
 	public void addIMListener(IMListener iml) {
 		theIml.add(iml);
 	}
-
+	
 	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
 		if (firstTime) {
 			theList.addBuddy(theBuddy);
@@ -105,7 +109,7 @@ public class AccountManager implements IMEvents {
 	}
 
 	public void loggedIn(AbstractAccount theAccount) {
-		System.out.println("Logged in: " + theAccount.getAccountSettings().getUsername());
+		
 		
 	}
 	

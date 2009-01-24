@@ -32,10 +32,12 @@ public class GtalkTest {
 		
 		myAM.connectAll();
 		
-		BuddyListWindow myBLW = new BuddyListWindow(myAM);
+		IMWindowManager myIMWM = new IMWindowManager(myAM);
+		
+		BuddyListWindow myBLW = new BuddyListWindow(myAM, myIMWM);
 		myBLW.setVisible(true);
 		
-		IMWindowManager myIMWM = new IMWindowManager(myAM);
+		
 		
 	}
 

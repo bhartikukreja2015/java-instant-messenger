@@ -109,7 +109,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	}
 
 	public void chatCreated(Chat arg0, boolean arg1) {
-		if (!arg1) { arg0.addMessageListener(this); }
+		arg0.addMessageListener(this);
 		theChats.add(arg0);
 	}
 
@@ -118,7 +118,24 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		
 		IM myIM = new IM();
 		myIM.automatic = false;
-		myIM.from = arg0.getParticipant();
+		
+		// small "gotcha" here...
+		// arg0.getParticipant includes the resource
+		// but we don't want it included.
+		
+		// Oh! And there is more fun!
+		// The resource is only included if it is the first message.
+		// Otherwise its normal.
+		// So check to see if we have a "/" before we do anything funny.
+		
+		String theWhole = arg0.getParticipant();
+		
+		if (theWhole.indexOf("/") != -1) {
+			myIM.from = (theWhole.substring(0, theWhole.indexOf("/")));
+		} else {
+			myIM.from = theWhole;
+		}
+		myIM.to = theSettings.getUsername();
 		myIM.message = arg1.getBody();
 		myIM.theAccount = this;
 		
@@ -180,7 +197,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	public void sendIM(IM theIM) {
 		
 		for (Chat c : theChats) {
-			if (c.getParticipant() == theIM.from) {
+			if (c.getParticipant().equals(theIM.to)) {
 				try {
 					c.sendMessage(theIM.message);
 				} catch (XMPPException e) {
@@ -191,7 +208,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		}
 		
 		// if we are still here, we need to create the chat.
-		myCon.getChatManager().createChat(theIM.from, this);
+		myCon.getChatManager().createChat(theIM.to, this);
 		// we've opened the chat, so we'll add it to the list.
 		// send through the right chat.
 		
