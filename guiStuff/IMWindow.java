@@ -1,5 +1,10 @@
 package guiStuff;
 
+import javax.swing.JEditorPane;
+
+import abstractionLayer.Buddy;
+import abstractionLayer.IM;
+
 public class IMWindow extends javax.swing.JFrame {
     
     // Variables declaration - do not modify                     
@@ -8,8 +13,12 @@ public class IMWindow extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel jlUsername;
     private javax.swing.JTextField jtEntry;
-    private javax.swing.JTextArea jtIM;
-    // End of variables declaration  
+    private javax.swing.JEditorPane jtIM;
+    // End of variables declaration
+    
+    private Buddy chattingWith;
+    
+    private StringBuilder currentHTML;
 	
 	private static final long serialVersionUID = 1L;
 	/** Creates new form IMWindow */
@@ -18,23 +27,33 @@ public class IMWindow extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-                    
+    public void setTo(Buddy to) { 
+    	chattingWith = to;
+    	if (to.getAlias() != null) {
+    		jlUsername.setText(to.getAlias());
+    	} else {
+    		jlUsername.setText(to.getScreename());
+    	}
+    }
+    public Buddy getTo() { return chattingWith; }
+    
+    public void showIM(IM theIM) {
+    	currentHTML.append(theIM.toHTML(chattingWith));
+    	jtIM.setText(currentHTML.toString());
+    }
+    
     private void initComponents() {
 
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtIM = new javax.swing.JTextArea();
+        jtIM = new JEditorPane();
         jtEntry = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jlUsername = new javax.swing.JLabel();
 
         jTextField2.setText("jTextField2");
 
-
-        jtIM.setColumns(20);
         jtIM.setEditable(false);
-        jtIM.setLineWrap(true);
-        jtIM.setRows(5);
         jScrollPane1.setViewportView(jtIM);
 
         jtEntry.setText("");
