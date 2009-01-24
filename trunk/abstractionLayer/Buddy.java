@@ -18,6 +18,7 @@ public class Buddy {
 	protected String status;
 	protected String statusMessage;
 	protected AbstractAccount theAccount;
+	protected String resource;
 	
 	public Buddy(String sn, String groupname, int theMergeID) {
 		screenname = sn;
@@ -43,7 +44,12 @@ public class Buddy {
 	public void setMergeID(int mi) { mergeID = mi; }
 	public int getMergeID() { return mergeID; }
 	
-	public void setOnlineStatus(boolean online) { onlineStatus = online; }
+	public void setOnlineStatus(boolean online) { 
+		onlineStatus = online;
+		if (!online) {
+			setStatus(Buddy.offline);
+		}
+	}
 	public boolean isOnline() { return onlineStatus; }
 	
 	public void setStatus(String theStatus) { status = theStatus; }
@@ -57,4 +63,7 @@ public class Buddy {
 	
 	public void setAccount(AbstractAccount aa) { theAccount = aa; }
 	public AbstractAccount getAccount() { return theAccount; }
+	
+	public void setResource(String r) { resource = r; }
+	public String getResource() { return resource; }
 }

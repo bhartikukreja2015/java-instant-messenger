@@ -24,7 +24,7 @@ public class AccountManager implements IMEvents {
 	public AccountManager() {
 		theAccounts = new ArrayList<AbstractAccount>();
 		theSettings = new ArrayList<AccountSettings>();
-		theList = new BuddyList();
+		theList = new BuddyList(true); // true = sort
 		
 		theBLCL = new ArrayList<BuddyListChangeListener>();
 		theIml = new ArrayList<IMListener>();

@@ -6,12 +6,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.SystemColor;
 
+import pidginIcons.IconFetch;
+
 import abstractionLayer.Buddy;
 
 public class BuddyRenderer extends Component {
 
 	private static final long serialVersionUID = 1L;
+	
 	private final int height = 36;
+	private final int widthPadding = 40;
+	
+	private final int graphicX = 5;
+	private final int graphicY = 8;
 	
 	
 	Buddy toShow; 
@@ -26,6 +33,7 @@ public class BuddyRenderer extends Component {
 	}
 	
 	public void paint(Graphics g) {
+		
 		if (isSelected) {
 			g.setColor(SystemColor.textHighlight);
 			g.fillRect(-1, -1, theWidth + 1, height + 1);
@@ -44,23 +52,40 @@ public class BuddyRenderer extends Component {
 		
 		//int yBaseline = 20;
 		
-		System.out.println("Showing at baseline: " + yBaseline);
 		
 		// drawString renders the text by baseline, so we want to position the text in the middle
 		// so we go half way down, then up half the font size.
 		
-		if (toShow.getStatus() == Buddy.away || toShow.getStatus() == Buddy.doNotDistrub || toShow.getStatus() == Buddy.superAway) {
-			g.setColor(new Color(255,0,0));
-		} else if (toShow.getStatus() == Buddy.available || toShow.getStatus() == Buddy.superAvailable) {
-			g.setColor(new Color(0,255,0));
-		} else {
-			g.setColor(new Color(200,200,200));
+		IconFetch IF = new IconFetch();
+		
+		g.setColor(Color.BLACK);
+		//System.out.println(toShow.getStatus());
+		
+		if (toShow.getStatus() == Buddy.available) {
+			g.drawImage(IF.loadImage(Buddy.available), graphicX, graphicY, null);
+			//g.setColor(Color.GREEN);
+		} else if (toShow.getStatus() == Buddy.away) {
+			g.drawImage(IF.loadImage(Buddy.away), graphicX, graphicY, null);
+			//g.setColor(Color.RED);
+		} else if (toShow.getStatus() == Buddy.doNotDistrub) {
+			g.drawImage(IF.loadImage(Buddy.doNotDistrub), graphicX, graphicY, null);
+			//g.setColor(Color.RED);
+		} else if (toShow.getStatus() == Buddy.offline) {
+			g.drawImage(IF.loadImage(Buddy.offline), graphicX, graphicY, null);
+			g.setColor(Color.GRAY);
+		} else if (toShow.getStatus() == Buddy.superAvailable) {
+			g.drawImage(IF.loadImage(Buddy.superAvailable), graphicX, graphicY, null);
+			//g.setColor(Color.GREEN);
+		} else if (toShow.getStatus() == Buddy.superAway) {
+			g.drawImage(IF.loadImage(Buddy.superAway), graphicX, graphicY, null);
+			//g.setColor(Color.RED);
 		}
 		
+		
 		if (toShow.getAlias() != null) { 
-			g.drawString(toShow.getAlias(), 10, yBaseline);
+			g.drawString(toShow.getAlias(), widthPadding, yBaseline);
 		} else {
-			g.drawString(toShow.getScreename(), 10, yBaseline);
+			g.drawString(toShow.getScreename(), widthPadding, yBaseline);
 		}
 		
 		float newSize = Float.valueOf("" + (g.getFont().getSize() * (5.0/6.0)));
@@ -68,11 +93,11 @@ public class BuddyRenderer extends Component {
 		g.setFont(g.getFont().deriveFont(newSize));
 		
 		if (toShow.getStatusMessage() != null) {
-			g.drawString(toShow.getStatusMessage(), 10, yStatusBaseline);
+			g.drawString(toShow.getStatusMessage(), widthPadding, yStatusBaseline);
 		} else if (toShow.getStatus() != null) {
-			g.drawString(toShow.getStatus(), 10, yStatusBaseline);
+			g.drawString(toShow.getStatus(), widthPadding, yStatusBaseline);
 		} else if (!toShow.isOnline()) {
-			g.drawString(Buddy.offline, 10, yStatusBaseline);
+			g.drawString(Buddy.offline, widthPadding, yStatusBaseline);
 		}
 	}
 	

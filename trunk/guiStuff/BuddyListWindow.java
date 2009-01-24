@@ -19,6 +19,7 @@ public class BuddyListWindow extends javax.swing.JFrame {
     public BuddyListWindow(AccountManager AM) {
         theAM = AM;
         theModel = new BuddyListModel(theAM);
+        this.setTitle("Buddy List");
         initComponents();
     }
 
