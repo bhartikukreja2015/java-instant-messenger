@@ -1,5 +1,6 @@
 package guiStuff;
 
+import abstractionLayer.Buddy;
 import upperAbstractionLayer.AccountManager;
 
 public class BuddyListWindow extends javax.swing.JFrame {
@@ -31,9 +32,10 @@ public class BuddyListWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jlBuddies.setModel(theModel);
+        jlBuddies.setCellRenderer(new BuddyRendererCreator());
         jScrollPane1.setViewportView(jlBuddies);
 
-        jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.DoNotDistrub, Buddy.superAway }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
