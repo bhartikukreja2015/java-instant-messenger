@@ -23,6 +23,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	}
 	
 	public void BuddyListChange(BuddyList b) {
+		System.out.println("Got update!");
 		theBuddyList = b;
 		for (ListDataListener ldl : theListeners) {
 			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
@@ -38,6 +39,9 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	}
 
 	public int getSize() {
+		if (theBuddyList.getAllBuddies() == null) { 
+			return 0;
+		}
 		return theBuddyList.getAllBuddies().size();
 	}
 

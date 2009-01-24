@@ -33,6 +33,8 @@ public class AccountManager implements IMEvents {
 	public void loadEnabledAccounts(PreferencePoint pp) {
 		ArrayList<AccountSettings> loadedSettings = pp.getAllAccounts();
 		
+
+		
 		for (AccountSettings as : loadedSettings) {
 			if (as.isEnabled()) {
 				theSettings.add(as);
@@ -40,7 +42,7 @@ public class AccountManager implements IMEvents {
 		}
 	}
 	
-	protected void makeAccounts() {
+	public void makeAccounts() {
 		// this method should move all the loaded account settings into actual accounts.
 		// right now, we only have Gtalk
 		
@@ -103,7 +105,7 @@ public class AccountManager implements IMEvents {
 	}
 
 	public void loggedIn(AbstractAccount theAccount) {
-		// TODO Auto-generated method stub
+		System.out.println("Logged in: " + theAccount.getAccountSettings().getUsername());
 		
 	}
 	

@@ -5,7 +5,9 @@ public class Buddy {
 	public static final String superAvailable = "Chatty";
 	public static final String away = "Away";
 	public static final String superAway = "Really away";
-	public static final String DoNotDistrub = "Do not distrub";
+	public static final String doNotDistrub = "Do not distrub";
+	
+	public static final String offline = "Offline";
 	
 	
 	protected String screenname;
