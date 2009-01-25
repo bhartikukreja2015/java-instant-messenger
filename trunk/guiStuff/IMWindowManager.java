@@ -79,8 +79,6 @@ public class IMWindowManager implements IMListener, BuddyListChangeListener {
 	}
 
 	public void sendIM(IM theIM) {
-		System.out.println("Sending IM");
-		
 		for (IMWindow w : theWindows) {
 			if (w.getTo().getScreename().equals(theIM.to)) {
 				// give it to this window

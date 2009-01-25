@@ -6,7 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.SystemColor;
 
-import pidginIcons.IconFetch;
+import mainIconSet.IconFetch;
+
 
 import abstractionLayer.Buddy;
 
@@ -91,6 +92,8 @@ public class BuddyRenderer extends Component {
 		float newSize = Float.valueOf("" + (g.getFont().getSize() * (5.0/6.0)));
 		//float newSize = 8;
 		g.setFont(g.getFont().deriveFont(newSize));
+		
+		System.out.println("BR: " + toShow.getStatusMessage());
 		
 		if (toShow.getStatusMessage() != null) {
 			g.drawString(toShow.getStatusMessage(), widthPadding, yStatusBaseline);

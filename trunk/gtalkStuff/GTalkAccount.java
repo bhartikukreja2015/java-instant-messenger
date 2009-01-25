@@ -189,6 +189,8 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 			myBuddy.setStatus(Buddy.superAvailable);
 		}
 		
+		myBuddy.setStatusMessage(arg0.getStatus());
+		
 		
 		theEvents.buddyStatusChange(myBuddy, false);
 		
