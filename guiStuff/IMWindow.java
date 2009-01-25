@@ -8,8 +8,6 @@ import java.awt.event.FocusListener;
 import javax.swing.JEditorPane;
 import javax.swing.SwingUtilities;
 
-import upperAbstractionLayer.AccountManager;
-
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 
