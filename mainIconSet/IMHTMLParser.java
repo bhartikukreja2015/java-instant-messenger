@@ -8,6 +8,12 @@ public class IMHTMLParser {
 	
 	public boolean boldNames = true;
 	public boolean colorName = false;
+	
+	public String theColor;
+	
+	public static final String myColor = "blue";
+	public static final String theirColor = "red";
+	
 	public boolean loadSmiles = true;
 	
 	public String getHTML(IM theIM, String theirName) {
@@ -17,7 +23,15 @@ public class IMHTMLParser {
 			theSB.append("<strong>");
 		}
 		
+		if (colorName) {
+			theSB.append("<font color='" + theColor + "'>");
+		}
+		
 		theSB.append(theirName);
+		
+		if (colorName) {
+			theSB.append("</font>");
+		}
 		
 		if (boldNames) {
 			theSB.append("</strong>");

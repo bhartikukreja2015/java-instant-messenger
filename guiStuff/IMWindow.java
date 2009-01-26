@@ -50,17 +50,17 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
     
     public void showIM(IM theIM) {
     	if (theIM.from.equals(chattingWith.getScreename())) {
-    		currentHTML.append(theIM.toHTML(chattingWith));
+    		currentHTML.append(theIM.toHTML(chattingWith, false));
     	} else {
     		// the IM is from somebody else
     		// is it from us?
     		if (theIM.from.equals(theIM.theAccount.getAccountSettings().getUsername())) {
     			// yes, it is from us.
-    			currentHTML.append(theIM.toHTML(theIM.theAccount.getAccountSettings().getMyself()));
+    			currentHTML.append(theIM.toHTML(theIM.theAccount.getAccountSettings().getMyself(), true));
     		} else {
     			// it is some random person who get directed to this IM window
     			// well, it could be a chat
-    			currentHTML.append(theIM.toHTML(theIM.getFromBuddy()));
+    			currentHTML.append(theIM.toHTML(theIM.getFromBuddy(), false));
     		}
     	}
     	jtIM.setText(currentHTML.toString() + "<br>");
@@ -152,6 +152,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
 	}
 
 	public void focusGained(FocusEvent arg0) {
+		System.out.println("Got focus");
 		jtEntry.requestFocusInWindow();
 	}
 

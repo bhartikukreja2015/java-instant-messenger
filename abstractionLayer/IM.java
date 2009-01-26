@@ -9,10 +9,16 @@ public class IM {
 	public boolean automatic;
 	public AbstractAccount theAccount;
 	
-	public String toHTML(Buddy bFrom) {
+	public String toHTML(Buddy bFrom, boolean isMe) {
 		IMHTMLParser myParse = new IMHTMLParser();
-		// default values are fine for us
 		
+		myParse.colorName = true;
+		
+		if (isMe) {
+			myParse.theColor = IMHTMLParser.myColor;
+		} else {
+			myParse.theColor = IMHTMLParser.theirColor;
+		}
 		
 		if (bFrom.getAlias() != null) {
 			return myParse.getHTML(this, bFrom.getAlias());
