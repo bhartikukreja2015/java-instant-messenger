@@ -4,6 +4,7 @@ public class AccountSettings {
 	protected String username;
 	protected String password;
 	protected String accountType;
+	protected String accountAlias;
 	protected boolean enabled;
 	protected int accountID;
 	
@@ -36,6 +37,9 @@ public class AccountSettings {
 	
 	public boolean isEnabled() { return enabled; }
 	public void setEnabled(boolean b) { enabled = b; }
+	
+	public String getAlias() { return accountAlias; }
+	public void setAlias(String ta) { accountAlias = ta; }
 	
 	public Buddy getMyself() {
 		Buddy b = new Buddy();
