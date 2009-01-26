@@ -65,6 +65,6 @@ public class IconFetch {
 	
 	public String getURL(String thePath) {
 		URL theURL = getClass().getResource(thePath);
-		return theURL.getPath();
+		return theURL.toString();
 	}
 }

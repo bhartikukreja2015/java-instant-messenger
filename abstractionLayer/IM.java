@@ -1,5 +1,7 @@
 package abstractionLayer;
 
+import mainIconSet.IMHTMLParser;
+
 public class IM {
 	public String from;
 	public String to;
@@ -8,21 +10,15 @@ public class IM {
 	public AbstractAccount theAccount;
 	
 	public String toHTML(Buddy bFrom) {
-		StringBuilder theSB = new StringBuilder();
+		IMHTMLParser myParse = new IMHTMLParser();
+		// default values are fine for us
 		
-		theSB.append("<strong>");
+		
 		if (bFrom.getAlias() != null) {
-			theSB.append(bFrom.getAlias());
+			return myParse.getHTML(this, bFrom.getAlias());
 		} else {
-			theSB.append(bFrom.getScreename());
+			return myParse.getHTML(this, bFrom.getScreename());
 		}
-		
-		theSB.append("</strong>: ");
-		theSB.append(message);
-		
-		theSB.append("<br>");
-		
-		return theSB.toString();
 	}
 	
 	public Buddy getFromBuddy() {
