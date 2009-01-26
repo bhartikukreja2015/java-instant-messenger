@@ -44,7 +44,7 @@ public class AccountSettings {
 	public Buddy getMyself() {
 		Buddy b = new Buddy();
 		b.setScreename(username);
-		b.setAlias(b.getScreename() + " (" + accountType + ")");
+		b.setAlias(accountAlias);
 		
 		return b;
 	}

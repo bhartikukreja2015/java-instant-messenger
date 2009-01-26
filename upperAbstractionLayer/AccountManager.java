@@ -4,6 +4,8 @@ import gtalkStuff.GTalkAccount;
 
 import java.util.ArrayList;
 
+import yahooStuff.YahooAccount;
+
 import jimPreferences.PreferencePoint;
 
 import abstractionLayer.AbstractAccount;
@@ -44,17 +46,20 @@ public class AccountManager implements IMEvents {
 	
 	public void makeAccounts() {
 		// this method should move all the loaded account settings into actual accounts.
-		// right now, we only have Gtalk
+		// right now, we only have Gtalk and Yahoo
 		
 		for (AccountSettings as : theSettings) {
+			AbstractAccount theAccount = null;
 			if (as.getAccountType().equals(AccountSettings.GoogleTalkAccount)) {
-				AbstractAccount theGoogleAccount = new GTalkAccount();
-				theGoogleAccount.setAccountSettings(as);
-				
-				theGoogleAccount.setListener(this);
-				
-				theAccounts.add(theGoogleAccount);
+				theAccount = new GTalkAccount();
+			} else if (as.getAccountType().equals(AccountSettings.YahooAccount)) {
+				theAccount = new YahooAccount();
 			}
+			
+			theAccount.setAccountSettings(as);
+			theAccount.setListener(this);
+			
+			theAccounts.add(theAccount);
 		}
 	}
 	
