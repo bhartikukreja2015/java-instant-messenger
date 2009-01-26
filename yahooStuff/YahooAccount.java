@@ -75,6 +75,11 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		
 		isConnected = true;
 		
+		// for whatever reason, we don't get a listReceived event
+		// they purposly don't give us one..
+		// make our own!
+		listReceived(null);
+		
 	}
 
 	public void disconnect() {
@@ -170,7 +175,6 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	}
 	
 	public void friendsUpdateReceived(SessionFriendEvent arg0) {
-		System.out.println("Got update!");
 		
 		Buddy myBuddy = new Buddy();
 		
@@ -187,7 +191,6 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	@SuppressWarnings("unchecked")
 	// surpressing the setting of the theUsers variable... we know we are getting data of type YahooUser
 	public void listReceived(SessionEvent arg0) {
-		System.out.println("Got list!");
 		
 		Buddy myBuddy;
 		ArrayList<YahooUser> theUsers;
@@ -248,8 +251,6 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		myBuddy.setAccount(this);
 		myBuddy.setScreename(myYU.getId());
 		
-		System.out.println(myYU.getStatus());
-		
 		if (myYU.getStatus() == StatusConstants.STATUS_AVAILABLE) {
 			myBuddy.setStatus(Buddy.available);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_BRB || myYU.getStatus() == StatusConstants.STATUS_NOTATDESK || myYU.getStatus() == StatusConstants.STATUS_NOTATHOME || myYU.getStatus() == StatusConstants.STATUS_NOTINOFFICE || myYU.getStatus() == StatusConstants.STATUS_ONPHONE || myYU.getStatus() == StatusConstants.STATUS_OUTTOLUNCH || myYU.getStatus() == StatusConstants.STATUS_STEPPEDOUT) {
@@ -259,14 +260,12 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		} else if (myYU.getStatus() == StatusConstants.STATUS_BUSY) {
 			myBuddy.setStatus(Buddy.doNotDistrub);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_CUSTOM) {
-			System.out.println("Using custom status!");
 			if (myYU.isCustomBusy()) {
 				myBuddy.setStatus(Buddy.away);
 			} else {
 				myBuddy.setStatus(Buddy.available);
 			}
 			
-			System.out.println("Custom status is: " + myYU.getCustomStatusMessage());
 			myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
 		} else {
 			System.out.println("Got unknown status in Yahoo: " + myYU.getStatus());
