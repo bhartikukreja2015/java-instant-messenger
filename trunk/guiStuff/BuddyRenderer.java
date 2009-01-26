@@ -36,7 +36,7 @@ public class BuddyRenderer extends Component {
 	public void paint(Graphics g) {
 		
 		if (isSelected) {
-			g.setColor(SystemColor.textHighlight);
+			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(-1, -1, theWidth + 1, height + 1);
 		}
 		
@@ -92,8 +92,6 @@ public class BuddyRenderer extends Component {
 		float newSize = Float.valueOf("" + (g.getFont().getSize() * (5.0/6.0)));
 		//float newSize = 8;
 		g.setFont(g.getFont().deriveFont(newSize));
-		
-		System.out.println("BR: " + toShow.getStatusMessage());
 		
 		if (toShow.getStatusMessage() != null) {
 			g.drawString(toShow.getStatusMessage(), widthPadding, yStatusBaseline);

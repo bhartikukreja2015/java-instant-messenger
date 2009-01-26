@@ -18,7 +18,6 @@ public class SmilePair {
 	
 	public String applyPair(String theMessage) {
 		IconFetch myIF = new IconFetch();
-		System.out.println(myIF.getURL(imgName));
 		return theMessage.replaceAll(code, "<img src='" + myIF.getURL(imgName) + "'>");
 	}
 	
