@@ -6,7 +6,8 @@ public class IM {
 	public String from;
 	public String to;
 	public String message;
-	public boolean automatic;
+	public boolean automatic = false;
+	public boolean offline = false;
 	public AbstractAccount theAccount;
 	
 	public String toHTML(Buddy bFrom, boolean isMe) {

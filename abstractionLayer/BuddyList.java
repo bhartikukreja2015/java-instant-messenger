@@ -26,6 +26,14 @@ public class BuddyList {
 		while (i != theList.size()) {
 			if (theList.get(i).getScreename().equals(theBuddy.getScreename())) {
 				
+				// some IM services don't support alias
+				// so if we have an alias set, but we were not sent an alias
+				// make sure to maintain that alias
+				if (theBuddy.getAlias() == null) {
+					// we can replace null with null
+					theBuddy.setAlias(theList.get(i).getAlias());
+				}
+				
 				theList.set(i, theBuddy);
 				
 				if (isSorting) { sortList(); }
