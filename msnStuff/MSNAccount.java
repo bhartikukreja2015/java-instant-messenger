@@ -1,5 +1,6 @@
 package msnStuff;
 
+import net.sf.jml.Email;
 import net.sf.jml.MsnContact;
 import net.sf.jml.MsnContactList;
 import net.sf.jml.MsnGroup;
@@ -32,8 +33,7 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	protected boolean isConn;
 	
 	public void addBuddy(Buddy theBuddy) {
-		// TODO Auto-generated method stub
-		
+		myCon.addFriend(Email.parseStr(theBuddy.getScreename()), theBuddy.getAlias());
 	}
 
 	public void connect() {
@@ -61,8 +61,8 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	public boolean isConnected() { return isConn; }
 
 	public void sendIM(IM theIM) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(theIM.to);
+		myCon.sendText(Email.parseStr(theIM.to), theIM.message);
 	}
 
 	public void setAccountSettings(AccountSettings as) {
@@ -81,22 +81,30 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		Buddy b = new Buddy();
 		
 		b.setAccount(this);
-		b.setScreename(myMC.getDisplayName());
+		b.setScreename(myMC.getEmail().toString());
 		b.setAlias(myMC.getFriendlyName());
 		
 		MsnUserStatus myStatus = myMC.getStatus();
 		
-		if (myStatus.getStatus().equals(MsnUserStatus.AWAY) || myStatus.getStatus().equals(MsnUserStatus.BE_RIGHT_BACK)) {
+		// we want to use status
+		
+		//System.out.println(myStatus.getDisplayStatus() + "|" + MsnUserStatus.OFFLINE);
+		
+		
+		if (myStatus == MsnUserStatus.AWAY || myStatus == MsnUserStatus.BE_RIGHT_BACK || myStatus == MsnUserStatus.IDLE) {
 			b.setStatus(Buddy.away);
-		} else if (myStatus.getStatus().equals(MsnUserStatus.BUSY)) {
+		} else if (myStatus == MsnUserStatus.BUSY) {
 			b.setStatus(Buddy.doNotDistrub);
-		} else if (myStatus.getStatus().equals(MsnUserStatus.OUT_TO_LUNCH)) {
+		} else if (myStatus == MsnUserStatus.OUT_TO_LUNCH) {
 			b.setStatus(Buddy.superAway);
-		} else if (myStatus.getStatus().equals(MsnUserStatus.ONLINE)) {
+		} else if (myStatus == MsnUserStatus.ONLINE) {
 			b.setStatus(Buddy.available);
+		} else if (myStatus == MsnUserStatus.OFFLINE) {
+			b.setStatus(Buddy.offline);
 		}
 		
-		b.setOnlineStatus(!(myStatus.getStatus().equals(MsnUserStatus.OFFLINE)));
+		b.setOnlineStatus(!(myStatus == MsnUserStatus.OFFLINE));
+		//b.setOnlineStatus(false);
 		
 		b.setGroupName(myMC.getBelongGroups()[0].getGroupName());
 		
@@ -108,7 +116,7 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		MsnContact[] theContacts = theList.getContacts();
 		
 		for (MsnContact myMC : theContacts) {
-			theEvents.buddyStatusChange(this.MSNContactToJimBuddy(myMC), true);
+			theEvents.buddyStatusChange(this.MSNContactToJimBuddy(myMC), firstTime);
 		}
 	}
 
@@ -125,8 +133,12 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	public void ownerStatusChanged(MsnMessenger arg0) { } // anybody?
 	
 	public void instantMessageReceived(MsnSwitchboard arg0, MsnInstantMessage arg1, MsnContact arg2) {
-		// TODO Auto-generated method stub
+		IM myIM = new IM();
+		myIM.theAccount = this;
+		myIM.from = arg2.getEmail().toString();
+		myIM.message = arg1.getContent();
 		
+		theEvents.gotIM(myIM);
 	}
 
 	public void loginCompleted(MsnMessenger arg0) { isConn = true; }
@@ -140,7 +152,7 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 
 	public void contactListInitCompleted(MsnMessenger arg0) {
 		// this is the inital contact list
-		this.dispatchContactList(arg0.getContactList(), true);
+		this.dispatchContactList(arg0.getContactList(), false);
 	}
 
 	public void contactListSyncCompleted(MsnMessenger arg0) {
