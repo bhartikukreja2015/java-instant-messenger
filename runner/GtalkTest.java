@@ -23,6 +23,7 @@ public class GtalkTest {
 		AccountSettings myAS = new AccountSettings(username, password);
 		myAS.setAccountType(AccountSettings.GoogleTalkAccount);
 		myAS.setEnabled(true);
+		myAS.setAlias("GTalk Test");
 		
 		pp.deleteAllAccounts();
 		pp.saveAccount(myAS);
