@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="smackx.jar"/>
 	<classpathentry kind="lib" path="ymsg_network_v0_64.jar"/>
 	<classpathentry kind="lib" path="ymsg_support_v0_64.jar"/>
+	<classpathentry kind="lib" path="jml-1.0b3-full.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
