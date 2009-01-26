@@ -53,6 +53,7 @@ public class IMWindowManager implements IMListener, BuddyListChangeListener {
 			// we got an IM from a buddy not on the BL.
 			myB = new Buddy();
 			myB.setScreename(theIM.from);
+			myB.setAccount(theIM.theAccount);
 		}
 		
 		// myB will now be the buddy we need to add.

@@ -36,12 +36,10 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	
 	protected boolean isConnected;
 	
-	protected boolean sentFirstBuddyList;
 	
 	public YahooAccount() {
 		myCon = new Session();
 		isConnected = false;
-		sentFirstBuddyList = false;
 	}
 	
 	
@@ -172,29 +170,14 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	}
 	
 	public void friendsUpdateReceived(SessionFriendEvent arg0) {
+		System.out.println("Got update!");
+		
 		Buddy myBuddy = new Buddy();
 		
 		YahooUser myYU = arg0.getFriend();
 		
-		myBuddy.setAccount(this);
-		myBuddy.setScreename(myYU.getId());
+		myBuddy = this.YahooUserToJimBuddy(myYU);
 		myBuddy.setGroupName(arg0.getGroup());
-		
-		
-		
-		if (myYU.getStatus() == StatusConstants.STATUS_AVAILABLE) {
-			myBuddy.setStatus(Buddy.available);
-		} else if (myYU.getStatus() == StatusConstants.STATUS_BRB || myYU.getStatus() == StatusConstants.STATUS_NOTATDESK || myYU.getStatus() == StatusConstants.STATUS_NOTATHOME || myYU.getStatus() == StatusConstants.STATUS_NOTINOFFICE || myYU.getStatus() == StatusConstants.STATUS_ONPHONE || myYU.getStatus() == StatusConstants.STATUS_OUTTOLUNCH || myYU.getStatus() == StatusConstants.STATUS_STEPPEDOUT) {
-			myBuddy.setStatus(Buddy.away);
-		} else if (myYU.getStatus() == StatusConstants.STATUS_ONVACATION) {
-			myBuddy.setStatus(Buddy.superAway);
-		} else if (myYU.getStatus() == StatusConstants.STATUS_BUSY) {
-			myBuddy.setStatus(Buddy.doNotDistrub);
-		}
-		
-		myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
-		myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
-		
 		theEvents.buddyStatusChange(myBuddy, false);
 	}
 
@@ -204,6 +187,8 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	@SuppressWarnings("unchecked")
 	// surpressing the setting of the theUsers variable... we know we are getting data of type YahooUser
 	public void listReceived(SessionEvent arg0) {
+		System.out.println("Got list!");
+		
 		Buddy myBuddy;
 		ArrayList<YahooUser> theUsers;
 		String groupName = "";
@@ -218,30 +203,13 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 			
 			for (YahooUser myYU : theUsers) {
 				if (myYU.isFriend()) {
-					myBuddy = new Buddy();
-					myBuddy.setAccount(this);
-					myBuddy.setScreename(myYU.getId());
-					
-					if (myYU.getStatus() == StatusConstants.STATUS_AVAILABLE) {
-						myBuddy.setStatus(Buddy.available);
-					} else if (myYU.getStatus() == StatusConstants.STATUS_BRB || myYU.getStatus() == StatusConstants.STATUS_NOTATDESK || myYU.getStatus() == StatusConstants.STATUS_NOTATHOME || myYU.getStatus() == StatusConstants.STATUS_NOTINOFFICE || myYU.getStatus() == StatusConstants.STATUS_ONPHONE || myYU.getStatus() == StatusConstants.STATUS_OUTTOLUNCH || myYU.getStatus() == StatusConstants.STATUS_STEPPEDOUT) {
-						myBuddy.setStatus(Buddy.away);
-					} else if (myYU.getStatus() == StatusConstants.STATUS_ONVACATION) {
-						myBuddy.setStatus(Buddy.superAway);
-					} else if (myYU.getStatus() == StatusConstants.STATUS_BUSY) {
-						myBuddy.setStatus(Buddy.doNotDistrub);
-					}
-					
-					myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
+					myBuddy = this.YahooUserToJimBuddy(myYU);
 					myBuddy.setGroupName(groupName);
-					myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
-					
-					theEvents.buddyStatusChange(myBuddy, sentFirstBuddyList);
+					theEvents.buddyStatusChange(myBuddy, false);
 				}
 			}
 		}
 		
-		if (!sentFirstBuddyList) { sentFirstBuddyList = true; }
 		
 	
 	}
@@ -274,4 +242,38 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		theEvents.gotIM(myIM);
 	}
 
+	
+	protected Buddy YahooUserToJimBuddy(YahooUser myYU) {
+		Buddy myBuddy = new Buddy();
+		myBuddy.setAccount(this);
+		myBuddy.setScreename(myYU.getId());
+		
+		System.out.println(myYU.getStatus());
+		
+		if (myYU.getStatus() == StatusConstants.STATUS_AVAILABLE) {
+			myBuddy.setStatus(Buddy.available);
+		} else if (myYU.getStatus() == StatusConstants.STATUS_BRB || myYU.getStatus() == StatusConstants.STATUS_NOTATDESK || myYU.getStatus() == StatusConstants.STATUS_NOTATHOME || myYU.getStatus() == StatusConstants.STATUS_NOTINOFFICE || myYU.getStatus() == StatusConstants.STATUS_ONPHONE || myYU.getStatus() == StatusConstants.STATUS_OUTTOLUNCH || myYU.getStatus() == StatusConstants.STATUS_STEPPEDOUT) {
+			myBuddy.setStatus(Buddy.away);
+		} else if (myYU.getStatus() == StatusConstants.STATUS_ONVACATION) {
+			myBuddy.setStatus(Buddy.superAway);
+		} else if (myYU.getStatus() == StatusConstants.STATUS_BUSY) {
+			myBuddy.setStatus(Buddy.doNotDistrub);
+		} else if (myYU.getStatus() == StatusConstants.STATUS_CUSTOM) {
+			System.out.println("Using custom status!");
+			if (myYU.isCustomBusy()) {
+				myBuddy.setStatus(Buddy.away);
+			} else {
+				myBuddy.setStatus(Buddy.available);
+			}
+			
+			System.out.println("Custom status is: " + myYU.getCustomStatusMessage());
+			myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
+		} else {
+			System.out.println("Got unknown status in Yahoo: " + myYU.getStatus());
+		}
+		
+		myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
+		
+		return myBuddy;
+	}
 }
