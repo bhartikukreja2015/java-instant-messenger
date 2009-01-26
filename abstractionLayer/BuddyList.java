@@ -107,4 +107,14 @@ public class BuddyList {
 		}
 	}
 	
+	public int getOfflineCount() {
+		int i = 0;
+		for (Buddy b : theList) {
+			if (!b.isOnline()) { i++; }
+		}
+		
+		return i;
+	}
+	
+	
 }
