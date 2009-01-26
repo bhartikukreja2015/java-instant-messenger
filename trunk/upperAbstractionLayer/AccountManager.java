@@ -4,6 +4,8 @@ import gtalkStuff.GTalkAccount;
 
 import java.util.ArrayList;
 
+import msnStuff.MSNAccount;
+
 import yahooStuff.YahooAccount;
 
 import jimPreferences.PreferencePoint;
@@ -46,7 +48,7 @@ public class AccountManager implements IMEvents {
 	
 	public void makeAccounts() {
 		// this method should move all the loaded account settings into actual accounts.
-		// right now, we only have Gtalk and Yahoo
+		// right now, we only have Gtalk, Yahoo, and MSN
 		
 		for (AccountSettings as : theSettings) {
 			AbstractAccount theAccount = null;
@@ -54,6 +56,8 @@ public class AccountManager implements IMEvents {
 				theAccount = new GTalkAccount();
 			} else if (as.getAccountType().equals(AccountSettings.YahooAccount)) {
 				theAccount = new YahooAccount();
+			} else if (as.getAccountType().equals(AccountSettings.MSNAccount)) {
+				theAccount = new MSNAccount();
 			}
 			
 			theAccount.setAccountSettings(as);
@@ -100,7 +104,7 @@ public class AccountManager implements IMEvents {
 			// if alias is null, we need to see if we have a stored alias
 			if (theBuddy.getAlias() == null) {
 				PreferencePoint PP = new PreferencePoint();
-				
+				// TODO
 			}
 			
 			theList.addBuddy(theBuddy);
