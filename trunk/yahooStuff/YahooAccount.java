@@ -166,7 +166,6 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	public void errorPacketReceived(SessionErrorEvent arg0) { }
 	public void fileTransferReceived(SessionFileTransferEvent arg0) { }
 	public void friendAddedReceived(SessionFriendEvent arg0) { }
-	public void friendRemovedReceived(SessionFriendEvent arg0) { }
 	public void inputExceptionThrown(SessionExceptionEvent arg0) {}
 	public void newMailReceived(SessionNewMailEvent arg0) { }
 	
@@ -274,5 +273,16 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
 		
 		return myBuddy;
+	}
+	
+	public void friendRemovedReceived(SessionFriendEvent arg0) { 
+		Buddy myBuddy = new Buddy();
+		
+		YahooUser myYU = arg0.getFriend();
+		
+		myBuddy = this.YahooUserToJimBuddy(myYU);
+		//myBuddy.setGroupName(arg0.getGroup()); not needed to remove
+		
+		theEvents.buddyDeleted(myBuddy);
 	}
 }
