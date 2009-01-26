@@ -98,4 +98,18 @@ public class PreferencePoint {
 
 	}
 	
+	public String getAliasForScreenname(String screenname, String accountName) {
+		Preferences aliasNode = myPrefs.node("Aliases");
+		aliasNode = aliasNode.node(accountName);
+		
+		return aliasNode.get(screenname, null);
+	}
+	
+	public void setAliasForScreenname(String screenname, String accountName, String alias) {
+		Preferences aliasNode = myPrefs.node("Aliases");
+		aliasNode = aliasNode.node(accountName);
+		
+		aliasNode.put(screenname, alias);
+	}
+	
 }

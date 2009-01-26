@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="smack.jar"/>
 	<classpathentry kind="lib" path="smackx.jar"/>
+	<classpathentry kind="lib" path="ymsg_network_v0_64.jar"/>
+	<classpathentry kind="lib" path="ymsg_support_v0_64.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
