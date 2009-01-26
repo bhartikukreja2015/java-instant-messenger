@@ -61,7 +61,6 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	public boolean isConnected() { return isConn; }
 
 	public void sendIM(IM theIM) {
-		System.out.println(theIM.to);
 		myCon.sendText(Email.parseStr(theIM.to), theIM.message);
 	}
 
