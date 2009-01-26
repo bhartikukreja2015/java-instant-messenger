@@ -72,8 +72,19 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	public void setListener(IMEvents theEvent) { theEvents = theEvent; }
 
 	public void setStatus(Buddy theStatus) {
-		// TODO Auto-generated method stub
+		MsnUserStatus toChange = null;
 		
+		if (theStatus.getStatus().equals(Buddy.available) || theStatus.getStatus().equals(Buddy.superAvailable)) {
+			toChange = MsnUserStatus.ONLINE;
+		} else if (theStatus.getStatus().equals(Buddy.away)) {
+			toChange = MsnUserStatus.BE_RIGHT_BACK;
+		} else if (theStatus.getStatus().equals(Buddy.doNotDistrub)) {
+			toChange = MsnUserStatus.BUSY;
+		} else if (theStatus.getStatus().equals(Buddy.superAway)) {
+			toChange = MsnUserStatus.OUT_TO_LUNCH;
+		}
+		
+		myCon.getOwner().setStatus(toChange);
 	}
 	
 	protected Buddy MSNContactToJimBuddy(MsnContact myMC) {
