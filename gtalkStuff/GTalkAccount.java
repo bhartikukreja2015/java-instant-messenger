@@ -143,7 +143,6 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	}
 
 	public void entriesAdded(Collection<String> arg0) {
-		System.out.println("Added: " + arg0);
 		
 	}
 
@@ -153,7 +152,6 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 	}
 
 	public void entriesUpdated(Collection<String> arg0) {
-		System.out.println("Updated: " + arg0);
 		
 	}
 
