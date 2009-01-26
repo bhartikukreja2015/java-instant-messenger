@@ -37,6 +37,7 @@ public class GtalkTest {
 		
 		BuddyListWindow myBLW = new BuddyListWindow(myAM, myIMWM);
 		myBLW.setVisible(true);
+		myBLW.getModel().setShowOffline(false);
 		
 		
 		

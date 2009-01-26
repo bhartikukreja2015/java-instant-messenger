@@ -1,12 +1,14 @@
 package guiStuff;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import abstractionLayer.Buddy;
 import upperAbstractionLayer.AccountManager;
 
-public class BuddyListWindow extends javax.swing.JFrame implements MouseListener {
+public class BuddyListWindow extends javax.swing.JFrame implements MouseListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	// Variables declaration - do not modify
@@ -27,6 +29,8 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         this.setTitle("Buddy List");
         initComponents();
     }
+    
+    public BuddyListModel getModel() { return theModel; }
 
     private void initComponents() {
 
@@ -42,7 +46,8 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         jScrollPane1.setViewportView(jlBuddies);
 
         jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.doNotDistrub, Buddy.superAway }));
-
+        jcStatus.addActionListener(this);
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,6 +80,20 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	public void mousePressed(MouseEvent arg0) { }
 
 	public void mouseReleased(MouseEvent arg0) { }
+
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == jcStatus) {
+			// the user is changing their status.
+			// let theAM know.
+			
+			Buddy b = new Buddy();
+			
+			b.setStatus((String) jcStatus.getSelectedItem());
+			b.setStatusMessage(null);
+			
+			theAM.setStatus(b);
+		}
+	}
 
 
 
