@@ -50,9 +50,9 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		
 		theChats = new ArrayList<Chat>();
 		myConfig = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
-		myConfig.setSocketFactory(SocketFactory.getDefault());
-		myConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
-		myConfig.setKeystoreType("jks");
+		//myConfig.setSocketFactory(SocketFactory.getDefault());
+		//myConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+		//myConfig.setKeystoreType("jks");
 		myCon = new XMPPConnection(myConfig);
 		try {
 			myCon.connect();

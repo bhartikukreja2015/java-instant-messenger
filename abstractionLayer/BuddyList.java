@@ -17,7 +17,16 @@ public class BuddyList {
 		if (isSorting) { sortList(); }
 	}
 	public void removeBuddy(Buddy theBuddy) { 
-		theList.remove(theBuddy);
+		int i = 0;
+		while (i != theList.size()) {
+			if (theList.get(i).getScreename() == theBuddy.getScreename()) {
+				if (theList.get(i).getAccount().getAccountSettings().getID() == theBuddy.theAccount.getAccountSettings().getID()) {
+					theList.remove(i);
+					break;
+				}
+			}
+			i++;
+		}
 		if (isSorting) { sortList(); }
 	}
 	

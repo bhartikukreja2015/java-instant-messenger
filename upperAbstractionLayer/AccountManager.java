@@ -123,5 +123,7 @@ public class AccountManager implements IMEvents {
 		
 		
 	}
+
+	public void buddyDeleted(Buddy theBuddy) { theList.removeBuddy(theBuddy); }
 	
 }
