@@ -73,6 +73,16 @@ public class IMWindowManager implements IMListener, BuddyListChangeListener {
 	}
 	
 	public void createIMWindow(Buddy b) {
+		// make sure we don't already have an IM window for this user...
+		for (IMWindow w : theWindows) {
+			if (w.getTo().getScreename().equals(b.getScreename())) {
+				// we already have a window for this user
+				// try to give it focus...
+				w.requestFocus();
+				return;
+			}
+		}
+		
 		IMWindow imw = new IMWindow(this);
 		imw.setTo(b);
 		
