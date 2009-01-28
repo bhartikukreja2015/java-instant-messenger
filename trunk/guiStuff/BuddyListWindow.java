@@ -1,5 +1,6 @@
 package guiStuff;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,7 +9,7 @@ import java.awt.event.MouseListener;
 import abstractionLayer.Buddy;
 import upperAbstractionLayer.AccountManager;
 
-public class BuddyListWindow extends javax.swing.JFrame implements MouseListener, ActionListener {
+public class BuddyListWindow extends javax.swing.JFrame implements MouseListener, ActionListener, BuddyPopupEvents {
 
 	private static final long serialVersionUID = 1L;
 	// Variables declaration - do not modify
@@ -20,6 +21,8 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
     private AccountManager theAM;
 	private BuddyListModel theModel;
 	private IMWindowManager theIwm;
+	
+	private BuddyPopupMenu theMenu;
     
     /** Creates new form BuddyListWindow */
     public BuddyListWindow(AccountManager AM, IMWindowManager iwm) {
@@ -67,6 +70,17 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
     }// </editor-fold>
 
 	public void mouseClicked(MouseEvent arg0) {
+		if (arg0.isPopupTrigger()) {
+			
+			// see if we clicked a real thing
+			Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
+			if (!(theRect.contains(arg0.getPoint()))) { return; }
+			
+			theMenu = new BuddyPopupMenu(this, jlBuddies.locationToIndex(arg0.getPoint()));
+			theMenu.show(jlBuddies, arg0.getX(), arg0.getY());
+			return;
+		}
+		
 		if (arg0.getClickCount() == 2) {
 			int index = jlBuddies.locationToIndex(arg0.getPoint());
 			theIwm.createIMWindow((Buddy) theModel.getElementAt(index));
@@ -79,7 +93,21 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 
 	public void mousePressed(MouseEvent arg0) { }
 
-	public void mouseReleased(MouseEvent arg0) { }
+	public void mouseReleased(MouseEvent arg0) {
+		// according to the java docs
+		// we need to check in mouseClicked and
+		// here in order to work right on all platforms.
+		
+		// see if we clicked a real thing
+		Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
+		if (!(theRect.contains(arg0.getPoint()))) { return; }
+		
+		if (arg0.isPopupTrigger()) {
+			theMenu = new BuddyPopupMenu(this, jlBuddies.locationToIndex(arg0.getPoint()));
+			theMenu.show(jlBuddies, arg0.getX(), arg0.getY());
+			return;
+		}
+	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == jcStatus) {
@@ -93,6 +121,18 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			
 			theAM.setStatus(b);
 		}
+	}
+
+	public void getInfo(int index) {
+		// TODO
+	}
+
+	public void setAlias(int index) {
+		// TODO
+	}
+
+	public void startIM(int index) {
+		theIwm.createIMWindow((Buddy) theModel.getElementAt(index));
 	}
 
 
