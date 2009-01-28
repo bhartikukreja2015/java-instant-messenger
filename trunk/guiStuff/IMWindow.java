@@ -17,7 +17,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel jlUsername;
+    private IMWindowJLabel jlUsername;
     private javax.swing.JTextField jtEntry;
     private javax.swing.JEditorPane jtIM;
     // End of variables declaration
@@ -39,12 +39,10 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
     
     public void setTo(Buddy to) {
     	chattingWith = to;
-    	
+    	jlUsername.setBuddy(to);
     	if (to.getAlias() != null) {
-    		jlUsername.setText(to.getAlias());
     		this.setTitle(to.getAlias());
     	} else {
-    		jlUsername.setText(to.getScreename());
     		this.setTitle(to.getScreename());
     	}
     }
@@ -94,7 +92,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
         jtIM = new JEditorPane("text/html", "");
         jtEntry = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jlUsername = new javax.swing.JLabel();
+        jlUsername = new IMWindowJLabel();
 
         jTextField2.setText("jTextField2");
 
