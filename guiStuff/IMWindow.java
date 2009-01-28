@@ -37,13 +37,15 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
         myIMWM = theW;
     }
     
-    public void setTo(Buddy to) { 
+    public void setTo(Buddy to) {
     	chattingWith = to;
     	
     	if (to.getAlias() != null) {
     		jlUsername.setText(to.getAlias());
+    		this.setTitle(to.getAlias());
     	} else {
     		jlUsername.setText(to.getScreename());
+    		this.setTitle(to.getScreename());
     	}
     }
     public Buddy getTo() { return chattingWith; }
