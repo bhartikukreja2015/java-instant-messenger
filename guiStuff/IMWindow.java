@@ -140,6 +140,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
 
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == jtEntry) {
+			if (jtEntry.getText().equals("")) { return; } // don't send an IM with nothing in it
 			IM theIM = new IM();
 			theIM.to = chattingWith.getScreename();
 			theIM.from = chattingWith.getAccount().getAccountSettings().getUsername();
@@ -154,7 +155,6 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
 	}
 
 	public void focusGained(FocusEvent arg0) {
-		System.out.println("Got focus");
 		jtEntry.requestFocusInWindow();
 	}
 
