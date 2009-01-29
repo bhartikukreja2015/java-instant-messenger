@@ -139,13 +139,13 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		
 		theEvents.gotIM(myIM);
 	}
-
+	
+	// TODO trigger buddy list changes for all of these events
 	public void entriesAdded(Collection<String> arg0) {
 		
 	}
 
 	public void entriesDeleted(Collection<String> arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
