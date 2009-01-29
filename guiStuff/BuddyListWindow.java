@@ -124,7 +124,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	}
 
 	public void getInfo(int index) {
-		// TODO
+		// TODO show the buddy info window
 	}
 
 	public void setAlias(int index) {

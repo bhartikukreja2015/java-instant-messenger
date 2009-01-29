@@ -59,16 +59,14 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 			myCon.login(theSettings.getUsername(), theSettings.getPassword());
 			myCon.refreshFriends();
 		} catch (AccountLockedException e) {
-			// TODO Auto-generated catch block
+			// TODO needs to be implemented
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (LoginRefusedException e) {
-			// TODO Auto-generated catch block
+			// TODO needs to be implemented
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
