@@ -1,14 +1,12 @@
 package guiStuff;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JLabel;
 
-import abstractionLayer.Buddy;
-
 import mainIconSet.IconFetch;
+import abstractionLayer.Buddy;
 
 public class IMWindowJLabel extends JLabel {
 
@@ -29,7 +27,8 @@ public class IMWindowJLabel extends JLabel {
 		toRender = b;
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponents(Graphics g) {
+		
 		int theHeight = this.getHeight();
 		int theWidth = this.getWidth();
 		
