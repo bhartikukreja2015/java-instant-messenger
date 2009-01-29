@@ -1,14 +1,16 @@
 package abstractionLayer;
 
+import jimPreferences.PreferencePoint;
+
 public class Buddy {
 	public static final String available = "Available";
 	public static final String superAvailable = "Chatty";
 	public static final String away = "Away";
 	public static final String superAway = "Really away";
 	public static final String doNotDistrub = "Do not distrub";
-	
 	public static final String offline = "Offline";
 	
+	public boolean saveAlias = true;
 	
 	protected String screenname;
 	protected String alias;
@@ -58,7 +60,30 @@ public class Buddy {
 	public void setStatusMessage(String theStatusMessage) { statusMessage = theStatusMessage; }
 	public String getStatusMessage() { return statusMessage; }
 	
-	public void setAlias(String a) { alias = a; }
+	// by default, this method will NOT override a value we've already saved.
+	public void setAlias(String a) { 
+		setAlias(a, false);
+	}
+	
+	public void setAlias(String a, boolean overwriteSaved) { 
+		PreferencePoint PP = new PreferencePoint();
+		
+		if (saveAlias) {
+			if (!overwriteSaved) {
+				// see if we already have a saved value...
+				String saved = PP.getAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername());
+				if (saved != null) {
+					alias = saved;
+					return;
+				}
+			}
+			
+			// no alias was saved or we are overwritting, so save this one...
+			PP.setAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername(), a);
+		}
+		
+		alias = a;
+	}
 	public String getAlias() { return alias; }
 	
 	public void setAccount(AbstractAccount aa) { theAccount = aa; }

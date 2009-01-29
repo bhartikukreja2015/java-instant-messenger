@@ -107,6 +107,7 @@ public class PreferencePoint {
 	
 	public void setAliasForScreenname(String screenname, String accountName, String alias) {
 		Preferences aliasNode = myPrefs.node("Aliases");
+		
 		aliasNode = aliasNode.node(accountName);
 		
 		aliasNode.put(screenname, alias);

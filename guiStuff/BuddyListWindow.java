@@ -128,7 +128,8 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	}
 
 	public void setAlias(int index) {
-		// TODO
+		SetAliasWindow mySet = new SetAliasWindow((Buddy) theModel.getElementAt(index), theAM);
+		mySet.setVisible(true);
 	}
 
 	public void startIM(int index) {
