@@ -29,7 +29,7 @@ public class IMWindowJLabel extends JLabel {
 		toRender = b;
 	}
 	
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		int theHeight = this.getHeight();
 		int theWidth = this.getWidth();
 		
@@ -51,8 +51,4 @@ public class IMWindowJLabel extends JLabel {
 		g.drawImage(theFetch.loadImage(toRender.getStatus()), graphicX, graphicY, graphicHeight * iSF, graphicWidth * iSF, null);
 	}
 	
-	
-	public Dimension getPreferredSize() {
-		return new Dimension(0, 32);
-	}
 }
