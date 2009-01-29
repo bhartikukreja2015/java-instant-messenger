@@ -17,7 +17,7 @@ import abstractionLayer.BuddyList;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
 
-public class AccountManager implements IMEvents {
+public class AccountManager implements IMEvents, AliasChangeEvent {
 	private ArrayList<AbstractAccount> theAccounts;
 	private ArrayList<AccountSettings> theSettings;
 	private BuddyList theList;
@@ -129,5 +129,12 @@ public class AccountManager implements IMEvents {
 	}
 
 	public void buddyDeleted(Buddy theBuddy) { theList.removeBuddy(theBuddy); }
+
+	public void buddyAliasChanged(Buddy b) {
+		theList.updateBuddy(b);
+		for (BuddyListChangeListener blcl : theBLCL) {
+			blcl.BuddyListChange(theList);
+		}
+	}
 	
 }

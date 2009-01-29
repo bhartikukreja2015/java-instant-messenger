@@ -124,6 +124,6 @@ public class BuddyList {
 		
 		return i;
 	}
-	
+
 	
 }
