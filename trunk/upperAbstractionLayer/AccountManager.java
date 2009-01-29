@@ -101,12 +101,6 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	
 	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
 		if (firstTime) {
-			// if alias is null, we need to see if we have a stored alias
-			if (theBuddy.getAlias() == null) {
-				PreferencePoint PP = new PreferencePoint();
-				// TODO
-			}
-			
 			theList.addBuddy(theBuddy);
 		} else {
 			theList.updateBuddy(theBuddy);

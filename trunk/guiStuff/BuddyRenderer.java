@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.SystemColor;
 
 import mainIconSet.IconFetch;
-
-
 import abstractionLayer.Buddy;
 
 public class BuddyRenderer extends Component {

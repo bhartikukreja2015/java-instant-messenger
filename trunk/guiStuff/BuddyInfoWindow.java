@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class BuddyInfoWindow extends javax.swing.JFrame {
+	private static final long serialVersionUID = 1L;
 	private JLabel jlUsername;
 	private JLabel jlAliasLabel;
 	private JLabel jlStatusLabel;

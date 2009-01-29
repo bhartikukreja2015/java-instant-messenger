@@ -30,7 +30,9 @@ public class IMWindowJLabel extends JLabel {
 	public void paintComponents(Graphics g) {
 		
 		int theHeight = this.getHeight();
-		int theWidth = this.getWidth();
+		
+		// uncomment if ever needed...
+		//int theWidth = this.getWidth();
 		
 		IconFetch theFetch = new IconFetch();
 		
