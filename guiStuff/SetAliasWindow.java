@@ -6,21 +6,16 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import javax.swing.WindowConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 import upperAbstractionLayer.AccountManager;
 import upperAbstractionLayer.AliasChangeEvent;
-
 import abstractionLayer.Buddy;
-
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import jimPreferences.PreferencePoint;
 
 
 /**
@@ -36,6 +31,7 @@ import jimPreferences.PreferencePoint;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class SetAliasWindow extends javax.swing.JFrame implements ActionListener, DocumentListener {
+	private static final long serialVersionUID = 1L;
 	private JLabel jLabel1;
 	private JTextField jtAlias;
 	private JButton jbSave;
