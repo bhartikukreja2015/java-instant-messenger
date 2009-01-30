@@ -129,7 +129,11 @@ public class BuddyList {
 	}
 	
 	public Buddy getTopOfMerge(int mergeID) {
-		Buddy myB = new Buddy();
+		return getBuddiesInMerge(mergeID).get(0);
+	}
+	
+	public ArrayList<Buddy> getBuddiesInMerge(int mergeID) {
+	Buddy myB = new Buddy();
 		
 		ArrayList<Buddy> theMerge = new ArrayList<Buddy>();
 		
@@ -141,7 +145,7 @@ public class BuddyList {
 		
 		theMerge = sortList(theMerge);
 		
-		return myB;
+		return theMerge;
 	}
 	
 }
