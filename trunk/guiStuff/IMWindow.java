@@ -138,7 +138,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
         this.addFocusListener(this);
     }// </editor-fold>                        
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0) {		
 		if (arg0.getSource() == jtEntry) {
 			if (jtEntry.getText().equals("")) { return; } // don't send an IM with nothing in it
 			IM theIM = new IM();
