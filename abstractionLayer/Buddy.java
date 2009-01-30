@@ -71,6 +71,7 @@ public class Buddy {
 		if (saveAlias) {
 			if (!overwriteSaved) {
 				// see if we already have a saved value...
+				System.out.println("Checking...");
 				String saved = PP.getAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername());
 				if (saved != null) {
 					alias = saved;
@@ -79,7 +80,10 @@ public class Buddy {
 			}
 			
 			// no alias was saved or we are overwritting, so save this one...
-			PP.setAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername(), a);
+			// if the sent alias wasn't null
+			if (a != null) {
+				PP.setAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername(), a);
+			}
 		}
 		
 		alias = a;
