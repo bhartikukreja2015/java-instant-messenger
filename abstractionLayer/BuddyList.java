@@ -14,7 +14,7 @@ public class BuddyList {
 	
 	public void addBuddy(Buddy theBuddy) { 
 		theList.add(theBuddy);
-		if (isSorting) { sortList(); }
+		if (isSorting) { theList = sortList(theList); }
 	}
 	public void removeBuddy(Buddy theBuddy) { 
 		int i = 0;
@@ -27,7 +27,7 @@ public class BuddyList {
 			}
 			i++;
 		}
-		if (isSorting) { sortList(); }
+		if (isSorting) { theList = sortList(theList); }
 	}
 	
 	public void updateBuddy(Buddy theBuddy) {
@@ -45,7 +45,7 @@ public class BuddyList {
 				
 				theList.set(i, theBuddy);
 				
-				if (isSorting) { sortList(); }
+				if (isSorting) { theList = sortList(theList); }
 				return;
 			}
 			i++;
@@ -53,7 +53,7 @@ public class BuddyList {
 		
 		// we didn't find the buddy, so add it.
 		addBuddy(theBuddy);
-		if (isSorting) { sortList(); }
+		if (isSorting) { theList = sortList(theList); }
 	}
 	
 	public ArrayList<Buddy> getAllBuddies() { return theList; }
@@ -75,17 +75,17 @@ public class BuddyList {
 		return "";
 	}
 	
-	protected void sortList() {
+	protected ArrayList<Buddy> sortList(ArrayList<Buddy> ourList) {
 		// selection sort method
 		int i = 0, count = 0;
 		
 		// get all av. users on top
-		while (count != theList.size()) {
-			if (theList.get(count).getStatus() == Buddy.available) {
+		while (count != ourList.size()) {
+			if (ourList.get(count).getStatus() == Buddy.available) {
 				// swap this one out with whatever i we are on
-				Buddy b = theList.get(i);
-				theList.set(i, theList.get(count));
-				theList.set(count, b);
+				Buddy b = ourList.get(i);
+				ourList.set(i, ourList.get(count));
+				ourList.set(count, b);
 				i++;
 			}
 			count++;
@@ -93,11 +93,11 @@ public class BuddyList {
 		
 		// now get everyone who is away
 		count = i;
-		while (count != theList.size()) {
-			if (theList.get(count).getStatus() == Buddy.away) {
-				Buddy b = theList.get(i);
-				theList.set(i, theList.get(count));
-				theList.set(count, b);
+		while (count != ourList.size()) {
+			if (ourList.get(count).getStatus() == Buddy.away) {
+				Buddy b = ourList.get(i);
+				ourList.set(i, ourList.get(count));
+				ourList.set(count, b);
 				i++;
 			}
 			count++;
@@ -105,16 +105,19 @@ public class BuddyList {
 		
 		// now everyone who isn't offline
 		count = i;
-		while (count != theList.size()) {
-			if (theList.get(count).isOnline()) {
-				Buddy b = theList.get(i);
-				theList.set(i, theList.get(count));
-				theList.set(count, b);
+		while (count != ourList.size()) {
+			if (ourList.get(count).isOnline()) {
+				Buddy b = ourList.get(i);
+				ourList.set(i, ourList.get(count));
+				ourList.set(count, b);
 				i++;
 			}
 			count++;
 		}
+		
+		return ourList;
 	}
+	
 	
 	public int getOfflineCount() {
 		int i = 0;
@@ -124,6 +127,21 @@ public class BuddyList {
 		
 		return i;
 	}
-
+	
+	public Buddy getTopOfMerge(int mergeID) {
+		Buddy myB = new Buddy();
+		
+		ArrayList<Buddy> theMerge = new ArrayList<Buddy>();
+		
+		for (Buddy b : theList) {
+			if (myB.mergeID == mergeID) {
+				theMerge.add(b);
+			}
+		}
+		
+		theMerge = sortList(theMerge);
+		
+		return myB;
+	}
 	
 }

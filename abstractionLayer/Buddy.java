@@ -16,6 +16,7 @@ public class Buddy {
 	protected String alias;
 	protected String groupName;
 	protected int mergeID;
+	protected int mergePriority;
 	protected boolean onlineStatus;
 	protected String status;
 	protected String statusMessage;
@@ -45,6 +46,9 @@ public class Buddy {
 	
 	public void setMergeID(int mi) { mergeID = mi; }
 	public int getMergeID() { return mergeID; }
+	
+	public void setMergePrioroity(int mp) { mergePriority = mp; }
+	public int getMergePrioroity() { return mergePriority; }
 	
 	public void setOnlineStatus(boolean online) { 
 		onlineStatus = online;
