@@ -99,8 +99,6 @@ public class PreferencePoint {
 	}
 	
 	public String getAliasForScreenname(String screenname, String accountName) {
-		System.out.println("Getting: " + screenname + " on " + accountName);
-		
 		Preferences aliasNode = myPrefs.node("Aliases");
 		aliasNode = aliasNode.node(accountName);
 		
@@ -108,8 +106,6 @@ public class PreferencePoint {
 	}
 	
 	public void setAliasForScreenname(String screenname, String accountName, String alias) {
-		System.out.println("Saving: " + screenname + " as " + alias + " on " + accountName);
-		
 		Preferences aliasNode = myPrefs.node("Aliases");
 		
 		aliasNode = aliasNode.node(accountName);

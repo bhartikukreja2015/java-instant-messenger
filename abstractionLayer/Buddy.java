@@ -71,7 +71,6 @@ public class Buddy {
 		if (saveAlias) {
 			if (!overwriteSaved) {
 				// see if we already have a saved value...
-				System.out.println("Checking...");
 				String saved = PP.getAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername());
 				if (saved != null) {
 					alias = saved;
