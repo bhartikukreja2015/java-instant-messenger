@@ -17,16 +17,43 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	protected BuddyList theBuddyList;
 	protected ArrayList<ListDataListener> theListeners;
 	protected boolean showOffline;
+	protected ArrayList<Buddy> toShow;
 	
 	public BuddyListModel(AccountManager theAM) {
 		theAM.addBuddyListChangeListener(this);
 		theBuddyList = theAM.getBuddyList();
+		toShow = new ArrayList<Buddy>();
 		theListeners = new ArrayList<ListDataListener>();
 		showOffline = true;
 	}
 	
+	protected void updateToShow() {
+		// first, load the new arraylist of buddies
+		toShow = theBuddyList.getAllBuddies();
+		
+		// see if we are showing offline users
+		if (!showOffline) {
+			// we are not showing offline users... remove any online users from the list.
+			int i = 0;
+			while (i != toShow.size()) {
+				if (!toShow.get(i).isOnline()) {
+					// this user isn't offline... they don't get to be shown!
+					toShow.remove(i);
+					i = 0;
+				} else {
+					i++;
+				}
+			}
+		}
+		
+		// deal with merges...
+		
+		this.doMerge();
+	}
+	
 	public void setShowOffline(boolean b) {
 		showOffline = b;
+		updateToShow();
 		for (ListDataListener ldl : theListeners) {
 			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
 		}
@@ -36,6 +63,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	
 	public void BuddyListChange(BuddyList b) {
 		theBuddyList = b;
+		updateToShow();
 		for (ListDataListener ldl : theListeners) {
 			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
 		}
@@ -46,29 +74,11 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	}
 
 	public Object getElementAt(int arg0) {
-		if (showOffline) {
-			return theBuddyList.getAllBuddies().get(arg0);
-		}
-		
-		// get a new list of all non-offline users
-		ArrayList<Buddy> onlineUsers = new ArrayList<Buddy>();
-		for (Buddy b : theBuddyList.getAllBuddies()) {
-			if (b.isOnline()) { onlineUsers.add(b); }
-		}
-		
-		return onlineUsers.get(arg0);
+		return toShow.get(arg0);
 	}
 
 	public int getSize() {
-		if (theBuddyList.getAllBuddies() == null) { 
-			return 0;
-		}
-		
-		if (showOffline) {
-			return theBuddyList.getAllBuddies().size();
-		}
-		
-		return (theBuddyList.getAllBuddies().size() - theBuddyList.getOfflineCount()); 
+		return toShow.size();
 	}
 
 	public void removeListDataListener(ListDataListener arg0) {
@@ -77,24 +87,36 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 
 	protected void doMerge() {
 		int count = 0;
-		ArrayList<Buddy> theList = theBuddyList.getAllBuddies();
-		
-		for (Buddy b : theList) {
-			int mergeID = b.getMergeID();
-			if (mergeID == 0) { break; }
-			// if we are still here
-			// we have a merge id
-			count = 0;
+		while (count != toShow.size()) {
+			Buddy b = toShow.get(count);
 			
-			while (count != theList.size()) {
-				if (theList.get(count).getMergeID() == mergeID) {
-					theList.remove(count);
-					count = 0;
+			int mergeID = b.getMergeID();
+			if (mergeID == 0) { count++; break; }
+			// if we are still here we have a merge ID
+			ArrayList<Buddy> usersInMerge = theBuddyList.getBuddiesInMerge(mergeID);
+			
+			// the topmost user (index: 0) of usersInMerge is the user we are going to show
+			// all the rest need to be removed from the list
+			
+			// 1. Make sure the topmost user will be shown
+			toShow.set(count, usersInMerge.get(0));
+			usersInMerge.remove(0); // we don't want to remove that user from the list
+			
+			// 2. Remove all the rest of the users from the list
+			for (Buddy theBud : usersInMerge) {
+				int i = 0;
+				while (i != toShow.size()) {
+					if (theBud.getScreename().equals(toShow.get(i).getScreename())) {
+						// we need to remove this user
+						toShow.remove(i);
+						i = toShow.size(); // make sure the loop doesn't contintue
+					} else {
+						i++;
+					}
 				}
-				count++;
 			}
 			
-			
+			count++;
 		}
 	}
 }

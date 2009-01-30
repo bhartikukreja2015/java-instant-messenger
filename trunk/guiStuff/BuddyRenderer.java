@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import upperAbstractionLayer.AccountManager;
+
 import mainIconSet.IconFetch;
 import abstractionLayer.Buddy;
 
@@ -19,15 +21,17 @@ public class BuddyRenderer extends Component {
 	private final int graphicY = 8;
 	
 	
-	Buddy toShow; 
-	int theWidth;
-	boolean isSelected;
+	protected Buddy toShow; 
+	protected int theWidth;
+	protected boolean isSelected;
+	protected AccountManager myAM;
 	
-	public BuddyRenderer(Buddy theBuddy, int width, boolean isSel) {
+	public BuddyRenderer(Buddy theBuddy, int width, boolean isSel, AccountManager theAM) {
 		super();
 		toShow = theBuddy;
 		theWidth = width;
 		isSelected = isSel;
+		myAM = theAM;
 	}
 	
 	public void paint(Graphics g) {
@@ -96,6 +100,15 @@ public class BuddyRenderer extends Component {
 			g.drawString(toShow.getStatus(), widthPadding, yStatusBaseline);
 		} else if (!toShow.isOnline()) {
 			g.drawString(Buddy.offline, widthPadding, yStatusBaseline);
+		}
+		
+		// see if we are part of a merge
+		if (toShow.getMergeID() != 0) {
+			// we're part of merge. Figure out how many are in the merge, and show the text
+			int numInMerge = myAM.getBuddyList().getBuddiesInMerge(toShow.getMergeID()).size();
+			int xMergeText = theWidth - 50;
+			
+			g.drawString("+ " + numInMerge, xMergeText, yStatusBaseline);
 		}
 	}
 	
