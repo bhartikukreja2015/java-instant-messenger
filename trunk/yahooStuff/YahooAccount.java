@@ -269,6 +269,10 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		
 		myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
 		
+		// We've got to set the alias to something
+		// so that we check to see if we have a saved one
+		myBuddy.setAlias(null);
+		
 		return myBuddy;
 	}
 	
