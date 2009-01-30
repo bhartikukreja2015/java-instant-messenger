@@ -2,14 +2,12 @@ package guiStuff;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
-
 import javax.swing.WindowConstants;
+
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 import abstractionLayer.Buddy;
-
-import javax.swing.SwingUtilities;
 
 
 /**
