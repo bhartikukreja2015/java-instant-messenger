@@ -98,11 +98,11 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 		// we need to check in mouseClicked and
 		// here in order to work right on all platforms.
 		
-		// see if we clicked a real thing
-		Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
-		if (!(theRect.contains(arg0.getPoint()))) { return; }
-		
 		if (arg0.isPopupTrigger()) {
+			// see if we clicked a real thing
+			Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
+			if (!(theRect.contains(arg0.getPoint()))) { return; }
+			
 			theMenu = new BuddyPopupMenu(this, jlBuddies.locationToIndex(arg0.getPoint()));
 			theMenu.show(jlBuddies, arg0.getX(), arg0.getY());
 			return;
@@ -124,7 +124,9 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	}
 
 	public void getInfo(int index) {
-		// TODO show the buddy info window
+		BuddyInfoWindow myWin = new BuddyInfoWindow();
+		myWin.setBuddy((Buddy) theModel.getElementAt(index));
+		myWin.setVisible(true);
 	}
 
 	public void setAlias(int index) {

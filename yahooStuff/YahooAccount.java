@@ -263,6 +263,10 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 			}
 			
 			myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
+		
+		} else if (myYU.getStatus() == StatusConstants.STATUS_OFFLINE) {
+			myBuddy.setStatus(Buddy.offline);
+			myBuddy.setOnlineStatus(false);
 		} else {
 			System.out.println("Got unknown status in Yahoo: " + myYU.getStatus());
 		}

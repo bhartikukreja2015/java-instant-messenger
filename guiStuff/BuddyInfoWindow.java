@@ -6,6 +6,9 @@ import javax.swing.JSeparator;
 import javax.swing.WindowConstants;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
+
+import abstractionLayer.Buddy;
+
 import javax.swing.SwingUtilities;
 
 
@@ -36,17 +39,19 @@ public class BuddyInfoWindow extends javax.swing.JFrame {
 	private JLabel jlScreenname;
 	private JLabel jlScreenameLabel;
 
-	/**
-	* Auto-generated main method to display this JFrame
-	*/
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				BuddyInfoWindow inst = new BuddyInfoWindow();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-			}
-		});
+	
+	public void setBuddy(Buddy b) {
+		jlAccountType.setText(b.getAccount().getAccountSettings().getAccountType());
+		jlAccount.setText(b.getAccount().getAccountSettings().getAlias());
+		jlStatus.setText(b.getStatus());
+		
+		if (b.getAlias() != null) {
+			jlAlias.setText(b.getAlias());
+		} else {
+			jlAlias.setText("Not set");
+		}
+		
+		jlScreenname.setText(b.getScreename());
 	}
 	
 	public BuddyInfoWindow() {

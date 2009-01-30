@@ -87,6 +87,9 @@ public class Buddy {
 		
 		alias = a;
 	}
+	
+	public void directSetAlias(String a) { alias = a; }
+	
 	public String getAlias() { return alias; }
 	
 	public void setAccount(AbstractAccount aa) { theAccount = aa; }
