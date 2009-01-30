@@ -75,4 +75,26 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 		theListeners.remove(arg0);
 	}
 
+	protected void doMerge() {
+		int count = 0;
+		ArrayList<Buddy> theList = theBuddyList.getAllBuddies();
+		
+		for (Buddy b : theList) {
+			int mergeID = b.getMergeID();
+			if (mergeID == 0) { break; }
+			// if we are still here
+			// we have a merge id
+			count = 0;
+			
+			while (count != theList.size()) {
+				if (theList.get(count).getMergeID() == mergeID) {
+					theList.remove(count);
+					count = 0;
+				}
+				count++;
+			}
+			
+			
+		}
+	}
 }
