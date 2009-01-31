@@ -25,6 +25,8 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 		toShow = new ArrayList<Buddy>();
 		theListeners = new ArrayList<ListDataListener>();
 		showOffline = true;
+		
+		updateToShow();
 	}
 	
 	protected void updateToShow() {
