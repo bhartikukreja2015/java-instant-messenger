@@ -13,21 +13,21 @@ public class IMWindowJLabel extends JLabel {
 	private static final long serialVersionUID = 1L;
 	
 	
-	private static final int graphicX = 5;
-	private static final int graphicY = 5;
+	private static final int graphicX = 0;
+	private static final int graphicY = 0;
 	protected static final int graphicTextSpace = 10;
 	
 	protected Buddy toRender;
 	
 	public IMWindowJLabel()  {
-		
+		super();
 	}
 	
 	public void setBuddy(Buddy b) {
 		toRender = b;
 	}
 	
-	public void paintComponents(Graphics g) {
+	public void paint(Graphics g) {
 		
 		int theHeight = this.getHeight();
 		
@@ -44,12 +44,21 @@ public class IMWindowJLabel extends JLabel {
 		
 		
 		double scalingFactor = theHeight - (IMWindowJLabel.graphicY * 2); // inital Y we have
-		scalingFactor = graphicHeight / scalingFactor;
-		
-		int iSF = (int) scalingFactor;
+		System.out.println("SF: " + scalingFactor + "/" + graphicHeight);
+		scalingFactor =  scalingFactor / graphicHeight;
+		System.out.println("SF: " + scalingFactor);
 		// scalingFactor is now orignal / render
 		
-		g.drawImage(theFetch.loadImage(toRender.getStatus()), graphicX, graphicY, graphicHeight * iSF, graphicWidth * iSF, null);
+		int scaledWidth = (int) ((int) graphicWidth * scalingFactor);
+		int scaledHeight = (int) ((int) graphicHeight * scalingFactor);
+		
+		System.out.println((graphicWidth * scalingFactor) + "x" + scaledHeight);
+		
+		g.drawImage(theFetch.loadImage(toRender.getStatus()), graphicX, graphicY, scaledWidth, scaledHeight, 0, 0, graphicWidth, graphicHeight, null);
+		
+		int fontHeight = g.getFontMetrics().getHeight();
+		g.drawString(toRender.getScreename(), scaledWidth + graphicTextSpace, (theHeight / 2) + (fontHeight / 4));
+	
 	}
 	
 }
