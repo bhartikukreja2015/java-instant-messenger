@@ -4,21 +4,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import javax.swing.GroupLayout;
 
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class IMWindow extends javax.swing.JFrame implements ActionListener, FocusListener {
     
     // Variables declaration - do not modify                     
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField2;
-    private JLabel jlUsername;
+    private IMWindowJLabel jlUsername;
     private javax.swing.JTextField jtEntry;
     private javax.swing.JEditorPane jtIM;
     // End of variables declaration
@@ -40,6 +55,7 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
     
     public void setTo(Buddy to) {
     	chattingWith = to;
+    	jlUsername.setBuddy(to);
     	if (to.getAlias() != null) {
     		jlUsername.setText(to.getAlias());
     		this.setTitle(to.getAlias());
@@ -94,7 +110,8 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
         jtIM = new JEditorPane("text/html", "");
         jtEntry = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jlUsername = new JLabel();
+        jlUsername = new IMWindowJLabel();
+        //jlUsername.setSize(jlUsername.getWidth() * 2, jlUsername.getHeight());
 
         jTextField2.setText("jTextField2");
 
@@ -108,30 +125,24 @@ public class IMWindow extends javax.swing.JFrame implements ActionListener, Focu
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addComponent(jtEntry, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addComponent(jlUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlUsername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        layout.setVerticalGroup(layout.createSequentialGroup()
+        	.addGap(7)
+        	.addComponent(jlUsername, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+        	.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	.addComponent(jScrollPane1, 0, 176, Short.MAX_VALUE)
+        	.addGap(18)
+        	.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+        	.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	.addComponent(jtEntry, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+        	.addContainerGap());
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+        	.addContainerGap()
+        	.addGroup(layout.createParallelGroup()
+        	    .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 376, Short.MAX_VALUE)
+        	    .addComponent(jSeparator1, GroupLayout.Alignment.LEADING, 0, 376, Short.MAX_VALUE)
+        	    .addComponent(jtEntry, GroupLayout.Alignment.LEADING, 0, 376, Short.MAX_VALUE)
+        	    .addComponent(jlUsername, GroupLayout.Alignment.LEADING, 0, 376, Short.MAX_VALUE))
+        	.addContainerGap());
 
         pack();
         
