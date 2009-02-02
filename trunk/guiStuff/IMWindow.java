@@ -7,7 +7,6 @@ import java.awt.event.FocusListener;
 import javax.swing.GroupLayout;
 
 import javax.swing.JEditorPane;
-import javax.swing.JLabel;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 
