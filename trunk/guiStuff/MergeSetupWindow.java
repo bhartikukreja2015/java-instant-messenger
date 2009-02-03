@@ -85,26 +85,26 @@ public class MergeSetupWindow extends javax.swing.JFrame {
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 				    .addComponent(jComboBox1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				    .addComponent(jbPlus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				    .addComponent(jbMinus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap());
+				.addContainerGap(39, 39));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
 				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 362, Short.MAX_VALUE)
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(jbPlus, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				        .addComponent(jbMinus, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				        .addComponent(jComboBox1, 0, 272, Short.MAX_VALUE)))
+				        .addComponent(jComboBox1, 0, 272, Short.MAX_VALUE))
+				    .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 362, Short.MAX_VALUE))
 				.addContainerGap());
 			pack();
-			this.setSize(396, 209);
+			this.setSize(392, 173);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
