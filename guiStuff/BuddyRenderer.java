@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import javax.swing.JComponent;
+
 import upperAbstractionLayer.AccountManager;
 
 import mainIconSet.IconFetch;
@@ -25,16 +27,25 @@ public class BuddyRenderer extends Component {
 	protected int theWidth;
 	protected boolean isSelected;
 	protected AccountManager myAM;
+	protected JComponent toFetch;
 	
-	public BuddyRenderer(Buddy theBuddy, int width, boolean isSel, AccountManager theAM) {
+	public BuddyRenderer(Buddy theBuddy, JComponent theComp, boolean isSel, AccountManager theAM) {
 		super();
 		toShow = theBuddy;
-		theWidth = width;
+		
+		theWidth = theComp.getWidth();
 		isSelected = isSel;
 		myAM = theAM;
+		toFetch = theComp;
 	}
 	
 	public void paint(Graphics g) {
+		
+		theWidth = toFetch.getWidth();
+		
+		System.out.println(theWidth);
+		
+		if (toShow == null) { return; }
 		
 		if (isSelected) {
 			g.setColor(Color.LIGHT_GRAY);

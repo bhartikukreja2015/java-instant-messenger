@@ -65,25 +65,23 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 		// deal with merges...
 		
 		if (hideMerged) {this.doMerge(); }
+		
+		// let everybody know..
+		for (ListDataListener ldl : theListeners) {
+			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
+		}
 	}
 	
 	public void setShowOffline(boolean b) {
 		showOffline = b;
 		updateToShow();
-		for (ListDataListener ldl : theListeners) {
-			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
-		}
 	}
 	
 	public boolean isShowingOffline() { return showOffline; }
 	
 	public void setHideMerged(boolean b) {
 		hideMerged = b;
-		
 		updateToShow();
-		for (ListDataListener ldl : theListeners) {
-			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
-		}
 	}
 	
 	public boolean isHidingMerged() { return hideMerged; }
@@ -91,9 +89,6 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 	public void BuddyListChange(BuddyList b) {
 		theBuddyList = b;
 		updateToShow();
-		for (ListDataListener ldl : theListeners) {
-			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
-		}
 	}
 
 	public void addListDataListener(ListDataListener arg0) {

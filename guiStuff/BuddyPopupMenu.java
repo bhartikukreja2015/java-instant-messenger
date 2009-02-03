@@ -11,6 +11,7 @@ public class BuddyPopupMenu extends JPopupMenu implements ActionListener {
 	public static final String openIM = "Start IM";
 	public static final String getInfo = "Get info";
 	public static final String setAlias = "Set alias";
+	public static final String setupMerge = "Setup merge";
 	
 	protected BuddyPopupEvents ev;
 	protected int theIndex;
@@ -25,6 +26,8 @@ public class BuddyPopupMenu extends JPopupMenu implements ActionListener {
 		myJMI.addActionListener(this);
 		this.add(myJMI);
 		
+		this.addSeparator();
+		
 		myJMI = new JMenuItem(BuddyPopupMenu.getInfo);
 		myJMI.addActionListener(this);
 		this.add(myJMI);
@@ -32,6 +35,12 @@ public class BuddyPopupMenu extends JPopupMenu implements ActionListener {
 		myJMI = new JMenuItem(BuddyPopupMenu.setAlias);
 		myJMI.addActionListener(this);
 		this.add(myJMI);
+		
+		this.addSeparator();
+		myJMI = new JMenuItem(BuddyPopupMenu.setupMerge);
+		myJMI.addActionListener(this);
+		this.add(myJMI);	
+		
 		
 	}
 
@@ -46,6 +55,9 @@ public class BuddyPopupMenu extends JPopupMenu implements ActionListener {
 				return;
 			} else if (myItem.getText().equals(BuddyPopupMenu.setAlias)) {
 				ev.setAlias(theIndex);
+				return;
+			} else if (myItem.getText().equals(BuddyPopupMenu.setupMerge)) {
+				ev.setupMerge(theIndex);
 				return;
 			}
 		}
