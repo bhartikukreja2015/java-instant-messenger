@@ -133,19 +133,29 @@ public class BuddyList {
 	}
 	
 	public ArrayList<Buddy> getBuddiesInMerge(int mergeID) {
-	Buddy myB = new Buddy();
-		
+		Buddy myB = new Buddy();
+
 		ArrayList<Buddy> theMerge = new ArrayList<Buddy>();
-		
+
 		for (Buddy b : theList) {
 			if (myB.mergeID == mergeID) {
 				theMerge.add(b);
 			}
 		}
-		
+
 		theMerge = sortList(theMerge);
-		
+
 		return theMerge;
+	}
+	
+	public ArrayList<Buddy> getUnmergedBuddies() {
+		ArrayList<Buddy> toReturn = new ArrayList<Buddy>();
+		
+		for (Buddy b : theList) {
+			if (b.getMergeID() == 0) { toReturn.add(b); }
+		}
+		
+		return toReturn;
 	}
 	
 }
