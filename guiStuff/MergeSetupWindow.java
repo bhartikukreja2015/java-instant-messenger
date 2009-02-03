@@ -27,6 +27,10 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class MergeSetupWindow extends javax.swing.JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JList jList1;
 	private JScrollPane jScrollPane1;
 	private JButton jbMinus;
