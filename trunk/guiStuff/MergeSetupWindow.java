@@ -1,6 +1,4 @@
 package guiStuff;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -8,10 +6,10 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
-import javax.swing.ListModel;
-
 import javax.swing.WindowConstants;
-import javax.swing.SwingUtilities;
+
+import upperAbstractionLayer.AccountManager;
+import abstractionLayer.BuddyList;
 
 
 /**
@@ -27,6 +25,10 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class MergeSetupWindow extends javax.swing.JFrame {
+	
+	protected BuddyListModel theModel;
+	protected BuddyList theList;
+	
 	/**
 	 * 
 	 */
@@ -36,22 +38,12 @@ public class MergeSetupWindow extends javax.swing.JFrame {
 	private JButton jbMinus;
 	private JButton jbPlus;
 	private JComboBox jComboBox1;
-
-	/**
-	* Auto-generated main method to display this JFrame
-	*/
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				MergeSetupWindow inst = new MergeSetupWindow();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-			}
-		});
-	}
 	
-	public MergeSetupWindow() {
+	
+	public MergeSetupWindow(int mergeID, AccountManager theAM) {
 		super();
+		theList = theAM.getBuddyList().getBuddyListOfMerge(mergeID);
+		theModel = new BuddyListModel(theList);
 		initGUI();
 	}
 	
@@ -63,21 +55,15 @@ public class MergeSetupWindow extends javax.swing.JFrame {
 			{
 				jScrollPane1 = new JScrollPane();
 				{
-					ListModel jList1Model = 
-						new DefaultComboBoxModel(
-								new String[] { "Item One", "Item Two" });
 					jList1 = new JList();
 					jScrollPane1.setViewportView(jList1);
-					jList1.setModel(jList1Model);
+					jList1.setModel(theModel);
 					jList1.setPreferredSize(new java.awt.Dimension(170, 120));
 				}
 			}
 			{
-				ComboBoxModel jComboBox1Model = 
-					new DefaultComboBoxModel(
-							new String[] { "Item One", "Item Two" });
 				jComboBox1 = new JComboBox();
-				jComboBox1.setModel(jComboBox1Model);
+				jComboBox1.setModel(theModel);
 			}
 			{
 				jbPlus = new JButton();

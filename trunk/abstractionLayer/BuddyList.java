@@ -158,4 +158,24 @@ public class BuddyList {
 		return toReturn;
 	}
 	
+	public BuddyList getBuddyListOfMerge(int mergeID) {
+		BuddyList myList = new BuddyList(isSorting);
+		ArrayList<Buddy> theBuddies = getBuddiesInMerge(mergeID);
+		
+		for (Buddy b : theBuddies) { myList.addBuddy(b); }
+		
+		return myList;
+	}
+	
+	public int getNextUnusedMergeID() {
+		int unused = 0;
+		
+		for (Buddy b : theList) {
+			// should be a max...
+			unused = (b.getMergeID() > unused ? b.getMergeID() : unused);
+		}
+		
+		return (unused + 1);
+	}
+	
 }
