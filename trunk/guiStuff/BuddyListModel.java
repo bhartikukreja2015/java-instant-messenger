@@ -17,6 +17,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	protected BuddyList theBuddyList;
 	protected ArrayList<ListDataListener> theListeners;
 	protected boolean showOffline;
+	protected boolean hideMerged;
 	protected ArrayList<Buddy> toShow;
 	
 	public BuddyListModel(AccountManager theAM) {
@@ -25,7 +26,17 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 		toShow = new ArrayList<Buddy>();
 		theListeners = new ArrayList<ListDataListener>();
 		showOffline = true;
+		hideMerged = true;
 		
+		updateToShow();
+	}
+	
+	public BuddyListModel(BuddyList b) {
+		theBuddyList = b;
+		toShow = new ArrayList<Buddy>();
+		theListeners = new ArrayList<ListDataListener>();
+		showOffline = true;
+		hideMerged = false;
 		updateToShow();
 	}
 	
@@ -50,7 +61,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 		
 		// deal with merges...
 		
-		this.doMerge();
+		if (hideMerged) {this.doMerge(); }
 	}
 	
 	public void setShowOffline(boolean b) {
@@ -62,6 +73,17 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 	}
 	
 	public boolean isShowingOffline() { return showOffline; }
+	
+	public void setHideMerged(boolean b) {
+		hideMerged = b;
+		
+		updateToShow();
+		for (ListDataListener ldl : theListeners) {
+			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
+		}
+	}
+	
+	public boolean isHidingMerged() { return hideMerged; }
 	
 	public void BuddyListChange(BuddyList b) {
 		theBuddyList = b;
