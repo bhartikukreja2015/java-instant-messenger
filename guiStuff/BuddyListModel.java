@@ -1,6 +1,7 @@
 package guiStuff;
 import java.util.ArrayList;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -12,13 +13,15 @@ import upperAbstractionLayer.AccountManager;
 import upperAbstractionLayer.BuddyListChangeListener;
 
 
-public class BuddyListModel implements BuddyListChangeListener, ListModel {
+public class BuddyListModel implements BuddyListChangeListener, ListModel, ComboBoxModel {
 
 	protected BuddyList theBuddyList;
 	protected ArrayList<ListDataListener> theListeners;
 	protected boolean showOffline;
 	protected boolean hideMerged;
 	protected ArrayList<Buddy> toShow;
+	
+	protected Object selectedObject;
 	
 	public BuddyListModel(AccountManager theAM) {
 		theAM.addBuddyListChangeListener(this);
@@ -143,4 +146,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel {
 			count++;
 		}
 	}
+
+	public Object getSelectedItem() { return selectedObject; }
+	public void setSelectedItem(Object arg0) { selectedObject = arg0; }
 }
