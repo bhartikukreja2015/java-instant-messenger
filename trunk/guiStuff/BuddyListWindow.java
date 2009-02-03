@@ -45,7 +45,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 
         jlBuddies.setModel(theModel);
         jlBuddies.addMouseListener(this);
-        jlBuddies.setCellRenderer(new BuddyRendererCreator(theAM));
+        jlBuddies.setCellRenderer(new BuddyRendererCreator(theAM, true));
         jScrollPane1.setViewportView(jlBuddies);
 
         jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.doNotDistrub, Buddy.superAway }));
@@ -70,7 +70,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
     }// </editor-fold>
 
 	public void mouseClicked(MouseEvent arg0) {
-		if (arg0.isPopupTrigger()) {
+		if (arg0.isPopupTrigger() || arg0.isControlDown()) { // JDK bug! isPopupTrigger is NEVER TRUE on Ubuntu...
 			
 			// see if we clicked a real thing
 			Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
@@ -98,7 +98,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 		// we need to check in mouseClicked and
 		// here in order to work right on all platforms.
 		
-		if (arg0.isPopupTrigger()) {
+		if (arg0.isPopupTrigger() || arg0.isControlDown()) { // JDK bug! isPopupTrigger is NEVER TRUE on Ubuntu...
 			// see if we clicked a real thing
 			Rectangle theRect = jlBuddies.getCellBounds(jlBuddies.locationToIndex(arg0.getPoint()), jlBuddies.locationToIndex(arg0.getPoint()));
 			if (!(theRect.contains(arg0.getPoint()))) { return; }
@@ -136,6 +136,19 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 
 	public void startIM(int index) {
 		theIwm.createIMWindow((Buddy) theModel.getElementAt(index));
+	}
+
+	public void setupMerge(int index) {
+		Buddy b = (Buddy) theModel.getElementAt(index);
+		MergeSetupWindow myMSW;
+		
+		if (b.getMergeID() == 0) {
+			myMSW = new MergeSetupWindow(theAM.getBuddyList().getNextUnusedMergeID(), theAM);
+		} else {
+			myMSW = new MergeSetupWindow(b.getMergeID(), theAM);
+		}
+		
+		myMSW.setVisible(true);
 	}
 
 

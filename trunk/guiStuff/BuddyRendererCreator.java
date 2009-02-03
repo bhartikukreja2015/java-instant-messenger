@@ -16,13 +16,16 @@ public class BuddyRendererCreator extends Canvas implements ListCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	protected AccountManager myAM;
+	protected boolean highlight;
 	
-	public BuddyRendererCreator(AccountManager theAM) {
+	
+	public BuddyRendererCreator(AccountManager theAM, boolean highlightSelected) {
 		myAM = theAM;
+		highlight = highlightSelected;
 	}
 	
 	public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3, boolean arg4) {
-		return new BuddyRenderer((Buddy) arg1, arg0.getWidth(), arg3, myAM);
+		return new BuddyRenderer((Buddy) arg1, arg0, (arg3 && highlight), myAM);
 	}
 	
 

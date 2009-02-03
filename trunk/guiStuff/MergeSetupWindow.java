@@ -1,12 +1,17 @@
 package guiStuff;
-import javax.swing.GroupLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import org.jdesktop.layout.GroupLayout;
+import org.jdesktop.layout.LayoutStyle;
 
 import upperAbstractionLayer.AccountManager;
 import abstractionLayer.BuddyList;
@@ -24,10 +29,13 @@ import abstractionLayer.BuddyList;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class MergeSetupWindow extends javax.swing.JFrame {
+public class MergeSetupWindow extends javax.swing.JFrame implements ActionListener, ItemListener {
 	
 	protected BuddyListModel theModel;
+	protected BuddyListModel allBuddies;
 	protected BuddyList theList;
+	
+	protected AccountManager myAM;
 	
 	/**
 	 * 
@@ -44,11 +52,16 @@ public class MergeSetupWindow extends javax.swing.JFrame {
 		super();
 		theList = theAM.getBuddyList().getBuddyListOfMerge(mergeID);
 		theModel = new BuddyListModel(theList);
+		allBuddies = new BuddyListModel(theAM);
+		allBuddies.setHideMerged(false);
+		
+		myAM = theAM;
 		initGUI();
 	}
 	
 	private void initGUI() {
 		try {
+			this.setTitle("Edit merge");
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -58,46 +71,63 @@ public class MergeSetupWindow extends javax.swing.JFrame {
 					jList1 = new JList();
 					jScrollPane1.setViewportView(jList1);
 					jList1.setModel(theModel);
-					jList1.setPreferredSize(new java.awt.Dimension(170, 120));
+					jList1.setPreferredSize(new java.awt.Dimension(340, 88));
 				}
 			}
 			{
 				jComboBox1 = new JComboBox();
-				jComboBox1.setModel(theModel);
+				jComboBox1.setModel(allBuddies);
+				jComboBox1.setRenderer(new BuddyRendererCreator(myAM, false));
+				jComboBox1.setSize(264, 32);
+				jComboBox1.addItemListener(this);
 			}
 			{
 				jbPlus = new JButton();
 				jbPlus.setText("+");
+				jbPlus.addActionListener(this);
 			}
 			{
 				jbMinus = new JButton();
 				jbMinus.setText("-");
+				jbMinus.addActionListener(this);
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(jComboBox1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jbPlus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jbMinus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(39, 39));
+				.add(jScrollPane1, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.RELATED, 0, Short.MAX_VALUE)
+				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
+				    .add(GroupLayout.BASELINE, jComboBox1, 0, 41, Short.MAX_VALUE)
+				    .add(GroupLayout.BASELINE, jbPlus, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .add(GroupLayout.BASELINE, jbMinus, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addContainerGap());
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.addGroup(thisLayout.createParallelGroup()
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jbPlus, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				        .addComponent(jbMinus, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				        .addComponent(jComboBox1, 0, 272, Short.MAX_VALUE))
-				    .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 362, Short.MAX_VALUE))
+				.add(thisLayout.createParallelGroup()
+				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				        .add(jbPlus, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.RELATED)
+				        .add(jbMinus, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.UNRELATED)
+				        .add(jComboBox1, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE))
+				    .add(GroupLayout.LEADING, jScrollPane1, 0, 503, Short.MAX_VALUE))
 				.addContainerGap());
 			pack();
-			this.setSize(392, 173);
+			this.setSize(537, 221);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
