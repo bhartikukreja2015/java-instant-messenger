@@ -2,7 +2,7 @@ package abstractionLayer;
 
 import jimPreferences.PreferencePoint;
 
-public class Buddy {
+public class Buddy implements Comparable<Object> {
 	public static final String available = "Available";
 	public static final String superAvailable = "Chatty";
 	public static final String away = "Away";
@@ -101,4 +101,31 @@ public class Buddy {
 	
 	public void setResource(String r) { resource = r; }
 	public String getResource() { return resource; }
+
+	public int compareTo(Object arg0) {
+		if (!(arg0 instanceof Buddy)) { return 0; } // what the hell? Not a buddy?
+		
+		Buddy b = (Buddy) arg0;
+		
+		if (this.getStatus().equals(Buddy.available)) {
+			if (b.getStatus().equals(Buddy.available)) {
+				return 0; // we are both available
+			}
+			return -1; // we are available, they are not!
+		}
+		
+		if (this.isOnline()) {
+			if (b.isOnline()) {
+				return 0; // we are both online and not ava
+			}
+			
+			return -1; // they are offline and we are online
+		}
+		
+		if (!this.isOnline() && !b.isOnline()) {
+			return 0; // we are both offline
+		}
+		
+		return 1; // we must be less then them
+	}
 }
