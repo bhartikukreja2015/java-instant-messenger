@@ -10,10 +10,14 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 import upperAbstractionLayer.AccountManager;
+import abstractionLayer.Buddy;
 import abstractionLayer.BuddyList;
 
 
@@ -29,7 +33,7 @@ import abstractionLayer.BuddyList;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class MergeSetupWindow extends javax.swing.JFrame implements ActionListener, ItemListener {
+public class MergeSetupWindow extends javax.swing.JFrame implements ActionListener, ItemListener, ListSelectionListener {
 	
 	protected BuddyListModel theModel;
 	protected BuddyListModel allBuddies;
@@ -72,6 +76,8 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 					jScrollPane1.setViewportView(jList1);
 					jList1.setModel(theModel);
 					jList1.setPreferredSize(new java.awt.Dimension(340, 88));
+					jList1.addListSelectionListener(this);
+					jList1.setCellRenderer(new BuddyRendererCreator(myAM, true));
 				}
 			}
 			{
@@ -90,6 +96,7 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 				jbMinus = new JButton();
 				jbMinus.setText("-");
 				jbMinus.addActionListener(this);
+				jbMinus.setEnabled(false);
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
@@ -118,16 +125,40 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 		}
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		if (arg0.getSource() == jbPlus) {
+			// add the selected item from the list
+			Buddy toAdd = (Buddy) jComboBox1.getSelectedItem();
+			theList.addBuddy(toAdd);
+			
+			
+			
+		} else if (arg0.getSource() == jbMinus) {
+			theList.removeBuddy((Buddy) jList1.getModel().getElementAt(jList1.getSelectedIndex()));
+			
+		}
+		
+		BuddyListModel tm = (BuddyListModel) jList1.getModel();
+		tm.BuddyListChange(theList);
 		
 	}
 
-	@Override
-	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
+	
+	// we don't really care about this...
+	public void itemStateChanged(ItemEvent arg0) { }
+
+	public void valueChanged(ListSelectionEvent arg0) {
+		if (arg0.getSource() != jList1) { return; }
 		
+		jbMinus.setEnabled(jList1.getSelectedIndex() != -1);
+	}
+	
+	protected Buddy getBuddyWithChangedMergeID(Buddy theBuddy, int mergeID) {
+		Buddy b = myAM.getBuddyList().getBuddy(theBuddy.getScreename());
+		
+		b.setMergeID(mergeID);
+		
+		return b;
 	}
 
 }

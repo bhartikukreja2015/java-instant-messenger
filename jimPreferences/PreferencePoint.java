@@ -113,4 +113,19 @@ public class PreferencePoint {
 		aliasNode.put(screenname, alias);
 	}
 	
+	public int getMergeIDForScreenname(String screenname, String accountName) {
+		Preferences aliasNode = myPrefs.node("Merge");
+		aliasNode = aliasNode.node(accountName);
+		
+		return aliasNode.getInt(screenname, 0);
+	}
+	
+	public void setMergeIDForScreenname(String screenname, String accountName, int mergeID) {
+		Preferences aliasNode = myPrefs.node("Aliases");
+		
+		aliasNode = aliasNode.node(accountName);
+		
+		aliasNode.putInt(screenname, mergeID);
+	}
+	
 }
