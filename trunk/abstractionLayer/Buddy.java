@@ -44,7 +44,11 @@ public class Buddy implements Comparable<Object> {
 	public void setGroupName(String gn) { groupName = gn; }
 	public String getGroupName() { return groupName; }
 	
-	public void setMergeID(int mi) { mergeID = mi; }
+	public void setMergeID(int mi) { 
+		mergeID = mi;
+		PreferencePoint PP = new PreferencePoint();
+		PP.setMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername(), this.getMergeID());
+	}
 	public int getMergeID() { return mergeID; }
 	
 	public void setMergePrioroity(int mp) { mergePriority = mp; }
@@ -89,6 +93,11 @@ public class Buddy implements Comparable<Object> {
 			}
 		}
 		
+		// muhahaha... sleezy strategy, but let's go ahead and
+		// check for a merge ID here because all of our accounts call it
+		// and no accounts grant a merge id.
+		mergeID = this.checkForSavedMergeID();
+		
 		alias = a;
 	}
 	
@@ -102,6 +111,11 @@ public class Buddy implements Comparable<Object> {
 	public void setResource(String r) { resource = r; }
 	public String getResource() { return resource; }
 
+	protected int checkForSavedMergeID() {
+		PreferencePoint PP = new PreferencePoint();
+		return PP.getMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername());
+	}
+	
 	public int compareTo(Object arg0) {
 		if (!(arg0 instanceof Buddy)) { return 0; } // what the hell? Not a buddy?
 		
