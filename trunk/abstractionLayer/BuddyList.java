@@ -1,6 +1,7 @@
 package abstractionLayer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BuddyList {
 	protected ArrayList<Buddy> theList;
@@ -83,47 +84,53 @@ public class BuddyList {
 		return "";
 	}
 	
+
 	protected ArrayList<Buddy> sortList(ArrayList<Buddy> ourList) {
-		// selection sort method
-		int i = 0, count = 0;
-		
-		// get all av. users on top
-		while (count != ourList.size()) {
-			if (ourList.get(count).getStatus() == Buddy.available) {
-				// swap this one out with whatever i we are on
-				Buddy b = ourList.get(i);
-				ourList.set(i, ourList.get(count));
-				ourList.set(count, b);
-				i++;
-			}
-			count++;
-		}
-		
-		// now get everyone who is away
-		count = i;
-		while (count != ourList.size()) {
-			if (ourList.get(count).getStatus() == Buddy.away) {
-				Buddy b = ourList.get(i);
-				ourList.set(i, ourList.get(count));
-				ourList.set(count, b);
-				i++;
-			}
-			count++;
-		}
-		
-		// now everyone who isn't offline
-		count = i;
-		while (count != ourList.size()) {
-			if (ourList.get(count).isOnline()) {
-				Buddy b = ourList.get(i);
-				ourList.set(i, ourList.get(count));
-				ourList.set(count, b);
-				i++;
-			}
-			count++;
-		}
-		
+		// we implement comparable
+		// we know its type safe
+		Collections.sort(Collections.synchronizedList(ourList));
 		return ourList;
+		
+//		// selection sort method
+//		int i = 0, count = 0;
+//		
+//		// get all av. users on top
+//		while (count != ourList.size()) {
+//			if (ourList.get(count).getStatus() == Buddy.available) {
+//				// swap this one out with whatever i we are on
+//				Buddy b = ourList.get(i);
+//				ourList.set(i, ourList.get(count));
+//				ourList.set(count, b);
+//				i++;
+//			}
+//			count++;
+//		}
+//		
+//		// now get everyone who is away
+//		count = i;
+//		while (count != ourList.size()) {
+//			if (ourList.get(count).getStatus() == Buddy.away) {
+//				Buddy b = ourList.get(i);
+//				ourList.set(i, ourList.get(count));
+//				ourList.set(count, b);
+//				i++;
+//			}
+//			count++;
+//		}
+//		
+//		// now everyone who isn't offline
+//		count = i;
+//		while (count != ourList.size()) {
+//			if (ourList.get(count).isOnline()) {
+//				Buddy b = ourList.get(i);
+//				ourList.set(i, ourList.get(count));
+//				ourList.set(count, b);
+//				i++;
+//			}
+//			count++;
+//		}
+//		
+//		return ourList;
 	}
 	
 	
