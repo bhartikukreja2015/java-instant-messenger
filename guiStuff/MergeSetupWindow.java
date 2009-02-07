@@ -41,6 +41,8 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	
 	protected AccountManager myAM;
 	
+	protected int theMergeID;
+	
 	/**
 	 * 
 	 */
@@ -60,6 +62,9 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 		allBuddies.setHideMerged(false);
 		
 		myAM = theAM;
+		
+		theMergeID = mergeID;
+		
 		initGUI();
 	}
 	
@@ -126,16 +131,17 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+		Buddy toAdd = (Buddy) jComboBox1.getSelectedItem();
+		
 		if (arg0.getSource() == jbPlus) {
 			// add the selected item from the list
-			Buddy toAdd = (Buddy) jComboBox1.getSelectedItem();
+			
 			theList.addBuddy(toAdd);
-			
-			
+			toAdd.setMergeID(theMergeID);			
 			
 		} else if (arg0.getSource() == jbMinus) {
-			theList.removeBuddy((Buddy) jList1.getModel().getElementAt(jList1.getSelectedIndex()));
-			
+			theList.removeBuddy(toAdd);
+			toAdd.setMergeID(0);
 		}
 		
 		BuddyListModel tm = (BuddyListModel) jList1.getModel();
