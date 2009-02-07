@@ -43,7 +43,7 @@ public class BuddyRenderer extends Component {
 		
 		theWidth = toFetch.getWidth();
 		
-		System.out.println(theWidth);
+		//System.out.println(theWidth);
 		
 		if (toShow == null) { return; }
 		

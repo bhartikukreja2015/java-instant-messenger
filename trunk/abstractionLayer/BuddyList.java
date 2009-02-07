@@ -58,6 +58,14 @@ public class BuddyList {
 	
 	public ArrayList<Buddy> getAllBuddies() { return theList; }
 	
+	public Buddy getBuddy(String screenname) {
+		for (Buddy b : theList) {
+			if (b.getScreename().equals(screenname)) { return b; }
+		}
+		
+		return null;
+	}
+	
 	public void printBuddyList() {
 		for (Buddy b : theList) {
 			System.out.println(b.getScreename() + "|" + b.getAlias() + "|" + b.getStatus());
