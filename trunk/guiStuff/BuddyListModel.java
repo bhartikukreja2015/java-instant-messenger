@@ -131,7 +131,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 					if (theBud.getScreename().equals(toShow.get(i).getScreename())) {
 						// we need to remove this user
 						toShow.remove(i);
-						i = toShow.size(); // make sure the loop doesn't contintue
+						break;
 					} else {
 						i++;
 					}
