@@ -47,7 +47,7 @@ public class Buddy implements Comparable<Object> {
 	public void setMergeID(int mi) { 
 		mergeID = mi;
 		PreferencePoint PP = new PreferencePoint();
-		PP.setMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername(), this.getMergeID());
+		PP.setMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername(), mi);
 	}
 	public int getMergeID() { 
 		int i = this.checkForSavedMergeID();
@@ -93,7 +93,7 @@ public class Buddy implements Comparable<Object> {
 				String saved = PP.getAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername());
 				if (saved != null) {
 					alias = saved;
-					System.out.println("Overwritting " + a + " for saved: " + saved);
+					//System.out.println("Overwritting " + a + " for saved: " + saved);
 					return;
 				}
 			}
@@ -125,6 +125,7 @@ public class Buddy implements Comparable<Object> {
 
 	protected int checkForSavedMergeID() {
 		PreferencePoint PP = new PreferencePoint();
+		System.out.println("Checking merge ID for: " + this.getScreename());
 		return PP.getMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername());
 	}
 	
