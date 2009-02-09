@@ -45,6 +45,8 @@ public class BuddyRenderer extends Component {
 		
 		//System.out.println(theWidth);
 		
+		//System.out.println(toShow.getScreename() + "|" + toShow.getAlias());
+		
 		if (toShow == null) { return; }
 		
 		if (isSelected) {
@@ -115,6 +117,9 @@ public class BuddyRenderer extends Component {
 		
 		// see if we are part of a merge
 		if (toShow.getMergeID() != 0) {
+			
+			System.out.println(toShow.getScreename() + " is in merge: " + toShow.getMergeID());
+			
 			// we're part of merge. Figure out how many are in the merge, and show the text
 			int numInMerge = myAM.getBuddyList().getBuddiesInMerge(toShow.getMergeID()).size();
 			int xMergeText = theWidth - 50;
