@@ -67,6 +67,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 			ArrayList<RosterEntry> Entries = Collections.list(Collections.enumeration(myCon.getRoster().getEntries()));
 			for (RosterEntry re : Entries) {
 				Buddy myBuddy = new Buddy();
+				myBuddy.setAccount(this);
 				myBuddy.setScreename(re.getUser());
 				myBuddy.setAlias(re.getName());
 				myBuddy.setOnlineStatus(false);
