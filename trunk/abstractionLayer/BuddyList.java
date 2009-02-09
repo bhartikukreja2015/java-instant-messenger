@@ -148,12 +148,15 @@ public class BuddyList {
 	}
 	
 	public ArrayList<Buddy> getBuddiesInMerge(int mergeID) {
+		
+		System.out.println("Getting buddies in merge: " + mergeID);
+		
 		Buddy myB = new Buddy();
 
 		ArrayList<Buddy> theMerge = new ArrayList<Buddy>();
 
 		for (Buddy b : theList) {
-			if (myB.mergeID == mergeID) {
+			if (myB.getMergeID() == mergeID) {
 				theMerge.add(b);
 			}
 		}
@@ -190,7 +193,9 @@ public class BuddyList {
 			unused = (b.getMergeID() > unused ? b.getMergeID() : unused);
 		}
 		
-		return (unused + 1);
+		unused++;
+		
+		return (unused);
 	}
 	
 }
