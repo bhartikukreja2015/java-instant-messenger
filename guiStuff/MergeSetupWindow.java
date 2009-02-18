@@ -56,8 +56,12 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	
 	public MergeSetupWindow(int mergeID, AccountManager theAM) {
 		super();
+		System.out.println("Setting merge ID of this window to: " + mergeID);
 		theList = theAM.getBuddyList().getBuddyListOfMerge(mergeID);
+		
 		theModel = new BuddyListModel(theList);
+		theModel.setHideMerged(false);
+		
 		allBuddies = new BuddyListModel(theAM);
 		allBuddies.setHideMerged(false);
 		
@@ -131,23 +135,28 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		Buddy toAdd = (Buddy) jComboBox1.getSelectedItem();
-		
 		if (arg0.getSource() == jbPlus) {
 			// add the selected item from the list
+			Buddy toAdd = (Buddy) jComboBox1.getSelectedItem();
 			theList.addBuddy(toAdd);
 			toAdd.setMergeID(theMergeID);
 			
+			// the main window needs to do the merge
+			myAM.buddyStatusChange(toAdd, false);
+			
 		} else if (arg0.getSource() == jbMinus) {
+			Buddy toAdd = (Buddy) jList1.getSelectedValue();
 			theList.removeBuddy(toAdd);
 			toAdd.setMergeID(0);
+			
+			// the main window needs to do the merge
+			myAM.buddyStatusChange(toAdd, false);
 		}
 		
 		BuddyListModel tm = (BuddyListModel) jList1.getModel();
 		tm.BuddyListChange(theList);
 		
-		// the main window needs to do the merge
-		myAM.buddyStatusChange(toAdd, false);
+		
 		
 	}
 

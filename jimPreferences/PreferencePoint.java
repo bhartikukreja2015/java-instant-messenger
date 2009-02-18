@@ -122,7 +122,7 @@ public class PreferencePoint {
 	
 	public void setMergeIDForScreenname(String screenname, String accountName, int mergeID) {
 		
-		System.out.println("Setting merge ID of " + screenname + " to " + mergeID);
+		//System.out.println("Setting merge ID of " + screenname + " to " + mergeID);
 		
 		Preferences aliasNode = myPrefs.node("Merge");
 		
