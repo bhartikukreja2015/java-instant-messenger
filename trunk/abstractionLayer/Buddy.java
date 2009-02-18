@@ -23,6 +23,8 @@ public class Buddy implements Comparable<Object> {
 	protected AbstractAccount theAccount;
 	protected String resource;
 	
+	protected boolean shouldShow;
+	
 	public Buddy(String sn, String groupname, int theMergeID) {
 		screenname = sn;
 		groupName = groupname;
@@ -105,10 +107,8 @@ public class Buddy implements Comparable<Object> {
 			}
 		}
 		
-		// muhahaha... sleezy strategy, but let's go ahead and
-		// check for a merge ID here because all of our accounts call it
-		// and no accounts grant a merge id.
-		mergeID = this.checkForSavedMergeID();
+		// No longer needed: Get merge ID checks.
+		//mergeID = this.checkForSavedMergeID();
 		
 		alias = a;
 	}
@@ -154,4 +154,7 @@ public class Buddy implements Comparable<Object> {
 		
 		return 1; // we must be less then them
 	}
+	
+	public boolean isShowing() { return shouldShow; }
+	public void setShow(boolean b) { shouldShow = b; }
 }

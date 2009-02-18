@@ -20,7 +20,7 @@ public class BuddyList {
 	public void removeBuddy(Buddy theBuddy) { 
 		int i = 0;
 		while (i != theList.size()) {
-			if (theList.get(i).getScreename() == theBuddy.getScreename()) {
+			if (theList.get(i).getScreename().equals(theBuddy.getScreename())) {
 				if (theList.get(i).getAccount().getAccountSettings().getID() == theBuddy.theAccount.getAccountSettings().getID()) {
 					theList.remove(i);
 					break;
@@ -148,13 +148,12 @@ public class BuddyList {
 	}
 	
 	public ArrayList<Buddy> getBuddiesInMerge(int mergeID) {
-		
-		Buddy myB = new Buddy();
 
 		ArrayList<Buddy> theMerge = new ArrayList<Buddy>();
 
 		for (Buddy b : theList) {
 			if (b.getMergeID() == mergeID) {
+				//System.out.println(b.getScreename() + " has merge ID: " + b.getMergeID());
 				theMerge.add(b);
 			}
 		}
