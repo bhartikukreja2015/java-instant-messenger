@@ -1,17 +1,16 @@
 package guiStuff;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.GroupLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import org.jdesktop.layout.GroupLayout;
-import org.jdesktop.layout.LayoutStyle;
 
 import upperAbstractionLayer.AccountManager;
 import upperAbstractionLayer.AliasChangeEvent;
@@ -69,6 +68,7 @@ public class SetAliasWindow extends javax.swing.JFrame implements ActionListener
 			{
 				jbSave = new JButton();
 				jbSave.setText("Save");
+				jbSave.setSize(104, 22);
 				jbSave.addActionListener(this);
 			}
 			{
@@ -78,25 +78,25 @@ public class SetAliasWindow extends javax.swing.JFrame implements ActionListener
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
-				    .add(GroupLayout.BASELINE, jtAlias, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .add(GroupLayout.BASELINE, jLabel1, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.UNRELATED)
-				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
-				    .add(GroupLayout.BASELINE, jbSave, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .add(GroupLayout.BASELINE, jbCancel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.add(7));
+				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(jtAlias, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jLabel1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(jbSave, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jbCancel, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.add(jLabel1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.RELATED)
-				.add(thisLayout.createParallelGroup()
-				    .add(GroupLayout.LEADING, jtAlias, 0, 358, Short.MAX_VALUE)
-				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				        .add(0, 237, Short.MAX_VALUE)
-				        .add(jbCancel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.UNRELATED)
-				        .add(jbSave, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)))
+				.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jtAlias, GroupLayout.Alignment.LEADING, 0, 356, Short.MAX_VALUE)
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addGap(0, 119, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(jbCancel, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, 1, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(jbSave, 0, 122, Short.MAX_VALUE)))
 				.addContainerGap());
 			pack();
 			this.setSize(436, 99);
