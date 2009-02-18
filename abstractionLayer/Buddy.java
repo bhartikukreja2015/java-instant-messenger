@@ -125,7 +125,6 @@ public class Buddy implements Comparable<Object> {
 
 	protected int checkForSavedMergeID() {
 		PreferencePoint PP = new PreferencePoint();
-		System.out.println("Checking merge ID for: " + this.getScreename());
 		return PP.getMergeIDForScreenname(this.getScreename(), this.getAccount().getAccountSettings().getUsername());
 	}
 	

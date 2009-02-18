@@ -136,7 +136,7 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 		if (arg0.getSource() == jbPlus) {
 			// add the selected item from the list
 			theList.addBuddy(toAdd);
-			toAdd.setMergeID(theMergeID);		
+			toAdd.setMergeID(theMergeID);
 			
 		} else if (arg0.getSource() == jbMinus) {
 			theList.removeBuddy(toAdd);
@@ -145,6 +145,9 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 		
 		BuddyListModel tm = (BuddyListModel) jList1.getModel();
 		tm.BuddyListChange(theList);
+		
+		// the main window needs to do the merge
+		myAM.buddyStatusChange(toAdd, false);
 		
 	}
 

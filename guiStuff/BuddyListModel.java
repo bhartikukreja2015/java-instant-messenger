@@ -108,6 +108,8 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 	}
 
 	protected void doMerge() {
+		System.out.println("Doing merge...");
+		
 		int count = 0;
 		while (count != toShow.size()) {
 			Buddy b = toShow.get(count);
