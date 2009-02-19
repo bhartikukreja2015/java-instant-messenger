@@ -26,7 +26,7 @@ public class AccountListModel implements ListModel {
 	}
 
 	public Object getElementAt(int arg0) {
-		return theList.get(arg0).getUsername();
+		return theList.get(arg0);
 	}
 	
 	public AccountSettings getSettings(int arg0) {
