@@ -2,12 +2,9 @@ package guiStuff;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.ListModel;
-import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -104,7 +101,21 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		
+		if (arg0.getSource() == jbPlus) {
+			// create a new ModifyAccountWindow
+			// with a the next account ID
+			PreferencePoint pp = new PreferencePoint();
+			ModifyAccountWindow maw = new ModifyAccountWindow(pp.getNextAccountID());
+			
+		} else if (arg0.getSource() == jbMinus) {
+			// we need to delete the account
+			String accountAlias = (String) jList1.getModel().getElementAt(jList1.getSelectedIndex());
+			PreferencePoint pp = new PreferencePoint();
+			
+			
+		} else if (arg0.getSource() == jbEdit) {
+			
+		}
 	}
 
 }
