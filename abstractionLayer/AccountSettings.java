@@ -8,10 +8,10 @@ public class AccountSettings {
 	protected boolean enabled;
 	protected int accountID;
 	
-	public static final String GoogleTalkAccount = "gtalk";
-	public static final String AIMAccount = "aim";
-	public static final String YahooAccount = "yim";
-	public static final String MSNAccount = "msn";
+	public static final String GoogleTalkAccount = "Google Talk";
+	public static final String AIMAccount = "AOL";
+	public static final String YahooAccount = "Yahoo";
+	public static final String MSNAccount = "MSN";
 	
 	public AccountSettings(String uname, String pword) {
 		username = uname;
@@ -20,7 +20,7 @@ public class AccountSettings {
 	}
 	
 	public AccountSettings() {
-		// do nothing
+		enabled = false;
 	}
 	
 	public String getUsername() { return username; }
