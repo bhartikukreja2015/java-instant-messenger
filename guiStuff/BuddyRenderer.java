@@ -29,7 +29,9 @@ public class BuddyRenderer extends Component {
 	protected AccountManager myAM;
 	protected JComponent toFetch;
 	
-	public BuddyRenderer(Buddy theBuddy, JComponent theComp, boolean isSel, AccountManager theAM) {
+	protected boolean showingMerge;
+	
+	public BuddyRenderer(Buddy theBuddy, JComponent theComp, boolean isSel, AccountManager theAM, boolean showMerge) {
 		super();
 		toShow = theBuddy;
 		
@@ -37,6 +39,8 @@ public class BuddyRenderer extends Component {
 		isSelected = isSel;
 		myAM = theAM;
 		toFetch = theComp;
+		
+		showingMerge = showMerge;
 	}
 	
 	public void paint(Graphics g) {
@@ -115,8 +119,10 @@ public class BuddyRenderer extends Component {
 			g.drawString(Buddy.offline, widthPadding, yStatusBaseline);
 		}
 		
+		
+		
 		// see if we are part of a merge
-		if (toShow.getMergeID() != 0) {
+		if ((toShow.getMergeID() != 0) && showingMerge) {
 			
 			//System.out.println(toShow.getScreename() + " is in merge: " + toShow.getMergeID());
 			
