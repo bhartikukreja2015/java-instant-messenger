@@ -45,7 +45,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 
         jlBuddies.setModel(theModel);
         jlBuddies.addMouseListener(this);
-        jlBuddies.setCellRenderer(new BuddyRendererCreator(theAM, true));
+        jlBuddies.setCellRenderer(new BuddyRendererCreator(theAM, true, true));
         jScrollPane1.setViewportView(jlBuddies);
 
         jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.doNotDistrub, Buddy.superAway }));

@@ -86,13 +86,13 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 					jList1.setModel(theModel);
 					jList1.setPreferredSize(new java.awt.Dimension(340, 88));
 					jList1.addListSelectionListener(this);
-					jList1.setCellRenderer(new BuddyRendererCreator(myAM, true));
+					jList1.setCellRenderer(new BuddyRendererCreator(myAM, true, false));
 				}
 			}
 			{
 				jComboBox1 = new JComboBox();
 				jComboBox1.setModel(allBuddies);
-				jComboBox1.setRenderer(new BuddyRendererCreator(myAM, false));
+				jComboBox1.setRenderer(new BuddyRendererCreator(myAM, false, false));
 				jComboBox1.setSize(264, 32);
 				jComboBox1.addItemListener(this);
 			}
