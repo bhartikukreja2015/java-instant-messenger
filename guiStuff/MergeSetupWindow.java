@@ -56,7 +56,7 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	
 	public MergeSetupWindow(int mergeID, AccountManager theAM) {
 		super();
-		System.out.println("Setting merge ID of this window to: " + mergeID);
+		//System.out.println("Setting merge ID of this window to: " + mergeID);
 		theList = theAM.getBuddyList().getBuddyListOfMerge(mergeID);
 		
 		theModel = new BuddyListModel(theList);

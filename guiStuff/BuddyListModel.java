@@ -107,7 +107,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 	}
 
 	protected void doMerge() {
-		System.out.println("Doing merge...");
+		//System.out.println("Doing merge...");
 		
 		for (Buddy b : toShow) {
 			if (b.getMergeID() != 0) {
