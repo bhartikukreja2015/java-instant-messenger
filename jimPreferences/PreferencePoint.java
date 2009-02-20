@@ -60,6 +60,11 @@ public class PreferencePoint {
 
 		return toReturn;
 	}
+	
+	public AccountSettings getAccount(int id) {
+		Preferences accountNode = myPrefs.node("Accounts");
+		// TODO write this
+	}
 
 	public int getNextAccountID() {
 		Preferences accountNode = myPrefs.node("Accounts");

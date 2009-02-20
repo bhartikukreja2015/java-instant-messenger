@@ -14,6 +14,8 @@ import jimPreferences.PreferencePoint;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
+import abstractionLayer.AccountSettings;
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -49,6 +51,7 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			{
 				jList1 = new JList();
 				jList1.setModel(new AccountListModel(new PreferencePoint()));
+				jList1.setCellRenderer(new AccountRendererCreator());
 				jList1.addListSelectionListener(this);
 			}
 			{
@@ -109,12 +112,12 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			
 		} else if (arg0.getSource() == jbMinus) {
 			// we need to delete the account
-			String accountAlias = (String) jList1.getModel().getElementAt(jList1.getSelectedIndex());
 			PreferencePoint pp = new PreferencePoint();
-			
+			pp.deleteAccount(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())).getID());
 			
 		} else if (arg0.getSource() == jbEdit) {
-			
+			// pass the slected account ID
+			ModifyAccountWindow maw = new ModifyAccountWindow(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())).getID());
 		}
 	}
 
