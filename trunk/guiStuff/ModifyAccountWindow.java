@@ -12,12 +12,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-
 import javax.swing.WindowConstants;
-import javax.swing.SwingUtilities;
 
 import jimPreferences.PreferencePoint;
-
 import abstractionLayer.AccountSettings;
 
 
@@ -156,6 +153,13 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 		}
 	}
 
+	protected void checkSavedValues() {
+		// check to see if we are editing an account
+		// to see if we need to pull info
+		PreferencePoint pp = new PreferencePoint();
+
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		//private JLabel jlAccountName;
 		//private JTextField jlName;

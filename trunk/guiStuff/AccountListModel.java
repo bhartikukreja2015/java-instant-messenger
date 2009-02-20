@@ -28,11 +28,6 @@ public class AccountListModel implements ListModel {
 	public Object getElementAt(int arg0) {
 		return theList.get(arg0);
 	}
-	
-	public AccountSettings getSettings(int arg0) {
-		if (theList.size() == 0) { return null; }
-		return theList.get(arg0);
-	}
 
 	public int getSize() {
 		return theList.size();

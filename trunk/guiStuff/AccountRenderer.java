@@ -1,8 +1,14 @@
 package guiStuff;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+
+import mainIconSet.IconFetch;
+
+import abstractionLayer.AccountSettings;
 
 public class AccountRenderer extends Component {
 	
@@ -10,9 +16,35 @@ public class AccountRenderer extends Component {
 	protected int theWidth;
 	protected int theHeight;
 	
-	public void paint(Graphics g, int width, int height) {
+	protected boolean isSelected;
+	
+	protected AccountSettings toShow;
+	
+	public AccountRenderer(int width, int height, boolean isSel, AccountSettings toRender) {
 		theWidth = width;
 		theHeight = height;
+		isSelected = isSel;
+		toShow = toRender;
+	}
+	
+	public void paint(Graphics g) {
+		if (toShow == null) { return; }
+		
+		if (isSelected) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(-1, -1, theWidth + 1, theHeight + 1);
+		}
+		
+		g.setColor(Color.BLACK);
+		
+		int fontHeight = g.getFontMetrics().getHeight();
+		int fontBaseline = (theHeight / 2) - fontHeight;
+		
+		IconFetch myFetch = new IconFetch();
+		Image myImg = myFetch.loadImage(toShow.getAccountType());
+		g.drawImage(myImg, 0, 5, null);
+		
+		g.drawString(toShow.getAlias(), myImg.getWidth(null) + 5, fontBaseline);
 		
 	}
 	
