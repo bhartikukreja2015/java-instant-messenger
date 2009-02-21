@@ -63,7 +63,25 @@ public class PreferencePoint {
 	
 	public AccountSettings getAccount(int id) {
 		Preferences accountNode = myPrefs.node("Accounts");
-		// TODO write this
+		try {
+			if (!myPrefs.nodeExists("" + id)) return null;
+			myPrefs = myPrefs.node("" + id);
+			AccountSettings myA = new AccountSettings();
+
+			myA.setID(id);
+			myA.setUsername(accountNode.get(PreferencePoint.usernameKey, ""));
+			myA.setPassword(accountNode.get(PreferencePoint.passwordKey, ""));
+			myA.setAccountType(accountNode.get(PreferencePoint.accountTypeKey, ""));
+			myA.setEnabled(accountNode.getBoolean(PreferencePoint.enabledKey, false));
+			myA.setAlias(accountNode.get(PreferencePoint.accountAlias, ""));
+
+			return myA;
+		} catch (BackingStoreException e) {
+			
+		}
+		
+		return null;
+		
 	}
 
 	public int getNextAccountID() {
