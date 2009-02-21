@@ -38,13 +38,14 @@ public class AccountRenderer extends Component {
 		g.setColor(Color.BLACK);
 		
 		int fontHeight = g.getFontMetrics().getHeight();
-		int fontBaseline = (theHeight / 2) - fontHeight;
+		
+		int fontBaseline = (theHeight / 2) + (fontHeight / 2);
 		
 		IconFetch myFetch = new IconFetch();
 		Image myImg = myFetch.loadImage(toShow.getAccountType());
 		g.drawImage(myImg, 0, 5, null);
-		
-		g.drawString(toShow.getAlias(), myImg.getWidth(null) + 5, fontBaseline);
+				
+		g.drawString((toShow.getAlias() != null ? toShow.getAlias() : toShow.getUsername()), myImg.getWidth(null) + 5, fontBaseline);
 		
 	}
 	

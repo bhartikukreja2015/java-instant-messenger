@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import upperAbstractionLayer.AccountChangeEvents;
+
 import jimPreferences.PreferencePoint;
 import abstractionLayer.AccountSettings;
 
@@ -45,14 +47,16 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 
 	
 	protected int accountID;
+	protected AccountChangeEvents theE;
 	
-	public ModifyAccountWindow(int id) {
+	public ModifyAccountWindow(int id, AccountChangeEvents theEvents) {
 		super();
 		initGUI();
 		accountID = id;
+		theE = theEvents;
 	}
 	
-	public ModifyAccountWindow(AccountSettings theAS) {
+	public ModifyAccountWindow(AccountSettings theAS, AccountChangeEvents theEvents) {
 		super();
 		initGUI();
 		
@@ -72,6 +76,8 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 		jtUsername.setText(theAS.getUsername());
 		jtPassword.setText(theAS.getPassword());
 		jcbEnabled.setSelected(theAS.isEnabled());
+		
+		theE = theEvents;
 	}
 	
 	private void initGUI() {
@@ -193,13 +199,15 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 			AccountSettings mySettings = new AccountSettings();
 			
 			mySettings.setID(accountID);
-			mySettings.setAlias(jlName.getName());
+			mySettings.setAlias(jlName.getText());
 			mySettings.setAccountType((String) jcbType.getModel().getElementAt(jcbType.getSelectedIndex()));
 			mySettings.setEnabled(jcbEnabled.isSelected());
 			mySettings.setUsername(jtUsername.getText());
 			mySettings.setPassword(jtPassword.getText());
 			
 			pp.saveAccount(mySettings);
+			
+			theE.accountChanged();
 		} else if (arg0.getSource() != jbCancel) {
 			return;
 		}

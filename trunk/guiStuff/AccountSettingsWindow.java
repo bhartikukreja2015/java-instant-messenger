@@ -14,6 +14,8 @@ import jimPreferences.PreferencePoint;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
+import upperAbstractionLayer.AccountChangeEvents;
+
 import abstractionLayer.AccountSettings;
 
 
@@ -29,7 +31,7 @@ import abstractionLayer.AccountSettings;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class AccountSettingsWindow extends javax.swing.JFrame implements ListSelectionListener, ActionListener {
+public class AccountSettingsWindow extends javax.swing.JFrame implements ListSelectionListener, ActionListener, AccountChangeEvents {
 
 	private static final long serialVersionUID = 1L;
 	private JList jList1;
@@ -62,11 +64,13 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			{
 				jbMinus = new JButton();
 				jbMinus.setText("-");
+				jbMinus.setEnabled(false);
 				jbMinus.addActionListener(this);
 			}
 			{
 				jbEdit = new JButton();
 				jbEdit.setText("Edit");
+				jbEdit.setEnabled(false);
 				jbEdit.addActionListener(this);
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
@@ -98,7 +102,8 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		if (arg0.getSource() != jList1) { return; }
+		//if (arg0.getSource() != jList1) { return; }
+		System.out.println("" + jList1.getSelectedIndex());
 		jbMinus.setEnabled(jList1.getSelectedIndex() != -1);
 		jbEdit.setEnabled(jList1.getSelectedIndex() != -1);
 	}
@@ -108,18 +113,23 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			// create a new ModifyAccountWindow
 			// with a the next account ID
 			PreferencePoint pp = new PreferencePoint();
-			ModifyAccountWindow maw = new ModifyAccountWindow(pp.getNextAccountID());
+			ModifyAccountWindow maw = new ModifyAccountWindow(pp.getNextAccountID(), this);
 			maw.setVisible(true);
 		} else if (arg0.getSource() == jbMinus) {
 			// we need to delete the account
 			PreferencePoint pp = new PreferencePoint();
 			pp.deleteAccount(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())).getID());
-			
+			this.accountChanged();
 		} else if (arg0.getSource() == jbEdit) {
 			// pass the selected account
-			ModifyAccountWindow maw = new ModifyAccountWindow(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())));
+			ModifyAccountWindow maw = new ModifyAccountWindow(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())), this);
 			maw.setVisible(true);
 		}
+	}
+
+	public void accountChanged() {
+		((AccountListModel) jList1.getModel()).update(new PreferencePoint());
+		this.valueChanged(null);
 	}
 
 }
