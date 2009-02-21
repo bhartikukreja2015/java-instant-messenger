@@ -52,6 +52,28 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 		accountID = id;
 	}
 	
+	public ModifyAccountWindow(AccountSettings theAS) {
+		super();
+		initGUI();
+		
+		accountID = theAS.getID();
+		jlName.setText(theAS.getAlias());
+		
+		if (theAS.getAccountType() == AccountSettings.AIMAccount) {
+			jcbType.setSelectedIndex(0);
+		} else if (theAS.getAccountType() == AccountSettings.GoogleTalkAccount) {
+			jcbType.setSelectedIndex(1);
+		} else if (theAS.getAccountType() == AccountSettings.MSNAccount) {
+			jcbType.setSelectedIndex(2);
+		} else if (theAS.getAccountType() == AccountSettings.YahooAccount) {
+			jcbType.setSelectedIndex(3);
+		}
+		
+		jtUsername.setText(theAS.getUsername());
+		jtPassword.setText(theAS.getPassword());
+		jcbEnabled.setSelected(theAS.isEnabled());
+	}
+	
 	private void initGUI() {
 		try {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
@@ -153,12 +175,6 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 		}
 	}
 
-	protected void checkSavedValues() {
-		// check to see if we are editing an account
-		// to see if we need to pull info
-		PreferencePoint pp = new PreferencePoint();
-
-	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		//private JLabel jlAccountName;

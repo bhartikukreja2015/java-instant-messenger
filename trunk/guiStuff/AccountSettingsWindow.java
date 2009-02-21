@@ -109,15 +109,16 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			// with a the next account ID
 			PreferencePoint pp = new PreferencePoint();
 			ModifyAccountWindow maw = new ModifyAccountWindow(pp.getNextAccountID());
-			
+			maw.setVisible(true);
 		} else if (arg0.getSource() == jbMinus) {
 			// we need to delete the account
 			PreferencePoint pp = new PreferencePoint();
 			pp.deleteAccount(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())).getID());
 			
 		} else if (arg0.getSource() == jbEdit) {
-			// pass the slected account ID
-			ModifyAccountWindow maw = new ModifyAccountWindow(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())).getID());
+			// pass the selected account
+			ModifyAccountWindow maw = new ModifyAccountWindow(((AccountSettings) jList1.getModel().getElementAt(jList1.getSelectedIndex())));
+			maw.setVisible(true);
 		}
 	}
 
