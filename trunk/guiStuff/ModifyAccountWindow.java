@@ -204,7 +204,7 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 			mySettings.setAccountType((String) jcbType.getModel().getElementAt(jcbType.getSelectedIndex()));
 			mySettings.setEnabled(jcbEnabled.isSelected());
 			mySettings.setUsername(jtUsername.getText());
-			mySettings.setPassword(jtPassword.getText());
+			mySettings.setPassword(String.valueOf(jtPassword.getPassword()));
 			
 			pp.saveAccount(mySettings);
 			

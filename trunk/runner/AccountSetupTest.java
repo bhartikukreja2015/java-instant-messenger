@@ -1,6 +1,5 @@
 package runner;
 
-import jimPreferences.PreferencePoint;
 import guiStuff.AccountSettingsWindow;
 
 public class AccountSetupTest {
