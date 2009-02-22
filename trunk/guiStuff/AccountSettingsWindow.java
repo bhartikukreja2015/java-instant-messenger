@@ -102,10 +102,12 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		//if (arg0.getSource() != jList1) { return; }
-		System.out.println("" + jList1.getSelectedIndex());
-		jbMinus.setEnabled(jList1.getSelectedIndex() != -1);
-		jbEdit.setEnabled(jList1.getSelectedIndex() != -1);
+		System.out.println(jList1.getModel().getSize() + "|" + jList1.getSelectedIndex());
+		
+		boolean enabled = (jList1.getModel().getSize() >= jList1.getSelectedIndex() + 1) && (jList1.getSelectedIndex() != -1);
+		
+		jbMinus.setEnabled(enabled);
+		jbEdit.setEnabled(enabled);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
