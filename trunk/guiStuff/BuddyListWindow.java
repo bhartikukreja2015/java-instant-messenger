@@ -5,24 +5,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
+
+import jimPreferences.PreferencePoint;
 
 import abstractionLayer.Buddy;
 import upperAbstractionLayer.AccountManager;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class BuddyListWindow extends javax.swing.JFrame implements MouseListener, ActionListener, BuddyPopupEvents {
 
 	private static final long serialVersionUID = 1L;
 	// Variables declaration - do not modify
     private javax.swing.JScrollPane jScrollPane1;
+    private JMenuItem jMenuItem5;
+    private JSeparator jSeparator1;
+    private JMenuItem jMenuItem4;
+    private JMenuItem jMenuItem3;
+    private JMenuItem jMenuItem2;
     private javax.swing.JComboBox jcStatus;
     private javax.swing.JList jlBuddies;
     // End of variables declaration
 
     private AccountManager theAM;
+    private JMenuItem jMenuItem1;
+    private JMenu jMenu3;
+    private JMenu jMenu2;
+    private JMenu jMenu1;
+    private JMenuBar jMenuBar1;
 	private BuddyListModel theModel;
 	private IMWindowManager theIwm;
 	
 	private BuddyPopupMenu theMenu;
+	
+	private AccountSettingsWindow theASW;
     
     /** Creates new form BuddyListWindow */
     public BuddyListWindow(AccountManager AM, IMWindowManager iwm) {
@@ -31,6 +62,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         theModel = new BuddyListModel(theAM);
         this.setTitle("Buddy List");
         initComponents();
+        theASW = new AccountSettingsWindow();
     }
     
     public BuddyListModel getModel() { return theModel; }
@@ -53,6 +85,59 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        {
+        	jMenuBar1 = new JMenuBar();
+        	setJMenuBar(jMenuBar1);
+        	{
+        		jMenu1 = new JMenu();
+        		jMenuBar1.add(jMenu1);
+        		jMenu1.setText("File");
+        		{
+        			jMenuItem4 = new JMenuItem();
+        			jMenu1.add(jMenuItem4);
+        			jMenuItem4.setText("Connect");
+        			jMenuItem4.addActionListener(this);
+        		}
+        		{
+        			jMenuItem5 = new JMenuItem();
+        			jMenu1.add(jMenuItem5);
+        			jMenuItem5.setText("Disconnect");
+        			jMenuItem5.addActionListener(this);
+        		}
+        		{
+        			jSeparator1 = new JSeparator();
+        			jMenu1.add(jSeparator1);
+        		}
+        		{
+        			jMenuItem1 = new JMenuItem();
+        			jMenu1.add(jMenuItem1);
+        			jMenuItem1.setText("Quit");
+        			jMenuItem1.addActionListener(this);
+        		}
+        	}
+        	{
+        		jMenu2 = new JMenu();
+        		jMenuBar1.add(jMenu2);
+        		jMenu2.setText("Buddy");
+        		{
+        			jMenuItem2 = new JMenuItem();
+        			jMenu2.add(jMenuItem2);
+        			jMenuItem2.setText("Create new merge");
+        			jMenuItem2.addActionListener(this);
+        		}
+        	}
+        	{
+        		jMenu3 = new JMenu();
+        		jMenuBar1.add(jMenu3);
+        		jMenu3.setText("Settings");
+        		{
+        			jMenuItem3 = new JMenuItem();
+        			jMenu3.add(jMenuItem3);
+        			jMenuItem3.setText("Account settings");
+        			jMenuItem3.addActionListener(this);
+        		}
+        	}
+        }
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jcStatus, 0, 205, Short.MAX_VALUE)
@@ -120,6 +205,26 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			b.setStatusMessage(null);
 			
 			theAM.setStatus(b);
+		} else if (arg0.getSource() == jMenuItem1) {
+			// quit
+			
+			// TODO is there a cleaner way to do this?
+			System.exit(0);	
+		} else if (arg0.getSource() == jMenuItem2) {
+			// new merge
+			MergeSetupWindow myMSW = new MergeSetupWindow(theAM.getBuddyList().getNextUnusedMergeID(), theAM);
+			myMSW.setVisible(true);
+		} else if (arg0.getSource() == jMenuItem3) {
+			// account window
+			theASW.setVisible(true);
+		} else if (arg0.getSource() == jMenuItem4) {
+			// connect
+			theAM.loadEnabledAccounts(new PreferencePoint());
+			theAM.makeAccounts();
+			theAM.connectAll();
+		} else if (arg0.getSource() == jMenuItem5) {
+			// disconenct
+			theAM.disconnectAll();
 		}
 	}
 

@@ -34,6 +34,12 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		theIml = new ArrayList<IMListener>();
 	}
 	
+	public void clearAccounts() {
+		theSettings = new ArrayList<AccountSettings>();
+		this.disconnectAll();
+		theAccounts = new ArrayList<AbstractAccount>();
+	}
+	
 	public void loadEnabledAccounts(PreferencePoint pp) {
 		ArrayList<AccountSettings> loadedSettings = pp.getAllAccounts();
 		
@@ -76,6 +82,11 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	public void disconnectAll() {
 		for (AbstractAccount aa : theAccounts) {
 			aa.disconnect();
+			theList.accountDisconnected(aa);
+		}
+		
+		for (BuddyListChangeListener blcl : theBLCL) {
+			blcl.BuddyListChange(theList);
 		}
 	}
 	
