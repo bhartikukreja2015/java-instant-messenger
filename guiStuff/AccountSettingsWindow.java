@@ -102,7 +102,6 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		System.out.println(jList1.getModel().getSize() + "|" + jList1.getSelectedIndex());
 		
 		boolean enabled = (jList1.getModel().getSize() >= jList1.getSelectedIndex() + 1) && (jList1.getSelectedIndex() != -1);
 		

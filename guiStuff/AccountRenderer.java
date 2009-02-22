@@ -30,6 +30,7 @@ public class AccountRenderer extends Component {
 	public void paint(Graphics g) {
 		if (toShow == null) { return; }
 		
+		
 		if (isSelected) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(-1, -1, theWidth + 1, theHeight + 1);
@@ -43,9 +44,9 @@ public class AccountRenderer extends Component {
 		
 		IconFetch myFetch = new IconFetch();
 		Image myImg = myFetch.loadImage(toShow.getAccountType());
-		g.drawImage(myImg, 0, 5, null);
+		g.drawImage(myImg, 5, 5, null);
 				
-		g.drawString((toShow.getAlias() != null ? toShow.getAlias() : toShow.getUsername()), myImg.getWidth(null) + 5, fontBaseline);
+		g.drawString((toShow.getAlias() != null ? toShow.getAlias() : toShow.getUsername()), myImg.getWidth(null) + 10, fontBaseline);
 		
 	}
 	

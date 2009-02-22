@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
@@ -42,7 +43,7 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 	private JButton jbSave;
 	private JButton jbCancel;
 	private JCheckBox jcbEnabled;
-	private JTextField jtPassword;
+	private JPasswordField jtPassword;
 	private JLabel jlPassword;
 
 	
@@ -111,7 +112,7 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 				jlPassword.setText("Password:");
 			}
 			{
-				jtPassword = new JTextField();
+				jtPassword = new JPasswordField();
 			}
 			{
 				jcbEnabled = new JCheckBox();
