@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="smack.jar"/>
-	<classpathentry kind="lib" path="smackx.jar"/>
-	<classpathentry kind="lib" path="ymsg_network_v0_64.jar"/>
-	<classpathentry kind="lib" path="ymsg_support_v0_64.jar"/>
-	<classpathentry kind="lib" path="jml-1.0b3-full.jar"/>
-	<classpathentry kind="lib" path="lib/swing-layout-1.0.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="smack.jar"/>
+	<classpathentry exported="true" kind="lib" path="smackx.jar"/>
+	<classpathentry exported="true" kind="lib" path="ymsg_network_v0_64.jar"/>
+	<classpathentry exported="true" kind="lib" path="ymsg_support_v0_64.jar"/>
+	<classpathentry exported="true" kind="lib" path="jml-1.0b3-full.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/swing-layout-1.0.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
