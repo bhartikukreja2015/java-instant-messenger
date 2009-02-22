@@ -165,9 +165,8 @@ public class MergeSetupWindow extends javax.swing.JFrame implements ActionListen
 	public void itemStateChanged(ItemEvent arg0) { }
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		if (arg0.getSource() != jList1) { return; }
-		
-		jbMinus.setEnabled(jList1.getSelectedIndex() != -1);
+		boolean enabled = (jList1.getModel().getSize() >= jList1.getSelectedIndex() + 1) && (jList1.getSelectedIndex() != -1);
+		jbMinus.setEnabled(enabled);
 	}
 	
 	protected Buddy getBuddyWithChangedMergeID(Buddy theBuddy, int mergeID) {
