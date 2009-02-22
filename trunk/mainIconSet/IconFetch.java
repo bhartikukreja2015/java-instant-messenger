@@ -38,25 +38,25 @@ public class IconFetch {
 	
 	public Image loadImage(String theImage) {
 		
-		if (theImage == Buddy.available) {
+		if (theImage.equals(Buddy.available)) {
 			return getImage("ava.png");
-		} else if (theImage == Buddy.away) {
+		} else if (theImage.equals(Buddy.away)) {
 			return getImage("away.png");
-		} else if (theImage == Buddy.doNotDistrub) {
+		} else if (theImage.equals(Buddy.doNotDistrub)) {
 			return getImage("dnd.png");
-		} else if (theImage == Buddy.offline) {
+		} else if (theImage.equals(Buddy.offline)) {
 			return getImage("offline.png");
-		} else if (theImage == Buddy.superAvailable) {
+		} else if (theImage.equals(Buddy.superAvailable)) {
 			return getImage("chat.png");
-		} else if (theImage == Buddy.superAway) {
+		} else if (theImage.equals(Buddy.superAway)) {
 			return getImage("xa.png");
-		} else if (theImage == AccountSettings.AIMAccount) {
+		} else if (theImage.equals(AccountSettings.AIMAccount)) {
 			return getImage("aim.png");
-		} else if (theImage == AccountSettings.GoogleTalkAccount) {
+		} else if (theImage.equals(AccountSettings.GoogleTalkAccount)) {
 			return getImage("gtalk.png");
-		} else if (theImage == AccountSettings.MSNAccount) {
+		} else if (theImage.equals(AccountSettings.MSNAccount)) {
 			return getImage("msn.png");
-		} else if (theImage == AccountSettings.YahooAccount) {
+		} else if (theImage.equals(AccountSettings.YahooAccount)) {
 			return getImage("yahoo.png");
 		}
 		
