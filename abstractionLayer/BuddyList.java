@@ -195,4 +195,20 @@ public class BuddyList {
 		return (unused);
 	}
 	
+	public void accountDisconnected(AbstractAccount theAccount) {
+		int i = 0;
+		while (i != theList.size()) {
+			if (theList.get(i).getAccount().getAccountSettings().getID() == theAccount.getAccountSettings().getID()) {
+				// remove this user
+				//System.out.println("Removed: " + theList.get(i).getAccount().getAccountSettings().getID());
+				theList.remove(i);
+				i = 0;
+			} else {
+				//System.out.println("Did not remove: " + theList.get(i).getAccount().getAccountSettings().getID());
+				i++;
+			}
+			
+		}
+	}
+	
 }
