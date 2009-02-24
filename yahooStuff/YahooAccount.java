@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import ymsg.network.AccountLockedException;
+import ymsg.network.HackListen;
 import ymsg.network.LoginRefusedException;
 import ymsg.network.Session;
 import ymsg.network.StatusConstants;
+import ymsg.network.YMSG9Packet;
 import ymsg.network.YahooGroup;
 import ymsg.network.YahooUser;
 import ymsg.network.event.SessionChatEvent;
@@ -26,7 +28,7 @@ import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
 
-public class YahooAccount implements AbstractAccount, SessionListener {
+public class YahooAccount implements AbstractAccount, SessionListener, HackListen {
 
 	protected AccountSettings theSettings;
 	protected IMEvents theEvents;
@@ -54,6 +56,7 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 	}
 
 	public void connect() {
+		myCon.setHack(this);
 		myCon.addSessionListener(this);
 		try {
 			myCon.login(theSettings.getUsername(), theSettings.getPassword());
@@ -289,5 +292,11 @@ public class YahooAccount implements AbstractAccount, SessionListener {
 		//myBuddy.setGroupName(arg0.getGroup()); not needed to remove
 		
 		theEvents.buddyDeleted(myBuddy);
+	}
+
+
+	public void gotPacket(YMSG9Packet arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
