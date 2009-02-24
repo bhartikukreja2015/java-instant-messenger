@@ -141,5 +141,10 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 			blcl.BuddyListChange(theList);
 		}
 	}
+
+	public void loginError(AbstractAccount theAccount) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
