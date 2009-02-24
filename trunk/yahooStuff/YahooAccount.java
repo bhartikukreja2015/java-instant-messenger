@@ -296,7 +296,20 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 
 
 	public void gotPacket(YMSG9Packet arg0) {
-		// TODO Auto-generated method stub
+		// because the API is kind of broken, we've got to play
+		// some games with this.
 		
+		// custom statuses appear to, for lack of better words, "not work"
+		// We seem to get the following when there is a status change:
+		
+		// Status is 1
+		// body[0] is 7
+		// body[1] is the username who's status is changing
+		// body[7] is the status message
+		// body[9] is 1 if away, 0 if avail.
+		
+		if (arg0.)
+		
+		System.out.println(arg0.toString());
 	}
 }
