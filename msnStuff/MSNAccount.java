@@ -153,7 +153,13 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 
 	public void loginCompleted(MsnMessenger arg0) { isConn = true; }
 
-	public void logout(MsnMessenger arg0) { isConn = false; }
+	public void logout(MsnMessenger arg0) { 
+		// I believe that this gets called for a wrong password etc.
+		// But here is a literal quote from the javadocs:
+		// "Logout. Even not login completed may logout."
+		theEvents.loginError(this);
+		isConn = false;
+	}
 
 	public void contactAddCompleted(MsnMessenger arg0, MsnContact arg1) {
 		Buddy b = this.MSNContactToJimBuddy(arg1);

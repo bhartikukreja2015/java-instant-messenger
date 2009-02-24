@@ -62,13 +62,11 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 			myCon.login(theSettings.getUsername(), theSettings.getPassword());
 			myCon.refreshFriends();
 		} catch (AccountLockedException e) {
-			// TODO needs to be implemented
-			e.printStackTrace();
+			theEvents.loginError(this);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (LoginRefusedException e) {
-			// TODO needs to be implemented
-			e.printStackTrace();
+			theEvents.loginError(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
