@@ -308,8 +308,18 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		// body[7] is the status message
 		// body[9] is 1 if away, 0 if avail.
 		
-		if (arg0.)
+		//System.out.println(arg0.toString());
 		
-		System.out.println(arg0.toString());
+		if (arg0.status != 1) return;
+		if (!arg0.body[0].equals("7")) return;
+		
+		Buddy b = new Buddy();
+		b.setAccount(this);
+		b.setScreename(arg0.body[1]);
+		b.setStatusMessage(arg0.body[7]);
+		b.setStatus((arg0.body[9].equals("0") ? Buddy.available : Buddy.away));
+		b.setOnlineStatus(true);
+		
+		theEvents.buddyStatusChange(b, false);
 	}
 }
