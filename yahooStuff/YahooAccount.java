@@ -244,6 +244,8 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 
 	
 	protected Buddy YahooUserToJimBuddy(YahooUser myYU) {
+		System.out.println(myYU.toString());
+		
 		Buddy myBuddy = new Buddy();
 		myBuddy.setAccount(this);
 		myBuddy.setScreename(myYU.getId());
@@ -297,6 +299,39 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		// because the API is kind of broken, we've got to play
 		// some games with this.
 		
+		// FOR INTIAL:
+		
+		// we don't capture custom status messages on login properly.
+		// we need to check for that here
+		// but if they don't have a custom status
+		// we're fine!
+		
+		// status updates seem to be sent with the following properties
+		// Service is 1
+		// Status is 0
+		// body[0] is 0
+		// body[1] is the screenname (might not be -- don't count on it
+		// body[7] is their username
+		// body[15] is a custom status if they have one, otherwise it is 1
+		// body[16] is a status... looks like 138 for here, 47 for otherwise
+		
+		if (arg0.service == 1 && arg0.status == 0 && arg0.body[0].equals("0")) {
+			System.out.println(arg0.toString());
+			
+			// stop right now if they don't have a custom status
+			if (arg0.body[15].equals("1")) return;
+			
+			Buddy b = new Buddy();
+			b.setAccount(this);
+			b.setScreename(arg0.body[7]);
+			b.setStatus((arg0.body[16].equals("138") ? Buddy.available : Buddy.away));
+			b.setStatusMessage(arg0.body[15]);
+			
+			theEvents.buddyStatusChange(b, false);
+			return;		
+		}
+		
+		// FOR UPDATES:
 		// custom statuses appear to, for lack of better words, "not work"
 		// We seem to get the following when there is a status change:
 		
@@ -306,18 +341,18 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		// body[7] is the status message
 		// body[9] is 1 if away, 0 if avail.
 		
-		//System.out.println(arg0.toString());
+		if (arg0.status == 1 && arg0.body[0].equals("7")) {
+			Buddy b = new Buddy();
+			
+			b.setAccount(this);
+			b.setScreename(arg0.body[1]);
+			b.setStatus((arg0.body[9].equals("0") ? Buddy.available : Buddy.away));
+			b.setStatusMessage(arg0.body[7]);
+			
+			theEvents.buddyStatusChange(b, false);
+			
+			return;
+		}
 		
-		if (arg0.status != 1) return;
-		if (!arg0.body[0].equals("7")) return;
-		
-		Buddy b = new Buddy();
-		b.setAccount(this);
-		b.setScreename(arg0.body[1]);
-		b.setStatusMessage(arg0.body[7]);
-		b.setStatus((arg0.body[9].equals("0") ? Buddy.available : Buddy.away));
-		b.setOnlineStatus(true);
-		
-		theEvents.buddyStatusChange(b, false);
 	}
 }
