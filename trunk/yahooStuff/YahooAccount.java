@@ -37,10 +37,13 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 	
 	protected boolean isConnected;
 	
+	protected ArrayList<String> ignoreNext;
+	
 	
 	public YahooAccount() {
 		myCon = new Session();
 		isConnected = false;
+		ignoreNext = new ArrayList<String>();
 	}
 	
 	
@@ -204,8 +207,14 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 			for (YahooUser myYU : theUsers) {
 				if (myYU.isFriend()) {
 					myBuddy = this.YahooUserToJimBuddy(myYU);
-					myBuddy.setGroupName(groupName);
-					theEvents.buddyStatusChange(myBuddy, false);
+					
+					if (ignoreNext.contains(myBuddy.getScreename())) {
+						// ignore it
+						ignoreNext.remove(myBuddy.getScreename());
+					} else {
+						myBuddy.setGroupName(groupName);
+						theEvents.buddyStatusChange(myBuddy, false);
+					}
 				}
 			}
 		}
@@ -316,10 +325,11 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		// body[16] is a status... looks like 138 for here, 47 for otherwise
 		
 		if (arg0.service == 1 && arg0.status == 0 && arg0.body[0].equals("0")) {
-			System.out.println(arg0.toString());
-			
 			// stop right now if they don't have a custom status
 			if (arg0.body[15].equals("1")) return;
+			
+			// make sure we don't wipe out this value when the broken event comes in
+			ignoreNext.add(arg0.body[7]);
 			
 			Buddy b = new Buddy();
 			b.setAccount(this);
