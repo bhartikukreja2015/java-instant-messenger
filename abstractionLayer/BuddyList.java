@@ -33,6 +33,9 @@ public class BuddyList {
 	
 	public void updateBuddy(Buddy theBuddy) {
 		int i = 0;
+		
+		//System.out.println(theBuddy.getScreename() + " is " + theBuddy.getStatusMessage());
+		
 		while (i != theList.size()) {
 			if (theList.get(i).getScreename().equals(theBuddy.getScreename())) {
 				
