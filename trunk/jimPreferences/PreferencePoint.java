@@ -36,8 +36,11 @@ public class PreferencePoint {
 		Preferences accountNode = myPrefs.node("Accounts").node("" + myAccount.getID());
 
 		accountNode.put(PreferencePoint.usernameKey, myAccount.getUsername());
-		String password = (myE != null ? new String(myE.encrypt(myAccount.getPassword().getBytes())) : myAccount.getPassword());
-		accountNode.put(PreferencePoint.passwordKey, password);
+		if (myE != null) {
+			accountNode.putByteArray(PreferencePoint.passwordKey, myE.encrypt(myAccount.getPassword().getBytes()));
+		} else {
+			accountNode.put(PreferencePoint.passwordKey, myAccount.getPassword());
+		}
 		accountNode.put(PreferencePoint.accountTypeKey, myAccount.getAccountType());
 		accountNode.putBoolean(PreferencePoint.enabledKey, myAccount.isEnabled());		
 		accountNode.put(PreferencePoint.accountAlias, myAccount.getAlias());
@@ -56,11 +59,11 @@ public class PreferencePoint {
 
 				myA.setID(Integer.valueOf(s));
 				myA.setUsername(accountNode.node(s).get(PreferencePoint.usernameKey, ""));
-				
-				String currentPass = accountNode.node(s).get(PreferencePoint.passwordKey, "");
-				currentPass = (myE != null ? new String(myE.decrypt(currentPass.getBytes())) : currentPass);
-				
-				myA.setPassword(currentPass);
+				if (myE != null) {
+					myA.setPassword(new String(myE.decrypt(accountNode.node(s).getByteArray(PreferencePoint.passwordKey, null))));
+				} else {
+					myA.setPassword(accountNode.node(s).get(PreferencePoint.passwordKey, ""));
+				}
 				myA.setAccountType(accountNode.node(s).get(PreferencePoint.accountTypeKey, ""));
 				myA.setEnabled(accountNode.node(s).getBoolean(PreferencePoint.enabledKey, false));
 				myA.setAlias(accountNode.node(s).get(PreferencePoint.accountAlias, ""));
@@ -83,10 +86,11 @@ public class PreferencePoint {
 
 			myA.setID(id);
 			myA.setUsername(accountNode.get(PreferencePoint.usernameKey, ""));
-			String currentPass = accountNode.get(PreferencePoint.passwordKey, "");
-			currentPass = (myE != null ? new String(myE.decrypt(currentPass.getBytes())) : currentPass);
-			
-			myA.setPassword(currentPass);
+			if (myE != null) {
+				myA.setPassword(new String(myE.decrypt(accountNode.getByteArray(PreferencePoint.passwordKey, null))));
+			} else {
+				myA.setPassword(accountNode.get(PreferencePoint.passwordKey, ""));
+			}
 			myA.setAccountType(accountNode.get(PreferencePoint.accountTypeKey, ""));
 			myA.setEnabled(accountNode.getBoolean(PreferencePoint.enabledKey, false));
 			myA.setAlias(accountNode.get(PreferencePoint.accountAlias, ""));
