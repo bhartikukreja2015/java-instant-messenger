@@ -2,6 +2,7 @@ package jimPreferences;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class EncryptionPoint {
 	
 	protected Cipher encCipher;
 	protected Cipher decCipher;
+	protected byte[] passwordHash;
 	
 	public EncryptionPoint(String password) {
 		byte[] salt = new byte[8];
@@ -47,6 +49,9 @@ public class EncryptionPoint {
 			
 			decCipher = Cipher.getInstance(pbeKey.getAlgorithm());
 			decCipher.init(Cipher.DECRYPT_MODE, pbeKey, theParamSpec);
+			
+			MessageDigest myDigest = MessageDigest.getInstance("MD5");
+			passwordHash = myDigest.digest(password.getBytes());
 			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
@@ -134,4 +139,5 @@ public class EncryptionPoint {
 		
 		return null;
 	}
+	
 }
