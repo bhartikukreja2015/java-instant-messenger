@@ -48,4 +48,15 @@ public class AccountSettings {
 		
 		return b;
 	}
+	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append("[Account Type: " + getAccountType() + "]");
+		s.append("[Username: " + getUsername() + "]");
+		s.append("[Password: " + getPassword() + "]");
+		s.append("[Alias: " + getAlias() + "]");
+		s.append("[ID: " + getID() + "]");
+		
+		return s.toString();
+	}
 }
