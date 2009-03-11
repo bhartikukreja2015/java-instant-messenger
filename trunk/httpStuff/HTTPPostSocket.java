@@ -30,6 +30,8 @@ public class HTTPPostSocket {
 			while ((line = rd.readLine()) != null) {
 				toReturn += line;
 			}
+			
+			rd.close();
 		} 
 		catch (MalformedURLException e) { e.printStackTrace(); }
 		catch (IOException e) { e.printStackTrace(); }
