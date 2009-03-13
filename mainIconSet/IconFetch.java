@@ -67,4 +67,32 @@ public class IconFetch {
 		URL theURL = getClass().getResource(thePath);
 		return theURL.toString();
 	}
+	
+	public String getURL(String thePath, boolean parse) {
+		if (!parse) { return getURL(thePath); }
+		
+		if (thePath.equals(Buddy.available)) {
+			return getURL("ava.png");
+		} else if (thePath.equals(Buddy.away)) {
+			return getURL("away.png");
+		} else if (thePath.equals(Buddy.doNotDistrub)) {
+			return getURL("dnd.png");
+		} else if (thePath.equals(Buddy.offline)) {
+			return getURL("offline.png");
+		} else if (thePath.equals(Buddy.superAvailable)) {
+			return getURL("chat.png");
+		} else if (thePath.equals(Buddy.superAway)) {
+			return getURL("xa.png");
+		} else if (thePath.equals(AccountSettings.AIMAccount)) {
+			return getURL("aim.png");
+		} else if (thePath.equals(AccountSettings.GoogleTalkAccount)) {
+			return getURL("gtalk.png");
+		} else if (thePath.equals(AccountSettings.MSNAccount)) {
+			return getURL("msn.png");
+		} else if (thePath.equals(AccountSettings.YahooAccount)) {
+			return getURL("yahoo.png");
+		}
+		
+		return getURL(thePath);
+	}
 }

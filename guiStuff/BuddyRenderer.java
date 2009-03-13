@@ -1,18 +1,17 @@
 package guiStuff;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
-import upperAbstractionLayer.AccountManager;
-
 import mainIconSet.IconFetch;
+import mainIconSet.ToolTipGenerator;
+import upperAbstractionLayer.AccountManager;
 import abstractionLayer.Buddy;
 
-public class BuddyRenderer extends Component {
+public class BuddyRenderer extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -41,6 +40,10 @@ public class BuddyRenderer extends Component {
 		toFetch = theComp;
 		
 		showingMerge = showMerge;
+		
+		ToolTipGenerator TTG = new ToolTipGenerator();
+		this.setToolTipText(TTG.getTooltip(theBuddy));
+		
 	}
 	
 	public void paint(Graphics g) {
