@@ -19,7 +19,7 @@ public class ToolTipGenerator {
 		myBuild.append(b.getScreename());
 		myBuild.append("<br><strong>Account type: </strong>");
 		myBuild.append(b.getAccount().getAccountSettings().getAccountType());
-		myBuild.append("<br><strong>Account alias: </strong");
+		myBuild.append("<br><strong>Account alias: </strong>");
 		myBuild.append(b.getAccount().getAccountSettings().getAlias());
 		
 		myBuild.append("</td></tr></table></html>");
