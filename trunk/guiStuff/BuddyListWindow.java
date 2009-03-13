@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -33,6 +34,9 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	private static final long serialVersionUID = 1L;
 	// Variables declaration - do not modify
     private javax.swing.JScrollPane jScrollPane1;
+    private JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private JSeparator jSeparator2;
     private JMenuItem jMenuItem5;
     private JSeparator jSeparator1;
     private JMenuItem jMenuItem4;
@@ -125,6 +129,25 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         			jMenuItem2.setText("Create new merge");
         			jMenuItem2.addActionListener(this);
         		}
+        		{
+        			jSeparator2 = new JSeparator();
+        			jMenu2.add(jSeparator2);
+        		}
+        		{
+        			jCheckBoxMenuItem1 = new JCheckBoxMenuItem();
+        			jMenu2.add(jCheckBoxMenuItem1);
+        			jCheckBoxMenuItem1.setText("Show offline buddies");
+        			jCheckBoxMenuItem1.addActionListener(this);
+        		}
+        		{
+        			jCheckBoxMenuItem2 = new JCheckBoxMenuItem();
+        			
+        			// TODO add this
+        			
+        			//jMenu2.add(jCheckBoxMenuItem2);
+        			jCheckBoxMenuItem2.setText("Merge buddies");
+        			jCheckBoxMenuItem2.addActionListener(this);
+        		}
         	}
         	{
         		jMenu3 = new JMenu();
@@ -205,15 +228,18 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			b.setStatusMessage(null);
 			
 			theAM.setStatus(b);
+			return;
 		} else if (arg0.getSource() == jMenuItem1) {
 			// quit
 			
 			// TODO is there a cleaner way to do this?
 			System.exit(0);	
+			return;
 		} else if (arg0.getSource() == jMenuItem2) {
 			// new merge
 			MergeSetupWindow myMSW = new MergeSetupWindow(theAM.getBuddyList().getNextUnusedMergeID(), theAM);
 			myMSW.setVisible(true);
+			return;
 		} else if (arg0.getSource() == jMenuItem3) {
 			// account window
 			theASW.setVisible(true);
@@ -222,10 +248,16 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			theAM.loadEnabledAccounts(new PreferencePoint());
 			theAM.makeAccounts();
 			theAM.connectAll();
+			return;
 		} else if (arg0.getSource() == jMenuItem5) {
 			// disconenct
 			theAM.disconnectAll();
+			return;
+		} else if (arg0.getSource() == jCheckBoxMenuItem1) {
+			theModel.setShowOffline(jCheckBoxMenuItem1.isSelected());
+			return;
 		}
+		
 	}
 
 	public void getInfo(int index) {
