@@ -44,20 +44,17 @@ public class IMWindowJLabel extends JLabel {
 		
 		
 		double scalingFactor = theHeight - (IMWindowJLabel.graphicY * 2); // inital Y we have
-		System.out.println("SF: " + scalingFactor + "/" + graphicHeight);
 		scalingFactor =  scalingFactor / graphicHeight;
-		System.out.println("SF: " + scalingFactor);
+		
 		// scalingFactor is now orignal / render
 		
 		int scaledWidth = (int) ((int) graphicWidth * scalingFactor);
 		int scaledHeight = (int) ((int) graphicHeight * scalingFactor);
 		
-		System.out.println((graphicWidth * scalingFactor) + "x" + scaledHeight);
-		
 		g.drawImage(theFetch.loadImage(toRender.getStatus()), graphicX, graphicY, scaledWidth, scaledHeight, 0, 0, graphicWidth, graphicHeight, null);
 		
 		int fontHeight = g.getFontMetrics().getHeight();
-		g.drawString(toRender.getScreename(), scaledWidth + graphicTextSpace, (theHeight / 2) + (fontHeight / 4));
+		g.drawString((toRender.getAlias() == null ? toRender.getScreename() : toRender.getAlias()), scaledWidth + graphicTextSpace, (theHeight / 2) + (fontHeight / 4));
 	
 	}
 	
