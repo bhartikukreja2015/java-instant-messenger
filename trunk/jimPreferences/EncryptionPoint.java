@@ -140,4 +140,8 @@ public class EncryptionPoint {
 		return null;
 	}
 	
+	public String getPasswordHash() {
+		return new String(passwordHash);
+	}
+	
 }
