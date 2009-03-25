@@ -84,8 +84,11 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         jlBuddies.setCellRenderer(new BuddyRendererCreator(theAM, true, true));
         jScrollPane1.setViewportView(jlBuddies);
 
-        jcStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Buddy.available, Buddy.superAvailable, Buddy.away, Buddy.doNotDistrub, Buddy.superAway }));
+        jcStatus.setModel(new StatusListModel());
+        jcStatus.setRenderer(new StatusRendererCreator());
         jcStatus.addActionListener(this);
+        jcStatus.setSelectedIndex(1);
+        
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,9 +145,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         		{
         			jCheckBoxMenuItem2 = new JCheckBoxMenuItem();
         			
-        			// TODO add this
-        			
-        			//jMenu2.add(jCheckBoxMenuItem2);
+        			jMenu2.add(jCheckBoxMenuItem2);
         			jCheckBoxMenuItem2.setText("Merge buddies");
         			jCheckBoxMenuItem2.addActionListener(this);
         		}
@@ -254,7 +255,12 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			theAM.disconnectAll();
 			return;
 		} else if (arg0.getSource() == jCheckBoxMenuItem1) {
+			// show offline
 			theModel.setShowOffline(jCheckBoxMenuItem1.isSelected());
+			return;
+		} else if (arg0.getSource() == jCheckBoxMenuItem2) {
+			// showing merge
+			theModel.setHideMerged(jCheckBoxMenuItem2.isSelected());
 			return;
 		}
 		
