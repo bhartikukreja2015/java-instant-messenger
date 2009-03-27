@@ -64,6 +64,10 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 				theAccount = new YahooAccount();
 			} else if (as.getAccountType().equals(AccountSettings.MSNAccount)) {
 				theAccount = new MSNAccount();
+			} else {
+				// got unknown account type...
+				// TODO is there a better way to handle this?
+				System.out.println("Got unknown account type, don't know what to do: " + as.getAccountType());
 			}
 			
 			theAccount.setAccountSettings(as);
