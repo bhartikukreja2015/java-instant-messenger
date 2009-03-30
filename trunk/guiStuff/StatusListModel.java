@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
-import abstractionLayer.Buddy;
+import abstractionLayer.Status;
 
 public class StatusListModel implements ComboBoxModel {
 
@@ -17,12 +17,12 @@ public class StatusListModel implements ComboBoxModel {
 		theListeners = new ArrayList<ListDataListener>();
 		theOptions = new ArrayList<String>();
 		
-		theOptions.add(Buddy.superAvailable);
-		theOptions.add(Buddy.available);
-		theOptions.add(Buddy.doNotDistrub);
-		theOptions.add(Buddy.away);
-		theOptions.add(Buddy.superAway);
-		theOptions.add(Buddy.offline);
+		theOptions.add(Status.superAvailable);
+		theOptions.add(Status.available);
+		theOptions.add(Status.doNotDistrub);
+		theOptions.add(Status.away);
+		theOptions.add(Status.superAway);
+		theOptions.add(Status.offline);
 	}
 	
 	public Object getSelectedItem() {

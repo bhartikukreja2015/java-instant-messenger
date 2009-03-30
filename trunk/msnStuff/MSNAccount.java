@@ -22,6 +22,7 @@ import abstractionLayer.AccountSettings;
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
+import abstractionLayer.Status;
 
 public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMessengerListener, MsnContactListListener {
 
@@ -71,16 +72,16 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 
 	public void setListener(IMEvents theEvent) { theEvents = theEvent; }
 
-	public void setStatus(Buddy theStatus) {
+	public void setStatus(Status theStatus) {
 		MsnUserStatus toChange = null;
 		
-		if (theStatus.getStatus().equals(Buddy.available) || theStatus.getStatus().equals(Buddy.superAvailable)) {
+		if (theStatus.getStatus().equals(Status.available) || theStatus.getStatus().equals(Status.superAvailable)) {
 			toChange = MsnUserStatus.ONLINE;
-		} else if (theStatus.getStatus().equals(Buddy.away)) {
+		} else if (theStatus.getStatus().equals(Status.away)) {
 			toChange = MsnUserStatus.BE_RIGHT_BACK;
-		} else if (theStatus.getStatus().equals(Buddy.doNotDistrub)) {
+		} else if (theStatus.getStatus().equals(Status.doNotDistrub)) {
 			toChange = MsnUserStatus.BUSY;
-		} else if (theStatus.getStatus().equals(Buddy.superAway)) {
+		} else if (theStatus.getStatus().equals(Status.superAway)) {
 			toChange = MsnUserStatus.OUT_TO_LUNCH;
 		}
 		
@@ -100,21 +101,21 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		
 		//System.out.println(myStatus.getDisplayStatus() + "|" + MsnUserStatus.OFFLINE);
 		
+		Status toSet = new Status();
 		
 		if (myStatus == MsnUserStatus.AWAY || myStatus == MsnUserStatus.BE_RIGHT_BACK || myStatus == MsnUserStatus.IDLE) {
-			b.setStatus(Buddy.away);
+			toSet.setStatus(Status.away);
 		} else if (myStatus == MsnUserStatus.BUSY) {
-			b.setStatus(Buddy.doNotDistrub);
+			toSet.setStatus(Status.doNotDistrub);
 		} else if (myStatus == MsnUserStatus.OUT_TO_LUNCH) {
-			b.setStatus(Buddy.superAway);
+			toSet.setStatus(Status.superAway);
 		} else if (myStatus == MsnUserStatus.ONLINE) {
-			b.setStatus(Buddy.available);
+			toSet.setStatus(Status.available);
 		} else if (myStatus == MsnUserStatus.OFFLINE) {
-			b.setStatus(Buddy.offline);
+			toSet.setStatus(Status.offline);
 		}
 		
-		b.setOnlineStatus(!(myStatus == MsnUserStatus.OFFLINE));
-		//b.setOnlineStatus(false);
+		b.setStatus(toSet);
 		
 		b.setGroupName(myMC.getBelongGroups()[0].getGroupName());
 		

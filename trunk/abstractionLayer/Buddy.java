@@ -2,14 +2,7 @@ package abstractionLayer;
 
 import jimPreferences.PreferencePoint;
 
-public class Buddy implements Comparable<Object> {
-	public static final String available = "Available";
-	public static final String superAvailable = "Chatty";
-	public static final String away = "Away";
-	public static final String superAway = "Really away";
-	public static final String doNotDistrub = "Do not distrub";
-	public static final String offline = "Offline";
-	
+public class Buddy implements Comparable<Object> {	
 	public boolean saveAlias = true;
 	
 	protected String screenname;
@@ -17,9 +10,9 @@ public class Buddy implements Comparable<Object> {
 	protected String groupName;
 	protected int mergeID;
 	protected int mergePriority;
-	protected boolean onlineStatus;
-	protected String status;
-	protected String statusMessage;
+	
+	protected Status theStatus;
+	
 	protected AbstractAccount theAccount;
 	protected String resource;
 	
@@ -29,15 +22,11 @@ public class Buddy implements Comparable<Object> {
 		screenname = sn;
 		groupName = groupname;
 		mergeID = theMergeID;
-	}
-	
-	public Buddy(String sn, boolean isOnline) {
-		screenname = sn;
-		onlineStatus = isOnline;
+		theStatus = new Status();
 	}
 	
 	public Buddy() {
-		
+		theStatus = new Status();
 	}
 	
 	public void setScreename(String sn) { screenname = sn; }
@@ -65,19 +54,10 @@ public class Buddy implements Comparable<Object> {
 	public void setMergePrioroity(int mp) { mergePriority = mp; }
 	public int getMergePrioroity() { return mergePriority; }
 	
-	public void setOnlineStatus(boolean online) { 
-		onlineStatus = online;
-		if (!online) {
-			setStatus(Buddy.offline);
-		}
-	}
-	public boolean isOnline() { return onlineStatus; }
+	public boolean isOnline() { return theStatus.isOnline(); }
 	
-	public void setStatus(String theStatus) { status = theStatus; }
-	public String getStatus() { return status; }
-	
-	public void setStatusMessage(String theStatusMessage) { statusMessage = theStatusMessage; }
-	public String getStatusMessage() { return statusMessage; }
+	public void setStatus(Status pStatus) { theStatus = pStatus; }
+	public Status getStatus() { return theStatus; }
 	
 	// by default, this method will NOT override a value we've already saved.
 	public void setAlias(String a) { 
@@ -133,8 +113,8 @@ public class Buddy implements Comparable<Object> {
 		
 		Buddy b = (Buddy) arg0;
 		
-		if (this.getStatus().equals(Buddy.available)) {
-			if (b.getStatus().equals(Buddy.available)) {
+		if (this.getStatus().getStatus().equals(Status.available)) {
+			if (b.getStatus().getStatus().equals(Status.available)) {
 				return 0; // we are both available
 			}
 			return -1; // we are available, they are not!

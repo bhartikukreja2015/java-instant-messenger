@@ -14,5 +14,5 @@ public interface AbstractAccount {
 	
 	public void sendIM(IM theIM);
 	
-	public void setStatus(Buddy theStatus);
+	public void setStatus(Status theStatus);
 }

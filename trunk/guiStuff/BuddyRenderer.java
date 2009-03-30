@@ -10,6 +10,7 @@ import mainIconSet.IconFetch;
 import mainIconSet.ToolTipGenerator;
 import upperAbstractionLayer.AccountManager;
 import abstractionLayer.Buddy;
+import abstractionLayer.Status;
 
 public class BuddyRenderer extends JComponent {
 
@@ -83,23 +84,23 @@ public class BuddyRenderer extends JComponent {
 		g.setColor(Color.BLACK);
 		//System.out.println(toShow.getStatus());
 		
-		if (toShow.getStatus() == Buddy.available) {
-			g.drawImage(IF.loadImage(Buddy.available), graphicX, graphicY, null);
+		if (toShow.getStatus().getStatus() == Status.available) {
+			g.drawImage(IF.loadImage(Status.available), graphicX, graphicY, null);
 			//g.setColor(Color.GREEN);
-		} else if (toShow.getStatus() == Buddy.away) {
-			g.drawImage(IF.loadImage(Buddy.away), graphicX, graphicY, null);
+		} else if (toShow.getStatus().getStatus() == Status.away) {
+			g.drawImage(IF.loadImage(Status.away), graphicX, graphicY, null);
 			//g.setColor(Color.RED);
-		} else if (toShow.getStatus() == Buddy.doNotDistrub) {
-			g.drawImage(IF.loadImage(Buddy.doNotDistrub), graphicX, graphicY, null);
+		} else if (toShow.getStatus().getStatus() == Status.doNotDistrub) {
+			g.drawImage(IF.loadImage(Status.doNotDistrub), graphicX, graphicY, null);
 			//g.setColor(Color.RED);
-		} else if (toShow.getStatus() == Buddy.offline) {
-			g.drawImage(IF.loadImage(Buddy.offline), graphicX, graphicY, null);
+		} else if (toShow.getStatus().getStatus() == Status.offline) {
+			g.drawImage(IF.loadImage(Status.offline), graphicX, graphicY, null);
 			g.setColor(Color.GRAY);
-		} else if (toShow.getStatus() == Buddy.superAvailable) {
-			g.drawImage(IF.loadImage(Buddy.superAvailable), graphicX, graphicY, null);
+		} else if (toShow.getStatus().getStatus() == Status.superAvailable) {
+			g.drawImage(IF.loadImage(Status.superAvailable), graphicX, graphicY, null);
 			//g.setColor(Color.GREEN);
-		} else if (toShow.getStatus() == Buddy.superAway) {
-			g.drawImage(IF.loadImage(Buddy.superAway), graphicX, graphicY, null);
+		} else if (toShow.getStatus().getStatus() == Status.superAway) {
+			g.drawImage(IF.loadImage(Status.superAway), graphicX, graphicY, null);
 			//g.setColor(Color.RED);
 		}
 		
@@ -114,12 +115,12 @@ public class BuddyRenderer extends JComponent {
 		//float newSize = 8;
 		g.setFont(g.getFont().deriveFont(newSize));
 		
-		if (toShow.getStatusMessage() != null) {
-			g.drawString(toShow.getStatusMessage(), widthPadding, yStatusBaseline);
+		if (toShow.getStatus().getStatusMessage() != null) {
+			g.drawString(toShow.getStatus().getStatusMessage(), widthPadding, yStatusBaseline);
 		} else if (toShow.getStatus() != null) {
-			g.drawString(toShow.getStatus(), widthPadding, yStatusBaseline);
+			g.drawString(toShow.getStatus().getStatus(), widthPadding, yStatusBaseline);
 		} else if (!toShow.isOnline()) {
-			g.drawString(Buddy.offline, widthPadding, yStatusBaseline);
+			g.drawString(Status.offline, widthPadding, yStatusBaseline);
 		}
 		
 		

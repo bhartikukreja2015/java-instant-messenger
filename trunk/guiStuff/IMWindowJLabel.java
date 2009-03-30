@@ -36,7 +36,7 @@ public class IMWindowJLabel extends JLabel {
 		
 		IconFetch theFetch = new IconFetch();
 		
-		Image theImg = theFetch.loadImage(toRender.getStatus());
+		Image theImg = theFetch.loadImage(toRender.getStatus().getStatus());
 		
 		int graphicHeight = theImg.getHeight(null);
 		int graphicWidth = theImg.getWidth(null);
@@ -51,7 +51,7 @@ public class IMWindowJLabel extends JLabel {
 		int scaledWidth = (int) ((int) graphicWidth * scalingFactor);
 		int scaledHeight = (int) ((int) graphicHeight * scalingFactor);
 		
-		g.drawImage(theFetch.loadImage(toRender.getStatus()), graphicX, graphicY, scaledWidth, scaledHeight, 0, 0, graphicWidth, graphicHeight, null);
+		g.drawImage(theFetch.loadImage(toRender.getStatus().getStatus()), graphicX, graphicY, scaledWidth, scaledHeight, 0, 0, graphicWidth, graphicHeight, null);
 		
 		int fontHeight = g.getFontMetrics().getHeight();
 		g.drawString((toRender.getAlias() == null ? toRender.getScreename() : toRender.getAlias()), scaledWidth + graphicTextSpace, (theHeight / 2) + (fontHeight / 4));
