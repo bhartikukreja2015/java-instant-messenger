@@ -21,6 +21,7 @@ import abstractionLayer.AccountSettings;
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
+import abstractionLayer.Status;
 
 public class GTalkAccount implements AbstractAccount, ChatManagerListener, MessageListener, RosterListener {
 
@@ -70,7 +71,7 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 				myBuddy.setAccount(this);
 				myBuddy.setScreename(re.getUser());
 				myBuddy.setAlias(re.getName());
-				myBuddy.setOnlineStatus(false);
+				myBuddy.setStatus(new Status(Status.offline));
 
 				theEvents.buddyStatusChange(myBuddy, true);
 			}
@@ -170,23 +171,26 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		myBuddy.setAlias(theRoster.getEntry(myBuddy.getScreename()).getName());
 		
 		
-		myBuddy.setOnlineStatus(arg0.isAvailable());
-		
 		myBuddy.setAccount(this);
 		
+		Status toSet = new Status();
+		
 		if (arg0.getMode() == Presence.Mode.available || arg0.getMode() == null) {
-			myBuddy.setStatus(Buddy.available);
+			toSet.setStatus(Status.available);
 		} else if (arg0.getMode() == Presence.Mode.away) {
-			myBuddy.setStatus(Buddy.away);
+			toSet.setStatus(Status.away);
 		} else if (arg0.getMode() == Presence.Mode.xa) {
-			myBuddy.setStatus(Buddy.superAway);
+			toSet.setStatus(Status.superAway);
 		} else if (arg0.getMode() == Presence.Mode.dnd) {
-			myBuddy.setStatus(Buddy.doNotDistrub);
+			toSet.setStatus(Status.doNotDistrub);
 		} else if (arg0.getMode() == Presence.Mode.chat) {
-			myBuddy.setStatus(Buddy.superAvailable);
+			toSet.setStatus(Status.superAvailable);
 		}
 		
-		myBuddy.setStatusMessage(arg0.getStatus());
+		toSet.setStatusMessage(arg0.getStatus());
+		
+		
+		myBuddy.setStatus(toSet);
 		
 		
 		theEvents.buddyStatusChange(myBuddy, false);
@@ -214,18 +218,18 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		sendIM(theIM);
 	}
 
-	public void setStatus(Buddy theStatus) {
+	public void setStatus(Status theStatus) {
 		Presence myPresence = new Presence(Presence.Type.available);
 		
-		if (theStatus.getStatus() == Buddy.available) {
+		if (theStatus.getStatus() == Status.available) {
 			myPresence.setMode(Presence.Mode.available);
-		} else if (theStatus.getStatus() == Buddy.away) {
+		} else if (theStatus.getStatus() == Status.away) {
 			myPresence.setMode(Presence.Mode.away);
-		} else if (theStatus.getStatus() == Buddy.doNotDistrub) {
+		} else if (theStatus.getStatus() == Status.doNotDistrub) {
 			myPresence.setMode(Presence.Mode.dnd);
-		} else if (theStatus.getStatus() == Buddy.superAvailable) {
+		} else if (theStatus.getStatus() == Status.superAvailable) {
 			myPresence.setMode(Presence.Mode.chat);
-		} else if (theStatus.getStatus() == Buddy.superAway) {
+		} else if (theStatus.getStatus() == Status.superAway) {
 			myPresence.setMode(Presence.Mode.xa);
 		}
 		

@@ -16,6 +16,7 @@ import abstractionLayer.Buddy;
 import abstractionLayer.BuddyList;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
+import abstractionLayer.Status;
 
 public class AccountManager implements IMEvents, AliasChangeEvent {
 	private ArrayList<AbstractAccount> theAccounts;
@@ -94,7 +95,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		}
 	}
 	
-	public void setStatus(Buddy theStatus) {
+	public void setStatus(Status theStatus) {
 		for (AbstractAccount aa : theAccounts) {
 			aa.setStatus(theStatus);
 		}

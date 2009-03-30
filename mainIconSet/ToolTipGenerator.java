@@ -11,7 +11,7 @@ public class ToolTipGenerator {
 		myBuild.append("<html><table width='400'><tr><td width='10%' align='center' valign='middle'>");
 		
 		myBuild.append("<img src='");
-		myBuild.append(myFetch.getURL(b.getStatus(), true));
+		myBuild.append(myFetch.getURL(b.getStatus().getStatus(), true));
 		
 		myBuild.append("'></td><td width='90%'><strong>Alias: </strong>");
 		myBuild.append(b.getAlias());

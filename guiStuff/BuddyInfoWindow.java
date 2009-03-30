@@ -41,7 +41,7 @@ public class BuddyInfoWindow extends javax.swing.JFrame {
 	public void setBuddy(Buddy b) {
 		jlAccountType.setText(b.getAccount().getAccountSettings().getAccountType());
 		jlAccount.setText(b.getAccount().getAccountSettings().getAlias());
-		jlStatus.setText(b.getStatus());
+		jlStatus.setText(b.getStatus().getStatus());
 		
 		if (b.getAlias() != null) {
 			jlAlias.setText(b.getAlias());

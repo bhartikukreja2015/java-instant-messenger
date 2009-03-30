@@ -6,7 +6,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 import abstractionLayer.AccountSettings;
-import abstractionLayer.Buddy;
+import abstractionLayer.Status;
 
 
 public class IconFetch {
@@ -38,17 +38,17 @@ public class IconFetch {
 	
 	public Image loadImage(String theImage) {
 		
-		if (theImage.equals(Buddy.available)) {
+		if (theImage.equals(Status.available)) {
 			return getImage("ava.png");
-		} else if (theImage.equals(Buddy.away)) {
+		} else if (theImage.equals(Status.away)) {
 			return getImage("away.png");
-		} else if (theImage.equals(Buddy.doNotDistrub)) {
+		} else if (theImage.equals(Status.doNotDistrub)) {
 			return getImage("dnd.png");
-		} else if (theImage.equals(Buddy.offline)) {
+		} else if (theImage.equals(Status.offline)) {
 			return getImage("offline.png");
-		} else if (theImage.equals(Buddy.superAvailable)) {
+		} else if (theImage.equals(Status.superAvailable)) {
 			return getImage("chat.png");
-		} else if (theImage.equals(Buddy.superAway)) {
+		} else if (theImage.equals(Status.superAway)) {
 			return getImage("xa.png");
 		} else if (theImage.equals(AccountSettings.AIMAccount)) {
 			return getImage("aim.png");
@@ -71,17 +71,17 @@ public class IconFetch {
 	public String getURL(String thePath, boolean parse) {
 		if (!parse) { return getURL(thePath); }
 		
-		if (thePath.equals(Buddy.available)) {
+		if (thePath.equals(Status.available)) {
 			return getURL("ava.png");
-		} else if (thePath.equals(Buddy.away)) {
+		} else if (thePath.equals(Status.away)) {
 			return getURL("away.png");
-		} else if (thePath.equals(Buddy.doNotDistrub)) {
+		} else if (thePath.equals(Status.doNotDistrub)) {
 			return getURL("dnd.png");
-		} else if (thePath.equals(Buddy.offline)) {
+		} else if (thePath.equals(Status.offline)) {
 			return getURL("offline.png");
-		} else if (thePath.equals(Buddy.superAvailable)) {
+		} else if (thePath.equals(Status.superAvailable)) {
 			return getURL("chat.png");
-		} else if (thePath.equals(Buddy.superAway)) {
+		} else if (thePath.equals(Status.superAway)) {
 			return getURL("xa.png");
 		} else if (thePath.equals(AccountSettings.AIMAccount)) {
 			return getURL("aim.png");

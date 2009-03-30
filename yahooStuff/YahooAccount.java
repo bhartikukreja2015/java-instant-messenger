@@ -27,6 +27,7 @@ import abstractionLayer.AccountSettings;
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 import abstractionLayer.IMEvents;
+import abstractionLayer.Status;
 
 public class YahooAccount implements AbstractAccount, SessionListener, HackListen {
 
@@ -117,27 +118,27 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		theEvents = theEvent;
 	}
 
-	public void setStatus(Buddy theStatus) {
+	public void setStatus(Status theStatus) {
 		// if we have a custom status message, we are either away or here.
 		// if we don't, we can be a whole lot of things.
 		
 		try {
 
 			if (theStatus.getStatusMessage() == null) {
-				if (theStatus.getStatus().equals(Buddy.available) || theStatus.getStatus().equals(Buddy.superAvailable)) {
+				if (theStatus.getStatus().equals(Status.available) || theStatus.getStatus().equals(Status.superAvailable)) {
 					myCon.setStatus(StatusConstants.STATUS_AVAILABLE);
-				} else if (theStatus.getStatus().equals(Buddy.away)) {
+				} else if (theStatus.getStatus().equals(Status.away)) {
 					myCon.setStatus(StatusConstants.STATUS_BRB);
-				} else if (theStatus.getStatus().equals(Buddy.superAway)) {
+				} else if (theStatus.getStatus().equals(Status.superAway)) {
 					myCon.setStatus(StatusConstants.STATUS_STEPPEDOUT);
-				} else if (theStatus.getStatus().equals(Buddy.doNotDistrub)) {
+				} else if (theStatus.getStatus().equals(Status.doNotDistrub)) {
 					myCon.setStatus(StatusConstants.STATUS_BUSY);
 				} else {
 					System.out.println("Got unknown status in Yahoo: " + theStatus.getStatus());
 				}
 			} else {
 				// it is a custom status.
-				boolean b = (theStatus.getStatus().equals(Buddy.available) || theStatus.getStatus().equals(Buddy.superAvailable));
+				boolean b = (theStatus.getStatus().equals(Status.available) || theStatus.getStatus().equals(Status.superAvailable));
 				myCon.setStatus(theStatus.getStatusMessage(), b);
 			}
 
@@ -262,31 +263,32 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		myBuddy.setAccount(this);
 		myBuddy.setScreename(myYU.getId());
 		
+		
+		Status toSet = new Status();
+		
 		if (myYU.getStatus() == StatusConstants.STATUS_AVAILABLE) {
-			myBuddy.setStatus(Buddy.available);
+			toSet.setStatus(Status.available);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_BRB || myYU.getStatus() == StatusConstants.STATUS_NOTATDESK || myYU.getStatus() == StatusConstants.STATUS_NOTATHOME || myYU.getStatus() == StatusConstants.STATUS_NOTINOFFICE || myYU.getStatus() == StatusConstants.STATUS_ONPHONE || myYU.getStatus() == StatusConstants.STATUS_OUTTOLUNCH || myYU.getStatus() == StatusConstants.STATUS_STEPPEDOUT) {
-			myBuddy.setStatus(Buddy.away);
+			toSet.setStatus(Status.away);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_ONVACATION) {
-			myBuddy.setStatus(Buddy.superAway);
+			toSet.setStatus(Status.superAway);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_BUSY) {
-			myBuddy.setStatus(Buddy.doNotDistrub);
+			toSet.setStatus(Status.doNotDistrub);
 		} else if (myYU.getStatus() == StatusConstants.STATUS_CUSTOM) {
 			if (myYU.isCustomBusy()) {
-				myBuddy.setStatus(Buddy.away);
+				toSet.setStatus(Status.away);
 			} else {
-				myBuddy.setStatus(Buddy.available);
+				toSet.setStatus(Status.available);
 			}
 			
-			myBuddy.setStatusMessage(myYU.getCustomStatusMessage());
+			toSet.setStatusMessage(myYU.getCustomStatusMessage());
 		
 		} else if (myYU.getStatus() == StatusConstants.STATUS_OFFLINE) {
-			myBuddy.setStatus(Buddy.offline);
-			myBuddy.setOnlineStatus(false);
+			toSet.setStatus(Status.offline);
 		} else {
 			System.out.println("Got unknown status in Yahoo: " + myYU.getStatus());
 		}
 		
-		myBuddy.setOnlineStatus(!(myYU.getStatus() == StatusConstants.STATUS_OFFLINE));
 		
 		// We've got to set the alias to something
 		// so that we check to see if we have a saved one
@@ -344,8 +346,11 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 			Buddy b = new Buddy();
 			b.setAccount(this);
 			b.setScreename(arg0.body[7]);
-			b.setStatus((arg0.body[16].equals("138") ? Buddy.available : Buddy.away));
-			b.setStatusMessage(arg0.body[15]);
+			Status toSet = new Status();
+			toSet.setStatus((arg0.body[16].equals("138") ? Status.available : Status.away));
+			toSet.setStatusMessage(arg0.body[15]);
+			
+			b.setStatus(toSet);
 			
 			theEvents.buddyStatusChange(b, false);
 			return;		
@@ -366,8 +371,14 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 			
 			b.setAccount(this);
 			b.setScreename(arg0.body[1]);
-			b.setStatus((arg0.body[9].equals("0") ? Buddy.available : Buddy.away));
-			b.setStatusMessage(arg0.body[7]);
+			
+			Status toSet = new Status();
+			
+			toSet.setStatus((arg0.body[9].equals("0") ? Status.available : Status.away));
+			toSet.setStatusMessage(arg0.body[7]);
+			
+			
+			b.setStatus(toSet);
 			
 			theEvents.buddyStatusChange(b, false);
 			

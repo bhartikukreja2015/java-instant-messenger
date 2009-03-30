@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 import jimPreferences.PreferencePoint;
 
 import abstractionLayer.Buddy;
+import abstractionLayer.Status;
 import upperAbstractionLayer.AccountManager;
 
 
@@ -223,12 +224,9 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			// the user is changing their status.
 			// let theAM know.
 			
-			Buddy b = new Buddy();
+			Status s = new Status((String) jcStatus.getSelectedItem());
 			
-			b.setStatus((String) jcStatus.getSelectedItem());
-			b.setStatusMessage(null);
-			
-			theAM.setStatus(b);
+			theAM.setStatus(s);
 			return;
 		} else if (arg0.getSource() == jMenuItem1) {
 			// quit
