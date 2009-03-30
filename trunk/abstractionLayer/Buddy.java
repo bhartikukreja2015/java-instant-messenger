@@ -113,6 +113,10 @@ public class Buddy implements Comparable<Object> {
 		
 		Buddy b = (Buddy) arg0;
 		
+		//System.out.println(this.getScreename() + "|" + b.getScreename());
+		//System.out.println(this.getStatus().getStatus() + "|" + b.getStatus().getStatus());
+		
+		
 		if (this.getStatus().getStatus().equals(Status.available)) {
 			if (b.getStatus().getStatus().equals(Status.available)) {
 				return 0; // we are both available

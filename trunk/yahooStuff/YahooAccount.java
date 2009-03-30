@@ -263,6 +263,8 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		myBuddy.setAccount(this);
 		myBuddy.setScreename(myYU.getId());
 		
+		//System.out.println("Parsing user: " + myBuddy.getScreename());
+		
 		
 		Status toSet = new Status();
 		
@@ -289,6 +291,7 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 			System.out.println("Got unknown status in Yahoo: " + myYU.getStatus());
 		}
 		
+		myBuddy.setStatus(toSet);
 		
 		// We've got to set the alias to something
 		// so that we check to see if we have a saved one
