@@ -67,6 +67,7 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 		
 		// let everybody know..
 		for (ListDataListener ldl : theListeners) {
+			//System.out.println("Told");
 			ldl.contentsChanged(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, 0));
 		}
 	}
@@ -86,6 +87,8 @@ public class BuddyListModel implements BuddyListChangeListener, ListModel, Combo
 	public boolean isHidingMerged() { return hideMerged; }
 	
 	public void BuddyListChange(BuddyList b) {
+		//System.out.println("List changed");
+		//System.out.println(b);
 		theBuddyList = b;
 		updateToShow();
 	}

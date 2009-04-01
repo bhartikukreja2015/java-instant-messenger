@@ -214,4 +214,14 @@ public class BuddyList {
 		}
 	}
 	
+	public String toString() {
+		StringBuilder myBuild = new StringBuilder();
+		
+		for (Buddy b: theList) {
+			myBuild.append(b.getScreename() + "|");
+		}
+		
+		return myBuild.toString();
+	}
+	
 }

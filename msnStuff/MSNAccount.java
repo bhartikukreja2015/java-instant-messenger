@@ -33,6 +33,13 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	
 	protected boolean isConn;
 	
+	protected boolean haveDispatched;
+	
+	public MSNAccount() {
+		haveDispatched = false;
+		isConn = false;
+	}
+	
 	public void addBuddy(Buddy theBuddy) {
 		myCon.addFriend(Email.parseStr(theBuddy.getScreename()), theBuddy.getAlias());
 	}
@@ -51,8 +58,6 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		
 		// log in
 		myCon.login();
-		
-		
 		
 	}
 
@@ -127,6 +132,7 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		MsnContact[] theContacts = theList.getContacts();
 		
 		for (MsnContact myMC : theContacts) {
+			//System.out.println(myMC);
 			theEvents.buddyStatusChange(this.MSNContactToJimBuddy(myMC), firstTime);
 		}
 	}
@@ -169,15 +175,18 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 
 	public void contactListInitCompleted(MsnMessenger arg0) {
 		// this is the inital contact list
+		if (haveDispatched) return;
+		//System.out.println("Init");
+		haveDispatched = true;
 		this.dispatchContactList(arg0.getContactList(), true);
 	}
 
 	public void contactListSyncCompleted(MsnMessenger arg0) {
 		// we don't need both contactListInitCompleted and this firing.
-		
-		// docs are not clear when this fires... let's be safe.
+		if (haveDispatched) return;
 		//System.out.println("Sync");
-		//this.dispatchContactList(arg0.getContactList(), true);
+		haveDispatched = true;
+		this.dispatchContactList(arg0.getContactList(), true);
 		
 	}
 

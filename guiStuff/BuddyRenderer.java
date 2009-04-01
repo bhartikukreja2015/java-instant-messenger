@@ -49,6 +49,8 @@ public class BuddyRenderer extends JComponent {
 	
 	public void paint(Graphics g) {
 		
+		System.out.println("Painting: " + toShow);
+		
 		theWidth = toFetch.getWidth();
 		
 		//System.out.println(theWidth);
