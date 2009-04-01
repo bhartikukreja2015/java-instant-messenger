@@ -18,6 +18,7 @@ public class NotificationDispatcher {
 		System.out.println("On OS: " + os);
 		
 		if (os.equals("Linux")) {
+			//System.out.println("Linux: " + os);
 			// use notify-send
 			StringBuilder theSB = new StringBuilder();
 			theSB.append("notify-send --category=");
@@ -26,17 +27,19 @@ public class NotificationDispatcher {
 			
 			if (theNot.getType() == Notification.GotIM) {
 				theSB.append("im.received --icon==");
-				theSB.append(theFetch.getURL(Status.superAvailable));
+				theSB.append(theFetch.getURL(Status.superAvailable, true));
 			} else {
 				theSB.append("im --icon==");
 				
 				// TODO at some point, we should get the exact statuses....
 				if (theNot.getType() == Notification.BuddyOffline) {
-					theSB.append(theFetch.getURL(Status.offline));
+					//System.out.println("Offline");
+					//System.out.println(theFetch.getURL(Status.offline, true));
+					theSB.append(theFetch.getURL(Status.offline, true));
 				} else if (theNot.getType() == Notification.BuddyOnline) {
-					theSB.append(theFetch.getURL(Status.available));
+					theSB.append(theFetch.getURL(Status.available, true));
 				} else {
-					theSB.append(theFetch.getURL(Status.away));
+					theSB.append(theFetch.getURL(Status.away, true));
 				}
 			}
 			
@@ -46,10 +49,11 @@ public class NotificationDispatcher {
 			theSB.append(theNot.getMessage());
 			theSB.append("'");
 			
-			runShellCommand(theSB.toString());
 			System.out.println(theSB.toString());
-			
+			runShellCommand(theSB.toString());
 		}
+		
+
 	}
 	
 	protected void runShellCommand(String command) {
