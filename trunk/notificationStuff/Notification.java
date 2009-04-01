@@ -12,6 +12,10 @@ public class Notification {
 	protected String message;
 	
 	public Notification(int theType) { type = theType; }
+	public Notification() {};
+	
+	public void setType(int t) { type = t; }
+	public int getType() { return type; }
 	
 	public void setSubject(String s) { subject = s; }
 	public void setMessage(String m) { message = m; }
@@ -20,7 +24,8 @@ public class Notification {
 	public String getMessage() { return message; }
 	
 	public void dispatch() {
-		
+			NotificationDispatcher myND = new NotificationDispatcher();
+			myND.dispatchNotification(this);
 	}
 	
 }

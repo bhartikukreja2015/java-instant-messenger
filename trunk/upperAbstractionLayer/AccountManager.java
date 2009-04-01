@@ -25,6 +25,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	
 	private ArrayList<BuddyListChangeListener> theBLCL;
 	private ArrayList<IMListener> theIml;
+	private ArrayList<StatusChangeListener> theSCL;
 	
 	public AccountManager() {
 		theAccounts = new ArrayList<AbstractAccount>();
@@ -33,6 +34,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		
 		theBLCL = new ArrayList<BuddyListChangeListener>();
 		theIml = new ArrayList<IMListener>();
+		theSCL = new ArrayList<StatusChangeListener>();
 	}
 	
 	public void clearAccounts() {
@@ -109,6 +111,10 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		theBLCL.add(blcl);
 	}
 	
+	public void addStatusChangeListener(StatusChangeListener scl) {
+		theSCL.add(scl);
+	}
+	
 	public BuddyList getBuddyList() { return theList; }
 	
 	public void addIMListener(IMListener iml) {
@@ -124,6 +130,12 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		
 		for (BuddyListChangeListener blcl : theBLCL) {
 			blcl.BuddyListChange(theList);
+		}
+		
+		if (firstTime) return;
+		
+		for (StatusChangeListener scl : theSCL) {
+			scl.changeStatus(theBuddy);
 		}
 	}
 
