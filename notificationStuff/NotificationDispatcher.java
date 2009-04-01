@@ -10,6 +10,8 @@ public class NotificationDispatcher {
 	public NotificationDispatcher() { os = System.getProperty("os.name"); }
 	
 	public void dispatchNotification(Notification theNote) {
-		
+		// TODO send out a notification
+		// for now, just println it
+		System.out.println(theNote.getSubject() + "->" + theNote.getMessage());
 	}
 }

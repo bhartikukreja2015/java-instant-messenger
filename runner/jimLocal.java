@@ -1,5 +1,6 @@
 package runner;
 
+import notificationStuff.NotificationManager;
 import guiStuff.BuddyListWindow;
 import guiStuff.IMWindowManager;
 import upperAbstractionLayer.AccountManager;
@@ -12,7 +13,13 @@ public class jimLocal {
 	
 	public void doIt() {
 		AccountManager myAM = new AccountManager();
+		
+		@SuppressWarnings("unused")
+		// we never need to read it because it will do its job just sitting there.
+		NotificationManager myNonMan = new NotificationManager(myAM);
+		
 		IMWindowManager myIMWM = new IMWindowManager(myAM);
+		
 		BuddyListWindow myBLW = new BuddyListWindow(myAM, myIMWM);
 		myBLW.setVisible(true);
 	}
