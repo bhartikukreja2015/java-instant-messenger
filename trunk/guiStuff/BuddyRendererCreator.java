@@ -27,6 +27,7 @@ public class BuddyRendererCreator extends Canvas implements ListCellRenderer {
 	}
 	
 	public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3, boolean arg4) {
+		System.out.println(((Buddy) arg1).getScreename());
 		return new BuddyRenderer((Buddy) arg1, arg0, (arg3 && highlight), myAM, showMerge);
 	}
 	

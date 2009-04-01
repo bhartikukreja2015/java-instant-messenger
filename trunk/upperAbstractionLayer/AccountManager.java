@@ -122,6 +122,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	}
 	
 	public void buddyStatusChange(Buddy theBuddy, boolean firstTime) {
+		//System.out.println(theBuddy.getScreename());
 		if (firstTime) {
 			theList.addBuddy(theBuddy);
 		} else {
@@ -129,6 +130,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		}
 		
 		for (BuddyListChangeListener blcl : theBLCL) {
+			//System.out.println("Notify");
 			blcl.BuddyListChange(theList);
 		}
 		
