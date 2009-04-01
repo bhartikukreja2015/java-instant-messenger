@@ -169,7 +169,6 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 
 	public void contactListInitCompleted(MsnMessenger arg0) {
 		// this is the inital contact list
-		System.out.println("Init");
 		this.dispatchContactList(arg0.getContactList(), true);
 	}
 
