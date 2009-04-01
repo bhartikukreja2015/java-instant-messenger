@@ -34,6 +34,7 @@ public class BuddyRenderer extends JComponent {
 	public BuddyRenderer(Buddy theBuddy, JComponent theComp, boolean isSel, AccountManager theAM, boolean showMerge) {
 		super();
 		toShow = theBuddy;
+	//	System.out.println("Renderer made for: " + toShow.getScreename());
 		
 		theWidth = theComp.getWidth();
 		isSelected = isSel;
@@ -44,12 +45,11 @@ public class BuddyRenderer extends JComponent {
 		
 		ToolTipGenerator TTG = new ToolTipGenerator();
 		this.setToolTipText(TTG.getTooltip(theBuddy));
-		
 	}
 	
 	public void paint(Graphics g) {
 		
-		System.out.println("Painting: " + toShow);
+		//System.out.println("Painting: " + toShow.getScreename());
 		
 		theWidth = toFetch.getWidth();
 		
