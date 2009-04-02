@@ -26,6 +26,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	private ArrayList<BuddyListChangeListener> theBLCL;
 	private ArrayList<IMListener> theIml;
 	private ArrayList<StatusChangeListener> theSCL;
+	private ArrayList<AccountConnectionListener> theACL;
 	
 	public AccountManager() {
 		theAccounts = new ArrayList<AbstractAccount>();
@@ -35,6 +36,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		theBLCL = new ArrayList<BuddyListChangeListener>();
 		theIml = new ArrayList<IMListener>();
 		theSCL = new ArrayList<StatusChangeListener>();
+		theACL = new ArrayList<AccountConnectionListener>();
 	}
 	
 	public void clearAccounts() {
@@ -82,12 +84,22 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	
 	public void connectAll() {
 		for (AbstractAccount aa : theAccounts) {
+			for (AccountConnectionListener acl : theACL) {
+				acl.startingConnection(aa);
+			}
 			aa.connect();
 		}
 	}
 	
 	public void disconnectAll() {
 		for (AbstractAccount aa : theAccounts) {
+			// only send out an event if we were online...
+			if (aa.isConnected()) {
+				for (AccountConnectionListener acl : theACL) {
+					acl.disconnectedWith(aa);
+				}
+			}
+			
 			aa.disconnect();
 			theList.accountDisconnected(aa);
 		}
@@ -113,6 +125,10 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	
 	public void addStatusChangeListener(StatusChangeListener scl) {
 		theSCL.add(scl);
+	}
+	
+	public void addAccountConnectionListener(AccountConnectionListener acl) {
+		theACL.add(acl);
 	}
 	
 	public BuddyList getBuddyList() { return theList; }
@@ -148,8 +164,9 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	}
 
 	public void loggedIn(AbstractAccount theAccount) {
-		
-		
+		for (AccountConnectionListener acl : theACL) {
+			acl.connectedWith(theAccount);
+		}
 	}
 
 	public void buddyDeleted(Buddy theBuddy) { theList.removeBuddy(theBuddy); }

@@ -1,6 +1,8 @@
 package notificationStuff;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import mainIconSet.IconFetch;
 import abstractionLayer.Status;
@@ -15,57 +17,73 @@ public class NotificationDispatcher {
 	public NotificationDispatcher() { os = System.getProperty("os.name"); }
 
 	public void dispatchNotification(Notification theNot) {
-		System.out.println("On OS: " + os);
 		
 		if (os.equals("Linux")) {
+			
 			//System.out.println("Linux: " + os);
 			// use notify-send
-			StringBuilder theSB = new StringBuilder();
-			theSB.append("notify-send --category=");
-			
-			IconFetch theFetch = new IconFetch();
+			String[] theCMD = new String[5];
+			theCMD[0] = "/usr/bin/notify-send";
 			
 			if (theNot.getType() == Notification.GotIM) {
-				theSB.append("im.received --icon==");
-				theSB.append(theFetch.getURL(Status.superAvailable, true));
+				theCMD[1] = "--category=im.received";
+				theCMD[2] = "--icon=" + this.getImage(Status.superAvailable);
 			} else {
-				theSB.append("im --icon==");
-				
-				// TODO at some point, we should get the exact statuses....
-				if (theNot.getType() == Notification.BuddyOffline) {
-					//System.out.println("Offline");
-					//System.out.println(theFetch.getURL(Status.offline, true));
-					theSB.append(theFetch.getURL(Status.offline, true));
-				} else if (theNot.getType() == Notification.BuddyOnline) {
-					theSB.append(theFetch.getURL(Status.available, true));
-				} else {
-					theSB.append(theFetch.getURL(Status.away, true));
-				}
+				theCMD[1] = "--category=im";
+				theCMD[2] = "--icon=" + this.getImage(theNot.getIconHint());
 			}
 			
-			theSB.append(" '");
-			theSB.append(theNot.getSubject());
-			theSB.append("' '");
-			theSB.append(theNot.getMessage());
-			theSB.append("'");
+			theCMD[3] = theNot.getSubject();
+			theCMD[4] = theNot.getMessage();
 			
-			System.out.println(theSB.toString());
-			runShellCommand(theSB.toString());
+			runShellCommand(theCMD);
 		}
 		
 
 	}
 	
-	protected void runShellCommand(String command) {
-		// use notify-send
+	protected void runShellCommand(String[] command) {
+		
+		for (String s : command) {
+			System.out.print(s + " ");
+		}
+		System.out.println("");
+		
 		Runtime run = Runtime.getRuntime();
-		@SuppressWarnings("unused")
-		// we don't need to read pr because we only care that we run the command.
+		
 		Process pr;
 		try {
 			pr = run.exec(command);
+			pr.waitFor();
+			System.out.println("Done");
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	private String getImage(String hint) {
+		IconFetch theFetch = new IconFetch();
+		
+		String theURL = theFetch.getURL(hint, true);
+		theURL = theURL.substring(5);
+		theURL = this.nonRegExReplaceAll(theURL, "%20", " ");
+		
+		return theURL;
+		
+	}
+	
+	// TODO learn regex and fix this.
+	private String nonRegExReplaceAll(String haystack, String needle, String replace) {
+		if (haystack.length() < needle.length()) return haystack;
+		
+		if (haystack.substring(0, needle.length()).equals(needle)) {
+			return replace + nonRegExReplaceAll(haystack.substring(3), needle, replace);
+		}
+		
+		return haystack.substring(0, 1) + nonRegExReplaceAll(haystack.substring(1), needle, replace);
+			
+		
 	}
 }

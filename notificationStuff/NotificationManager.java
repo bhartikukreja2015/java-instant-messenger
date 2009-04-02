@@ -1,13 +1,15 @@
 package notificationStuff;
 
+import abstractionLayer.AbstractAccount;
 import abstractionLayer.Buddy;
 import abstractionLayer.IM;
 import abstractionLayer.Status;
+import upperAbstractionLayer.AccountConnectionListener;
 import upperAbstractionLayer.AccountManager;
 import upperAbstractionLayer.IMListener;
 import upperAbstractionLayer.StatusChangeListener;
 
-public class NotificationManager implements StatusChangeListener, IMListener {
+public class NotificationManager implements StatusChangeListener, IMListener, AccountConnectionListener {
 	
 	AccountManager AM;
 	
@@ -15,6 +17,7 @@ public class NotificationManager implements StatusChangeListener, IMListener {
 		AM = theAM;
 		theAM.addIMListener(this);
 		theAM.addStatusChangeListener(this);
+		theAM.addAccountConnectionListener(this);
 	}
 
 	public void changeStatus(Buddy b) {
@@ -27,6 +30,9 @@ public class NotificationManager implements StatusChangeListener, IMListener {
 		} else {
 			theNot.setType(Notification.BuddyStatusChange);
 		}
+		
+		
+		theNot.setIconHint(b.getStatus().getStatus());
 		
 		String ref = (b.getAlias() != null ? b.getAlias() : b.getScreename());
 		
@@ -46,6 +52,36 @@ public class NotificationManager implements StatusChangeListener, IMListener {
 		
 		theNot.setSubject(ref);
 		theNot.setMessage(theIM.message);
+		
+		theNot.dispatch();
+	}
+
+	public void connectedWith(AbstractAccount aa) {
+		Notification theNot = new Notification(Notification.ConnectingAccount);
+		
+		theNot.setIconHint(aa.getAccountSettings().getAccountType());
+		theNot.setSubject("Connceted " + aa.getAccountSettings().getAlias());
+		theNot.setMessage("S/N: " + aa.getAccountSettings().getUsername());
+		
+		theNot.dispatch();
+	}
+
+	public void disconnectedWith(AbstractAccount aa) {
+		Notification theNot = new Notification(Notification.AccountDisconnected);
+		
+		theNot.setIconHint(aa.getAccountSettings().getAccountType());
+		theNot.setSubject(aa.getAccountSettings().getAlias() + " disconnected");
+		theNot.setMessage("S/N: " + aa.getAccountSettings().getUsername());
+		
+		theNot.dispatch();
+	}
+
+	public void startingConnection(AbstractAccount aa) {
+	Notification theNot = new Notification(Notification.ConnectingAccount);
+		
+		theNot.setIconHint(aa.getAccountSettings().getAccountType());
+		theNot.setSubject("Connecting with " + aa.getAccountSettings().getAlias() + "...");
+		theNot.setMessage("S/N: " + aa.getAccountSettings().getUsername());
 		
 		theNot.dispatch();
 	}
