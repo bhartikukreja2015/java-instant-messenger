@@ -180,7 +180,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 
 	public void loginError(AbstractAccount theAccount) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Caught login error on: " + theAccount.getAccountSettings().getAlias());
 	}
 	
 }

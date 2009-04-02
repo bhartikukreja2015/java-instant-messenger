@@ -1,8 +1,6 @@
 package notificationStuff;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import mainIconSet.IconFetch;
 import abstractionLayer.Status;
@@ -43,19 +41,12 @@ public class NotificationDispatcher {
 	}
 	
 	protected void runShellCommand(String[] command) {
-		
-		for (String s : command) {
-			System.out.print(s + " ");
-		}
-		System.out.println("");
-		
 		Runtime run = Runtime.getRuntime();
 		
 		Process pr;
 		try {
 			pr = run.exec(command);
 			pr.waitFor();
-			System.out.println("Done");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
