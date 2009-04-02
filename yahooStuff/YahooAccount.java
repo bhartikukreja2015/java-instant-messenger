@@ -60,11 +60,16 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 	}
 
 	public void connect() {
+		System.out.println("Connecting");
 		myCon.setHack(this);
 		myCon.addSessionListener(this);
+		System.out.println("Set stuff");
 		try {
+			System.out.println("About to login...");
 			myCon.login(theSettings.getUsername(), theSettings.getPassword());
+			System.out.println("Logged in");
 			myCon.refreshFriends();
+			System.out.println("Refreshed");
 		} catch (AccountLockedException e) {
 			theEvents.loginError(this);
 		} catch (IllegalStateException e) {
@@ -81,7 +86,7 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 		// they purposly don't give us one..
 		// make our own!
 		listReceived(null);
-		
+		System.out.println("connect out");
 	}
 
 	public void disconnect() {
@@ -313,6 +318,9 @@ public class YahooAccount implements AbstractAccount, SessionListener, HackListe
 
 
 	public void gotPacket(YMSG9Packet arg0) {
+		
+		System.out.println(arg0.toString());
+		
 		// because the API is kind of broken, we've got to play
 		// some games with this.
 		
