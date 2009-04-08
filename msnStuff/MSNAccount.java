@@ -35,9 +35,12 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 	
 	protected boolean haveDispatched;
 	
+	private DoubleStopper theStopper;
+	
 	public MSNAccount() {
 		haveDispatched = false;
 		isConn = false;
+		theStopper = new DoubleStopper();
 	}
 	
 	public void addBuddy(Buddy theBuddy) {
@@ -133,7 +136,9 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		
 		for (MsnContact myMC : theContacts) {
 			//System.out.println(myMC);
-			theEvents.buddyStatusChange(this.MSNContactToJimBuddy(myMC), firstTime);
+			if (theStopper.checkBuddy(myMC.getId())) { 
+				theEvents.buddyStatusChange(this.MSNContactToJimBuddy(myMC), firstTime);
+			}
 		}
 	}
 
