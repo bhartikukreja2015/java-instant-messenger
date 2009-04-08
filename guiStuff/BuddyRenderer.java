@@ -6,6 +6,8 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+import jimPreferences.PreferencePoint;
+
 import mainIconSet.IconFetch;
 import mainIconSet.ToolTipGenerator;
 import upperAbstractionLayer.AccountManager;
@@ -81,7 +83,7 @@ public class BuddyRenderer extends JComponent {
 		// drawString renders the text by baseline, so we want to position the text in the middle
 		// so we go half way down, then up half the font size.
 		
-		IconFetch IF = new IconFetch();
+		IconFetch IF = new IconFetch((new PreferencePoint()).getIconTheme());
 		
 		g.setColor(Color.BLACK);
 		//System.out.println(toShow.getStatus());

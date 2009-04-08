@@ -2,6 +2,8 @@ package notificationStuff;
 
 import java.io.IOException;
 
+import jimPreferences.PreferencePoint;
+
 import mainIconSet.IconFetch;
 import abstractionLayer.Status;
 
@@ -57,7 +59,7 @@ public class NotificationDispatcher {
 	}
 	
 	private String getImage(String hint) {
-		IconFetch theFetch = new IconFetch();
+		IconFetch theFetch = new IconFetch((new PreferencePoint()).getIconTheme());
 		
 		String theURL = theFetch.getURL(hint, true);
 		theURL = theURL.substring(5);

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import jimPreferences.PreferencePoint;
+
 import mainIconSet.IconFetch;
 
 import abstractionLayer.AccountSettings;
@@ -42,7 +44,7 @@ public class AccountRenderer extends Component {
 		
 		int fontBaseline = (theHeight / 2) + (fontHeight / 2);
 		
-		IconFetch myFetch = new IconFetch();
+		IconFetch myFetch = new IconFetch((new PreferencePoint()).getIconTheme());
 		Image myImg = myFetch.loadImage(toShow.getAccountType());
 		g.drawImage(myImg, 5, 5, null);
 				

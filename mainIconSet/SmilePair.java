@@ -2,6 +2,8 @@ package mainIconSet;
 
 import java.util.ArrayList;
 
+import jimPreferences.PreferencePoint;
+
 public class SmilePair {
 	public String code;
 	public String imgName;
@@ -17,7 +19,7 @@ public class SmilePair {
 	}
 	
 	public String applyPair(String theMessage) {
-		IconFetch myIF = new IconFetch();
+		IconFetch myIF = new IconFetch((new PreferencePoint()).getIconTheme());
 		return theMessage.replaceAll(code, "<img src='" + myIF.getURL(imgName) + "'>");
 	}
 	

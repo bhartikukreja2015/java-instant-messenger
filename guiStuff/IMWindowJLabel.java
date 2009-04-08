@@ -5,6 +5,8 @@ import java.awt.Image;
 
 import javax.swing.JLabel;
 
+import jimPreferences.PreferencePoint;
+
 import mainIconSet.IconFetch;
 import abstractionLayer.Buddy;
 
@@ -34,7 +36,7 @@ public class IMWindowJLabel extends JLabel {
 		// uncomment if ever needed...
 		//int theWidth = this.getWidth();
 		
-		IconFetch theFetch = new IconFetch();
+		IconFetch theFetch = new IconFetch((new PreferencePoint()).getIconTheme());
 		
 		Image theImg = theFetch.loadImage(toRender.getStatus().getStatus());
 		
