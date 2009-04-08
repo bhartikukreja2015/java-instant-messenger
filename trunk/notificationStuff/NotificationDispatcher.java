@@ -16,7 +16,7 @@ public class NotificationDispatcher {
 
 	public void dispatchNotification(Notification theNot) {
 		
-		//System.out.println(theNot);
+		System.out.println(theNot);
 		
 		if (os.equals("Linux")) {
 			

@@ -64,7 +64,7 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		for (AccountSettings as : theSettings) {
 			AbstractAccount theAccount = null;
 			if (as.getAccountType().equals(AccountSettings.GoogleTalkAccount)) {
-				theAccount = new GTalkAccount();
+				theAccount = new GTalkAccount();;
 			} else if (as.getAccountType().equals(AccountSettings.YahooAccount)) {
 				theAccount = new YahooAccount();
 			} else if (as.getAccountType().equals(AccountSettings.MSNAccount)) {
