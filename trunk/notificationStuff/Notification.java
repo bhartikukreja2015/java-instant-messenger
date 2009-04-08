@@ -34,4 +34,8 @@ public class Notification {
 			myND.dispatchNotification(this);
 	}
 	
+	public String toString() {
+		return "<[Subject: " + this.getSubject() + "][Message: " + this.getMessage() + "][Icon: " + this.getIconHint() + "]>";
+	}
+	
 }

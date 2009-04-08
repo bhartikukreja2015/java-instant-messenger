@@ -64,13 +64,13 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 		accountID = theAS.getID();
 		jlName.setText(theAS.getAlias());
 		
-		if (theAS.getAccountType() == AccountSettings.AIMAccount) {
+		if (theAS.getAccountType().equals(AccountSettings.AIMAccount)) {
 			jcbType.setSelectedIndex(0);
-		} else if (theAS.getAccountType() == AccountSettings.GoogleTalkAccount) {
+		} else if (theAS.getAccountType().equals(AccountSettings.GoogleTalkAccount)) {
 			jcbType.setSelectedIndex(1);
-		} else if (theAS.getAccountType() == AccountSettings.MSNAccount) {
+		} else if (theAS.getAccountType().equals(AccountSettings.MSNAccount)) {
 			jcbType.setSelectedIndex(2);
-		} else if (theAS.getAccountType() == AccountSettings.YahooAccount) {
+		} else if (theAS.getAccountType().equals(AccountSettings.YahooAccount)) {
 			jcbType.setSelectedIndex(3);
 		}
 		
