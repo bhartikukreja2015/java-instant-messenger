@@ -6,6 +6,8 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+import jimPreferences.PreferencePoint;
+
 import mainIconSet.IconFetch;
 
 import org.jivesoftware.smack.AccountManager;
@@ -48,7 +50,7 @@ public class StatusOptionRenderer extends JComponent {
 			
 			int yBaseline = 24;
 			
-			IconFetch IF = new IconFetch();
+			IconFetch IF = new IconFetch((new PreferencePoint()).getIconTheme());
 			
 			g.setColor(Color.BLACK);
 			

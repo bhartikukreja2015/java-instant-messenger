@@ -174,4 +174,14 @@ public class PreferencePoint {
 		aliasNode.putInt(screenname, mergeID);
 	}
 	
+	public String getIconTheme() {
+		Preferences random = myPrefs.node("Pref");
+		return random.get("icontheme", "jim");
+	}
+	
+	public void setIconTheme(String theme) {
+		Preferences random = myPrefs.node("Pref");
+		random.put("icontheme", theme);
+	}
+	
 }

@@ -31,6 +31,12 @@ public class IconFetch {
 	public static final String faceWhoa = "face-whoa.png";
 	public static final String faceWink = "face-wink.png";
 	
+	protected String iconTheme;
+	
+	public IconFetch(String theTheme) {
+		iconTheme = theTheme;
+	}
+	
 	protected Image getImage(String thePath) {
 		URL theURL = getClass().getResource(thePath);
 		return new ImageIcon(theURL).getImage();
@@ -39,17 +45,17 @@ public class IconFetch {
 	public Image loadImage(String theImage) {
 		
 		if (theImage.equals(Status.available)) {
-			return getImage("ava.png");
+			return getImage(iconTheme + "ava.png");
 		} else if (theImage.equals(Status.away)) {
-			return getImage("away.png");
+			return getImage(iconTheme + "away.png");
 		} else if (theImage.equals(Status.doNotDistrub)) {
-			return getImage("dnd.png");
+			return getImage(iconTheme + "dnd.png");
 		} else if (theImage.equals(Status.offline)) {
-			return getImage("offline.png");
+			return getImage(iconTheme + "offline.png");
 		} else if (theImage.equals(Status.superAvailable)) {
-			return getImage("chat.png");
+			return getImage(iconTheme + "chat.png");
 		} else if (theImage.equals(Status.superAway)) {
-			return getImage("xa.png");
+			return getImage(iconTheme + "xa.png");
 		} else if (theImage.equals(AccountSettings.AIMAccount)) {
 			return getImage("aim.png");
 		} else if (theImage.equals(AccountSettings.GoogleTalkAccount)) {
@@ -72,17 +78,17 @@ public class IconFetch {
 		if (!parse) { return getURL(thePath); }
 		
 		if (thePath.equals(Status.available)) {
-			return getURL("ava.png");
+			return getURL(iconTheme + "ava.png");
 		} else if (thePath.equals(Status.away)) {
-			return getURL("away.png");
+			return getURL(iconTheme + "away.png");
 		} else if (thePath.equals(Status.doNotDistrub)) {
-			return getURL("dnd.png");
+			return getURL(iconTheme + "dnd.png");
 		} else if (thePath.equals(Status.offline)) {
-			return getURL("offline.png");
+			return getURL(iconTheme + "offline.png");
 		} else if (thePath.equals(Status.superAvailable)) {
-			return getURL("chat.png");
+			return getURL(iconTheme + "chat.png");
 		} else if (thePath.equals(Status.superAway)) {
-			return getURL("xa.png");
+			return getURL(iconTheme + "xa.png");
 		} else if (thePath.equals(AccountSettings.AIMAccount)) {
 			return getURL("aim.png");
 		} else if (thePath.equals(AccountSettings.GoogleTalkAccount)) {

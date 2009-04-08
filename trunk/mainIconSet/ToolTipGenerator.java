@@ -1,12 +1,13 @@
 package mainIconSet;
 
+import jimPreferences.PreferencePoint;
 import abstractionLayer.Buddy;
 
 public class ToolTipGenerator {
 	public String getTooltip(Buddy b) {
 		StringBuilder myBuild = new StringBuilder();
 		
-		IconFetch myFetch = new IconFetch();
+		IconFetch myFetch = new IconFetch((new PreferencePoint()).getIconTheme());
 		
 		myBuild.append("<html><table width='400'><tr><td width='10%' align='center' valign='middle'>");
 		
