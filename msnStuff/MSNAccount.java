@@ -163,7 +163,7 @@ public class MSNAccount implements AbstractAccount, MsnMessageListener, MsnMesse
 		theEvents.gotIM(myIM);
 	}
 
-	public void loginCompleted(MsnMessenger arg0) { isConn = true; }
+	public void loginCompleted(MsnMessenger arg0) { isConn = true; theEvents.loggedIn(this); }
 
 	public void logout(MsnMessenger arg0) { 
 		// I believe that this gets called for a wrong password etc.
