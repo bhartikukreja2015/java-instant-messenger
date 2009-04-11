@@ -15,6 +15,9 @@ public class PreferencePoint {
 	protected static final String enabledKey = "e";
 	protected static final String accountAlias = "a";
 	
+	public static final String jimNotification = "j";
+	public static final String notifysendNotification = "ns";
+	
 	
 	protected EncryptionPoint myE;
 
@@ -182,6 +185,16 @@ public class PreferencePoint {
 	public void setIconTheme(String theme) {
 		Preferences random = myPrefs.node("Pref");
 		random.put("icontheme", theme);
+	}
+	
+	public String getNotificationType() {
+		Preferences random = myPrefs.node("Pref");
+		return random.get("nottype", "jim");
+	}
+	
+	public void setNotificationType(String notType) {
+		Preferences random = myPrefs.node("Pref");
+		random.put("nottype", notType);
 	}
 	
 }

@@ -43,7 +43,7 @@ public class IconFetch {
 	}
 	
 	public Image loadImage(String theImage) {
-		
+		//System.out.println(theImage);
 		if (theImage.equals(Status.available)) {
 			return getImage(iconTheme + "ava.png");
 		} else if (theImage.equals(Status.away)) {
