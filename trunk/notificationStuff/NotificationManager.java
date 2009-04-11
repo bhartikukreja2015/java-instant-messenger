@@ -52,6 +52,7 @@ public class NotificationManager implements StatusChangeListener, IMListener, Ac
 		
 		theNot.setSubject(ref);
 		theNot.setMessage(theIM.message);
+		theNot.setIconHint(Status.superAvailable);
 		
 		theNot.dispatch();
 	}
