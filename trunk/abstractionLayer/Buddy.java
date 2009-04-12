@@ -66,31 +66,41 @@ public class Buddy implements Comparable<Object> {
 	
 	public void setAlias(String a, boolean overwriteSaved) { 
 		//System.out.println("Setting alias to: " + a);
-		
+		System.out.println("1");
 		PreferencePoint PP = new PreferencePoint();
-		
+		System.out.println("2");
 		if (saveAlias) {
+			System.out.println("3");
 			if (!overwriteSaved) {
+				System.out.println("4");
 				// see if we already have a saved value...
-				String saved = PP.getAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername());
+				String saved = PP.getAliasForScreenname(screenname, this.getAccount().getAccountSettings().getUsername());
+				System.out.println("5");
 				if (saved != null) {
+					System.out.println("6");
 					alias = saved;
 					//System.out.println("Overwritting " + a + " for saved: " + saved);
 					return;
 				}
 			}
 			
+			System.out.println("7");
+			
 			// no alias was saved or we are overwritting, so save this one...
 			// if the sent alias wasn't null
 			if (a != null) {
+				System.out.println("8");
 				PP.setAliasForScreenname(screenname, theAccount.getAccountSettings().getUsername(), a);
+				alias = a;
 			}
+			
+			System.out.println("9");
 		}
 		
 		// No longer needed: Get merge ID checks.
 		//mergeID = this.checkForSavedMergeID();
 		
-		alias = a;
+		
 	}
 	
 	public void directSetAlias(String a) { alias = a; }
