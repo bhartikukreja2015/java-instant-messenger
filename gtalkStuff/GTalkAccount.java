@@ -166,14 +166,15 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		myBuddy.setScreename(theWhole.substring(0, theWhole.indexOf("/")));
 		myBuddy.setResource(theWhole.substring(theWhole.indexOf("/") + 1));
 		
-		// we need to get the user's roster entry to get their alias
-		Roster theRoster = myCon.getRoster();
-		myBuddy.setAlias(theRoster.getEntry(myBuddy.getScreename()).getName());
-		
 		
 		myBuddy.setAccount(this);
 		
+		// we need to get the user's roster entry to get their alias
+		Roster theRoster = myCon.getRoster();
+		myBuddy.setAlias(theRoster.getEntry(myBuddy.getScreename()).getName(), false);
+
 		Status toSet = new Status();
+		
 		
 		if (arg0.getMode() == Presence.Mode.available || arg0.getMode() == null) {
 			toSet.setStatus(Status.available);
@@ -191,7 +192,6 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		
 		
 		myBuddy.setStatus(toSet);
-		
 		
 		theEvents.buddyStatusChange(myBuddy, false);
 		

@@ -9,6 +9,8 @@ public class ImageDrawCanvas extends Canvas {
 
 	protected Image toDraw;
 	
+	public ImageDrawCanvas() { }
+	
 	public ImageDrawCanvas(Image theImage) {
 		//super();
 		toDraw = theImage;

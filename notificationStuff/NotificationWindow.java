@@ -1,15 +1,15 @@
 package notificationStuff;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Image;
-import java.lang.reflect.InvocationTargetException;
+import java.awt.Toolkit;
 
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
-import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 
@@ -26,6 +26,17 @@ import javax.swing.WindowConstants;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class NotificationWindow extends javax.swing.JFrame implements TimedEventCallback {
+	
+	// this code is static to manage the number of windows that are open
+	protected static int numOpen;
+	
+	protected static int getOpen() { return numOpen; }
+	protected static void windowOpen() { numOpen++; }
+	protected static void windowClose() { numOpen--; }
+	
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel jPanel1;
 	private JLabel jlSubject;
@@ -45,6 +56,13 @@ public class NotificationWindow extends javax.swing.JFrame implements TimedEvent
 		myThread = new TimedEventThread(timeToLive, this);
 		myThread.start();
 		
+		
+		
+		Dimension ourDim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((int)ourDim.getWidth() - this.getWidth(), 10 + ((this.getHeight() + 34) * NotificationWindow.getOpen()));
+	     
+		NotificationWindow.windowOpen();
+		
 		this.setVisible(true);
 		
 	}
@@ -61,6 +79,7 @@ public class NotificationWindow extends javax.swing.JFrame implements TimedEvent
 				jPanel1.setPreferredSize(new java.awt.Dimension(337, 67));
 				{
 					canvas1 = new ImageDrawCanvas(toShow);
+					canvas1.setSize(48, 48);
 				}
 				{
 					jlSubject = new JLabel();
@@ -97,6 +116,7 @@ public class NotificationWindow extends javax.swing.JFrame implements TimedEvent
 
 	public void timeUp() {
 		this.setVisible(false);
+		NotificationWindow.windowClose();
 	}
 
 }
