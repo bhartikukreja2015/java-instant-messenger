@@ -176,16 +176,24 @@ public class GTalkAccount implements AbstractAccount, ChatManagerListener, Messa
 		Status toSet = new Status();
 		
 		
-		if (arg0.getMode() == Presence.Mode.available || arg0.getMode() == null) {
+		Presence bestPresence = theRoster.getPresence(arg0.getFrom());
+		
+		System.out.println(bestPresence.getMode());
+		
+
+		
+		if (bestPresence.getMode() == Presence.Mode.available || bestPresence.isAvailable()) {
 			toSet.setStatus(Status.available);
-		} else if (arg0.getMode() == Presence.Mode.away) {
+		} else if (bestPresence.getMode() == Presence.Mode.away) {
 			toSet.setStatus(Status.away);
 		} else if (arg0.getMode() == Presence.Mode.xa) {
 			toSet.setStatus(Status.superAway);
-		} else if (arg0.getMode() == Presence.Mode.dnd) {
+		} else if (bestPresence.getMode() == Presence.Mode.dnd) {
 			toSet.setStatus(Status.doNotDistrub);
-		} else if (arg0.getMode() == Presence.Mode.chat) {
+		} else if (bestPresence.getMode() == Presence.Mode.chat) {
 			toSet.setStatus(Status.superAvailable);
+		} else {
+			toSet.setStatus(Status.offline);
 		}
 		
 		toSet.setStatusMessage(arg0.getStatus());
