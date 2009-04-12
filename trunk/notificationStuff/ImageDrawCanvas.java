@@ -18,7 +18,7 @@ public class ImageDrawCanvas extends Canvas {
 	
 	
 	public void paint(Graphics g) {
-		System.out.println("Drawing...");
+	//	System.out.println("Drawing...");
 		g.drawImage(toDraw, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 }
