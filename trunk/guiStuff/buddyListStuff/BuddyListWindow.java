@@ -253,11 +253,6 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 		} else if (arg0.getSource() == jMenuItem4) {
 			// connect
 			theAM.loadEnabledAccounts(new PreferencePoint());
-			//System.out.println("Loaded accounts");
-			theAM.makeAccounts();
-			//System.out.println("Made accounts");
-			theAM.connectAll();
-			//System.out.println("Connected");
 			return;
 		} else if (arg0.getSource() == jMenuItem5) {
 			// disconenct
