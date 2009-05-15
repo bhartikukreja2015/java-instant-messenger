@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListHelperWindows;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;

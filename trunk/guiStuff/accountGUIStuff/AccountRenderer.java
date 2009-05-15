@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.accountGUIStuff;
 
 import java.awt.Color;
 import java.awt.Component;

@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

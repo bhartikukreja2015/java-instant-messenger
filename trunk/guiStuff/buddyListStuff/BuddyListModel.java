@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
 import java.util.ArrayList;
 
 import javax.swing.ComboBoxModel;

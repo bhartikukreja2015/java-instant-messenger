@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.imWindowStuff;
 
 import java.awt.Graphics;
 import java.awt.Image;

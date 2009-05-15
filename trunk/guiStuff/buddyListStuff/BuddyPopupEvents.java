@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
 
 public interface BuddyPopupEvents {
 	public void setAlias(int index);

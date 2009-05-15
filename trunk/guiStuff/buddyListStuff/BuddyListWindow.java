@@ -1,4 +1,12 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
+
+import guiStuff.accountGUIStuff.AccountSettingsWindow;
+import guiStuff.buddyListHelperWindows.BuddyInfoWindow;
+import guiStuff.buddyListHelperWindows.MergeSetupWindow;
+import guiStuff.buddyListHelperWindows.SetAliasWindow;
+import guiStuff.imWindowStuff.IMWindowManager;
+import guiStuff.statusStuff.StatusListModel;
+import guiStuff.statusStuff.StatusRendererCreator;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;

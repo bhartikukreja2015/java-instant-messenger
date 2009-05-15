@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
 
 import java.awt.Color;
 import java.awt.Dimension;

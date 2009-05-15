@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.imWindowStuff;
 
 import java.util.ArrayList;
 

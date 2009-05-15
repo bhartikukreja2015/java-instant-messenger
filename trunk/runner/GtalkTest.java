@@ -1,7 +1,7 @@
 package runner;
 
-import guiStuff.BuddyListWindow;
-import guiStuff.IMWindowManager;
+import guiStuff.buddyListStuff.BuddyListWindow;
+import guiStuff.imWindowStuff.IMWindowManager;
 import jimPreferences.PreferencePoint;
 import upperAbstractionLayer.AccountManager;
 import abstractionLayer.AbstractAccount;

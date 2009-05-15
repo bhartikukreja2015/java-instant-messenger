@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListHelperWindows;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
