@@ -1,6 +1,6 @@
 package runner;
 
-import guiStuff.AccountSettingsWindow;
+import guiStuff.accountGUIStuff.AccountSettingsWindow;
 
 public class AccountSetupTest {
 

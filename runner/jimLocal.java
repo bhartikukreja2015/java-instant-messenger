@@ -1,8 +1,8 @@
 package runner;
 
 import notificationStuff.NotificationManager;
-import guiStuff.BuddyListWindow;
-import guiStuff.IMWindowManager;
+import guiStuff.buddyListStuff.BuddyListWindow;
+import guiStuff.imWindowStuff.IMWindowManager;
 import upperAbstractionLayer.AccountManager;
 
 public class jimLocal {

@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.statusStuff;
 
 import java.awt.Color;
 import java.awt.Dimension;

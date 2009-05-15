@@ -1,4 +1,4 @@
-package guiStuff;
+package guiStuff.buddyListStuff;
 
 import java.awt.Canvas;
 import java.awt.Component;
