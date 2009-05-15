@@ -55,30 +55,9 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		}
 	}
 	
-	public void connectAll() {
-		for (AbstractAccount aa : theAccounts) {
-			for (AccountConnectionListener acl : theACL) {
-				acl.startingConnection(aa);
-			}
-			aa.connect();
-		}
-	}
-	
 	public void disconnectAll() {
-		for (AbstractAccount aa : theAccounts) {
-			// only send out an event if we were online...
-			if (aa.isConnected()) {
-				for (AccountConnectionListener acl : theACL) {
-					acl.disconnectedWith(aa);
-				}
-			}
-			
-			aa.disconnect();
-			theList.accountDisconnected(aa);
-		}
-		
-		for (BuddyListChangeListener blcl : theBLCL) {
-			blcl.BuddyListChange(theList);
+		for (AccountSettings as : theSettings) {
+			disconnectAccount(as);
 		}
 	}
 	
@@ -139,7 +118,22 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		i = 0;
 		while (i != theAccounts.size()) {
 			if (theAccounts.get(i).getAccountSettings().getID() == as.getID()) {
+
+				// only send out an event if we were online...
+				if (theAccounts.get(i).isConnected()) {
+					for (AccountConnectionListener acl : theACL) {
+						acl.disconnectedWith(theAccounts.get(i));
+					}
+				}
+
 				theAccounts.get(i).disconnect();
+				theList.accountDisconnected(theAccounts.get(i));
+
+				for (BuddyListChangeListener blcl : theBLCL) {
+					blcl.BuddyListChange(theList);
+				}
+
+				
 				theAccounts.remove(i);
 				i = theAccounts.size();
 			} else {
