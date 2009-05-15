@@ -48,37 +48,10 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 	public void loadEnabledAccounts(PreferencePoint pp) {
 		ArrayList<AccountSettings> loadedSettings = pp.getAllAccounts();
 		
-
-		
 		for (AccountSettings as : loadedSettings) {
 			if (as.isEnabled()) {
-				theSettings.add(as);
+				connectWithTemplate(as);
 			}
-		}
-	}
-	
-	public void makeAccounts() {
-		// this method should move all the loaded account settings into actual accounts.
-		// right now, we only have Gtalk, Yahoo, and MSN
-		
-		for (AccountSettings as : theSettings) {
-			AbstractAccount theAccount = null;
-			if (as.getAccountType().equals(AccountSettings.GoogleTalkAccount)) {
-				theAccount = new GTalkAccount();;
-			} else if (as.getAccountType().equals(AccountSettings.YahooAccount)) {
-				theAccount = new YahooAccount();
-			} else if (as.getAccountType().equals(AccountSettings.MSNAccount)) {
-				theAccount = new MSNAccount();
-			} else {
-				// got unknown account type...
-				// TODO is there a better way to handle this?
-				System.out.println("Got unknown account type, don't know what to do: " + as.getAccountType());
-			}
-			
-			theAccount.setAccountSettings(as);
-			theAccount.setListener(this);
-			
-			theAccounts.add(theAccount);
 		}
 	}
 	
@@ -106,6 +79,72 @@ public class AccountManager implements IMEvents, AliasChangeEvent {
 		
 		for (BuddyListChangeListener blcl : theBLCL) {
 			blcl.BuddyListChange(theList);
+		}
+	}
+	
+	public AbstractAccount getAccount(AccountSettings as) {
+		for (AbstractAccount aa : theAccounts) {
+			if (aa.getAccountSettings().getID() == as.getID()) { return aa; }
+		}
+		return null;
+	}
+	
+	public void connectWithTemplate(AccountSettings as) {
+		// first, disconnect the account
+		disconnectAccount(as);
+		
+		// now, add the settings to our settings list...
+		theSettings.add(as);
+		
+		// next, create the account...
+		AbstractAccount theAccount = null;
+		if (as.getAccountType().equals(AccountSettings.GoogleTalkAccount)) {
+			theAccount = new GTalkAccount();;
+		} else if (as.getAccountType().equals(AccountSettings.YahooAccount)) {
+			theAccount = new YahooAccount();
+		} else if (as.getAccountType().equals(AccountSettings.MSNAccount)) {
+			theAccount = new MSNAccount();
+		} else {
+			// got unknown account type...
+			// TODO is there a better way to handle this?
+			System.out.println("Got unknown account type, don't know what to do: " + as.getAccountType());
+		}
+		
+		theAccount.setAccountSettings(as);
+		theAccount.setListener(this);
+		
+		theAccounts.add(theAccount);
+		
+		// connect the account
+		for (AccountConnectionListener acl : theACL) {
+			acl.startingConnection(theAccount);
+		}
+		
+		theAccount.connect();
+	}
+	
+	public void disconnectAccount(AccountSettings as) {
+		// first, remove the account settings if we already have it
+		int i = 0;
+		while (i != theSettings.size()) {
+			if (theSettings.get(i).getID() == as.getID()) {
+				theSettings.remove(i);
+				i = theSettings.size();
+			} else {
+				i++;
+			}
+		}
+		
+		// now, disconnect and remove the account, if we have it...
+		i = 0;
+		while (i != theAccounts.size()) {
+			if (theAccounts.get(i).getAccountSettings().getID() == as.getID()) {
+				theAccounts.get(i).disconnect();
+				theAccounts.remove(i);
+				i = theAccounts.size();
+			} else {
+				i++;
+			}
 		}
 	}
 	
