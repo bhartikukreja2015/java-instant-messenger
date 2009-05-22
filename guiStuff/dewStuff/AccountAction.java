@@ -24,7 +24,7 @@ public class AccountAction implements Action {
 	public void execute() {
 		if (isConnected()) {
 			AM.disconnectAccount(theSettings);
-		} else {
+		} else { 
 			AM.connectWithTemplate(theSettings);
 		}
 	}
