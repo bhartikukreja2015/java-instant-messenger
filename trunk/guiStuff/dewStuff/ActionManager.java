@@ -27,6 +27,10 @@ public class ActionManager implements BuddyListChangeListener {
 	
 	public void clearActions() { theActions = new ArrayList<Action>(); }
 	
+	protected void sortActions() {
+		Collections.sort(Collections.synchronizedList(theActions));
+	}
+	
 	// add in actions that connect or disconnect a certain account
 	protected void addAccountActions() {
 		PreferencePoint pp = new PreferencePoint();
