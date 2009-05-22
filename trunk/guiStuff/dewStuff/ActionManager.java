@@ -51,8 +51,18 @@ public class ActionManager implements BuddyListChangeListener {
 	}
 	
 	public void BuddyListChange(BuddyList b) {
-		// TODO Auto-generated method stub
+		// clear the list...
+		int i = 0;
+		while (i != theActions.size()) {
+			if (theActions.get(i) instanceof BuddyAction) {
+				theActions.remove(i);
+			} else {
+				i++;
+			}
+		}
 		
+		// and recreate it...
+		addBuddyActions();
 	}
 	
 }
