@@ -11,7 +11,7 @@ import upperAbstractionLayer.AccountManager;
 import abstractionLayer.AbstractAccount;
 import abstractionLayer.AccountSettings;
 
-public class AccountAction implements Action {
+public class AccountAction extends Action {
 
 	protected AccountSettings theSettings;
 	protected AccountManager AM;
@@ -52,10 +52,30 @@ public class AccountAction implements Action {
 		}
 	}
 	
-	protected boolean isConnected() {
+	public boolean isConnected() {
 		// see if we are connected...
 		AbstractAccount as = AM.getAccount(theSettings);
 		return as.isConnected();
 	}
 
+	public int compareTo(Object o) {
+		if (o instanceof BuddyAction) {
+			if (((BuddyAction) o).toShow.isOnline()) { 
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+		
+		if (o instanceof AccountAction) {
+			if (((AccountAction) o).isConnected()) {
+				return (this.isConnected() ? 0 : 1);
+			} else {
+				return (this.isConnected() ? -1 : 0);
+			}
+		}
+		
+		return 0;
+	}
+	
 }

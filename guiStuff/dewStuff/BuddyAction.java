@@ -11,11 +11,11 @@ import mainIconSet.IconFetch;
 import abstractionLayer.Buddy;
 import abstractionLayer.Status;
 
-public class BuddyAction implements Action {
+public class BuddyAction extends Action {
 
 
 	protected IMWindowManager theIMWM;
-	protected Buddy toShow;
+	public Buddy toShow;
 	
 	public BuddyAction(Buddy b, IMWindowManager theM) {
 		theIMWM = theM;
@@ -40,6 +40,26 @@ public class BuddyAction implements Action {
 
 	public String getName() {
 		return "IM " + toShow.getAlias();
+	}
+	
+	public int compareTo(Object o) {
+		if (o instanceof AccountAction) {
+			if (toShow.isOnline()) { 
+				return -1;
+			} else {
+				return 1;
+			}
+		}
+		
+		if (o instanceof BuddyAction) {
+			if (((BuddyAction) o).toShow.isOnline()) {
+				return (toShow.isOnline() ? 0 : 1);
+			} else {
+				return (toShow.isOnline() ? -1 : 0);
+			}
+		}
+		
+		return 0;
 	}
 
 }
