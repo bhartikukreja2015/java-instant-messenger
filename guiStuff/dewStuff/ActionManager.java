@@ -36,9 +36,7 @@ public class ActionManager implements BuddyListChangeListener {
 		}
 	}
 
-
-	
-	// add in actions that open IM windows to online users
+	// add in actions that open IM windows to users
 	protected void addBuddyActions() {
 		ArrayList<Buddy> myBuddies = theAM.getBuddyList().getAllBuddies();
 		
