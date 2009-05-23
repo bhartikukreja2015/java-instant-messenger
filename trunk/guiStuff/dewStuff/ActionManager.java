@@ -27,6 +27,11 @@ public class ActionManager implements BuddyListChangeListener {
 	
 	public void clearActions() { theActions = new ArrayList<Action>(); }
 	
+	public void addActions() {
+		this.addBuddyActions();
+		this.addAccountActions();
+	}
+	
 	public ArrayList<Action> getActionList(String q) {
 		ArrayList<Action> myActions = new ArrayList<Action>();
 		
