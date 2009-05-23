@@ -27,6 +27,18 @@ public class ActionManager implements BuddyListChangeListener {
 	
 	public void clearActions() { theActions = new ArrayList<Action>(); }
 	
+	public ArrayList<Action> getActionList(String q) {
+		ArrayList<Action> myActions = new ArrayList<Action>();
+		
+		for (Action a : theActions) {
+			if (a.isMatch(q)) { myActions.add(a); }
+		}
+		
+		Collections.sort(Collections.synchronizedList(theActions));
+		
+		return myActions;
+	}
+	
 	protected void sortActions() {
 		Collections.sort(Collections.synchronizedList(theActions));
 	}

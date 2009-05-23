@@ -78,4 +78,21 @@ public class AccountAction extends Action {
 		return 0;
 	}
 	
+	public boolean isMatch(String q) {
+		String s = theSettings.getAccountType() + theSettings.getAlias() + theSettings.getUsername() + this.getName() + this.getDesc();
+		if (s.indexOf(q) != -1) { return true; }
+		
+		// check space sep
+		// do we have a space?
+		if (s.indexOf(" ") == -1) { return false; }
+		
+		// we do have a space!
+		// check it..
+		String sub = s.substring(0, s.indexOf(" "));
+		if (s.indexOf(sub) != -1)  { return true; }
+		
+		// it was not found. Check the next term...
+		return isMatch(s.substring(s.indexOf(" ") + 1));
+	}
+	
 }
