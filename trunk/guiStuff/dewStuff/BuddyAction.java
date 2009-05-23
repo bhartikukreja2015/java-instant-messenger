@@ -63,6 +63,8 @@ public class BuddyAction extends Action {
 	}
 
 	public boolean isMatch(String q) {
+		if (q.equals("")) return false;
+		
 		String s = toShow.getAlias() + toShow.getScreename() + toShow.getStatus().getStatusMessage() + toShow.getGroupName() + this.getName() + this.getDesc();
 		if (s.indexOf(q) != -1) { return true; }
 		
