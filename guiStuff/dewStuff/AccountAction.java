@@ -79,6 +79,8 @@ public class AccountAction extends Action {
 	}
 	
 	public boolean isMatch(String q) {
+		if (q.equals("")) return false;
+		
 		String s = theSettings.getAccountType() + theSettings.getAlias() + theSettings.getUsername() + this.getName() + this.getDesc();
 		if (s.indexOf(q) != -1) { return true; }
 		
