@@ -4,7 +4,6 @@ import guiStuff.accountGUIStuff.AccountSettingsWindow;
 import guiStuff.buddyListHelperWindows.BuddyInfoWindow;
 import guiStuff.buddyListHelperWindows.MergeSetupWindow;
 import guiStuff.buddyListHelperWindows.SetAliasWindow;
-import guiStuff.dewStuff.ActionManager;
 import guiStuff.imWindowStuff.IMWindowManager;
 import guiStuff.statusStuff.StatusListModel;
 import guiStuff.statusStuff.StatusRendererCreator;
@@ -69,7 +68,6 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 	
 	private AccountSettingsWindow theASW;
 	
-	private ActionManager theManager;
     
     /** Creates new form BuddyListWindow */
     public BuddyListWindow(AccountManager AM, IMWindowManager iwm) {
@@ -80,8 +78,6 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         initComponents();
         theASW = new AccountSettingsWindow();
         
-        theManager = new ActionManager(AM, iwm);
-        theManager.addActions();
     }
     
     public BuddyListModel getModel() { return theModel; }
