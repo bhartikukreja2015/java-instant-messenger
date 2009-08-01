@@ -86,6 +86,9 @@ public class ModifyAccountWindow extends javax.swing.JFrame implements ActionLis
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			this.setMinimumSize(new java.awt.Dimension(400, 225));
+			this.setMaximumSize(new java.awt.Dimension(900, 225));
+			this.setResizable(false);
 			{
 				jlAccountName = new JLabel();
 				jlAccountName.setText("Account name:");

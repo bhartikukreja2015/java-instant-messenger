@@ -1,18 +1,19 @@
 package guiStuff.accountGUIStuff;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import jimPreferences.PreferencePoint;
-
-import org.jdesktop.layout.GroupLayout;
-import org.jdesktop.layout.LayoutStyle;
 
 import upperAbstractionLayer.AccountChangeEvents;
 
@@ -50,10 +51,14 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			this.setMinimumSize(new java.awt.Dimension(578, 252));
+			this.setTitle("Accounts");
+			this.setResizable(false);
 			{
 				jList1 = new JList();
 				jList1.setModel(new AccountListModel(new PreferencePoint()));
 				jList1.setCellRenderer(new AccountRendererCreator());
+				jList1.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 				jList1.addListSelectionListener(this);
 			}
 			{
@@ -75,24 +80,25 @@ public class AccountSettingsWindow extends javax.swing.JFrame implements ListSel
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.add(jList1, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.UNRELATED)
-				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
-				    .add(GroupLayout.BASELINE, jbPlus, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .add(GroupLayout.BASELINE, jbMinus, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .add(GroupLayout.BASELINE, jbEdit, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(24, 24));
+				.addComponent(jList1, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(jbPlus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jbMinus, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jbEdit, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addContainerGap());
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.add(thisLayout.createParallelGroup()
-				    .add(GroupLayout.LEADING, jList1, 0, 548, Short.MAX_VALUE)
-				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				        .add(jbPlus, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.UNRELATED)
-				        .add(jbMinus, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.UNRELATED)
-				        .add(jbEdit, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-				        .add(263)))
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jList1, GroupLayout.Alignment.LEADING, 0, 538, Short.MAX_VALUE)
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addGap(0, 0, Short.MAX_VALUE)
+				        .addComponent(jbPlus, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				        .addComponent(jbMinus, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				        .addComponent(jbEdit, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+				        .addGap(251)))
 				.addContainerGap());
 			pack();
 			this.setSize(578, 252);

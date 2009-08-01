@@ -71,13 +71,12 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
     
     /** Creates new form BuddyListWindow */
     public BuddyListWindow(AccountManager AM, IMWindowManager iwm) {
-        theAM = AM;
+    	theAM = AM;
         theIwm = iwm;
         theModel = new BuddyListModel(theAM);
         this.setTitle("Buddy List");
         initComponents();
         theASW = new AccountSettingsWindow();
-        
     }
     
     public BuddyListModel getModel() { return theModel; }
@@ -103,6 +102,7 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        this.setMinimumSize(new java.awt.Dimension(205, 200));
         {
         	jMenuBar1 = new JMenuBar();
         	setJMenuBar(jMenuBar1);
