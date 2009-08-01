@@ -8,24 +8,26 @@ import guiStuff.imWindowStuff.IMWindowManager;
 import guiStuff.statusStuff.StatusListModel;
 import guiStuff.statusStuff.StatusRendererCreator;
 
+import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
-import javax.swing.LayoutStyle;
 
 import jimPreferences.PreferencePoint;
-
+import upperAbstractionLayer.AccountManager;
+import abstractionLayer.AccountSettings;
 import abstractionLayer.Buddy;
 import abstractionLayer.Status;
-import upperAbstractionLayer.AccountManager;
 
 
 /**
@@ -60,15 +62,17 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
     private JSeparator jSeparator2;
     private JMenuItem jMenuItem5;
     private JSeparator jSeparator1;
-    private JMenuItem jMenuItem4;
     private JMenuItem jMenuItem3;
     private JMenuItem jMenuItem2;
+    private JMenuItem ConAll;
+    private JMenuItem Refresh;
     private javax.swing.JComboBox jcStatus;
     private javax.swing.JList jlBuddies;
     // End of variables declaration
 
     private AccountManager theAM;
     private JMenuItem jMenuItem1;
+    private JMenu jMenu4;
     private JMenu jMenu3;
     private JMenu jMenu2;
     private JMenu jMenu1;
@@ -129,10 +133,12 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         		jMenuBar1.add(jMenu1);
         		jMenu1.setText("File");
         		{
-        			jMenuItem4 = new JMenuItem();
-        			jMenu1.add(jMenuItem4);
-        			jMenuItem4.setText("Connect");
-        			jMenuItem4.addActionListener(this);
+        			jMenu4 = new JMenu();
+        			jMenu4.setText("Connect");
+        			jMenu1.add(jMenu4);
+        			{
+        				this.buildAccountMenu();
+        			}
         		}
         		{
         			jMenuItem5 = new JMenuItem();
@@ -195,6 +201,46 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
         pack();
     }// </editor-fold>
 
+    
+    private void buildAccountMenu() {
+    	PreferencePoint pp = new PreferencePoint();
+		ArrayList<AccountSettings> theAccounts = pp.getAllAccounts();
+		
+		// remove all the old componenets
+		Component[] currentItem = jMenu4.getMenuComponents();
+		
+		for (Component c : currentItem) {
+			jMenu4.remove(c);
+		}
+		
+		// add in the new ones...
+		for (AccountSettings as : theAccounts) {
+			JMenuItem myItem = new JMenuItem();
+			myItem.setText(as.getAlias());
+			myItem.addActionListener(this);
+			
+			jMenu4.add(myItem);
+		}
+		
+		if (theAccounts.size() != 0) {
+			// add in a separator
+			jMenu4.add(new JSeparator());
+		}
+		
+		// add in the main items...
+		ConAll = new JMenuItem();
+		ConAll.setText("Connect all");
+		ConAll.addActionListener(this);
+		jMenu4.add(ConAll);
+		
+		Refresh = new JMenuItem();
+		Refresh.setText("Refresh");
+		Refresh.addActionListener(this);
+		jMenu4.add(Refresh);
+		
+		
+    }
+    
 	public void mouseClicked(MouseEvent arg0) {
 		if (arg0.isPopupTrigger() || arg0.isControlDown()) { // JDK bug! isPopupTrigger is NEVER TRUE on Ubuntu...
 			
@@ -258,10 +304,6 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 		} else if (arg0.getSource() == jMenuItem3) {
 			// account window
 			theASW.setVisible(true);
-		} else if (arg0.getSource() == jMenuItem4) {
-			// connect
-			theAM.loadEnabledAccounts(new PreferencePoint());
-			return;
 		} else if (arg0.getSource() == jMenuItem5) {
 			// disconenct
 			theAM.disconnectAll();
@@ -274,6 +316,18 @@ public class BuddyListWindow extends javax.swing.JFrame implements MouseListener
 			// showing merge
 			theModel.setHideMerged(jCheckBoxMenuItem2.isSelected());
 			return;
+		} else if (arg0.getSource() == ConAll) {
+			theAM.loadEnabledAccounts(new PreferencePoint());
+			return;
+		} else if (arg0.getSource() == Refresh) {
+			this.buildAccountMenu();
+			return;
+		} else if (arg0.getSource() instanceof JMenuItem) {
+			JMenuItem toTest = (JMenuItem) arg0.getSource();
+			// this must be account specific
+			String accountAlias = toTest.getText();
+			PreferencePoint pp = new PreferencePoint();
+			theAM.connectWithTemplate(pp.getAccount(accountAlias));
 		}
 		
 	}
