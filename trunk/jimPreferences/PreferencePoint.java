@@ -106,6 +106,14 @@ public class PreferencePoint {
 		return null;
 		
 	}
+	
+	public AccountSettings getAccount(String alias) {
+		ArrayList<AccountSettings> mySettings = this.getAllAccounts();
+		for (AccountSettings as : mySettings) {
+			if (as.getAlias().equals(alias)) { return as; }
+		}
+		return null;
+	}
 
 	public int getNextAccountID() {
 		Preferences accountNode = myPrefs.node("Accounts");
