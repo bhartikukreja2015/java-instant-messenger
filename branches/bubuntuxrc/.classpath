@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jml-1.0b3-full.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jml.blathersource.org/javadocs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/smack.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.igniterealtime.org/builds/smack/docs/latest/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/smackx.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.igniterealtime.org/builds/smack/docs/latest/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/ymsg_network_v0_64.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jymsg9.sourceforge.net/docs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/ymsg_support_v0_64.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jymsg9.sourceforge.net/docs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/swing-layout-1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
